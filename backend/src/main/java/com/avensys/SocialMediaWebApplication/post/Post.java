@@ -21,18 +21,25 @@ public class Post {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String caption;
 
-    @Column(name = "image_url")
-    private String imageUrl;
+    @Column(name = "content_url")
+    private String contentUrl;
 
-    @Column(name = "image_public_id")
-    private String imagePublicId;
+    @Column(name = "content_public_id")
+    private String contentId;
 
-    @Column(name = "video_url")
-    private String videoUrl;
-    @Column(name = "video_public_id")
-    private String videoPublicId;
 
-    private String link;
+//    @Column(name = "image_url")
+//    private String imageUrl;
+//
+//    @Column(name = "image_public_id")
+//    private String imagePublicId;
+
+//    @Column(name = "video_url")
+//    private String videoUrl;
+//    @Column(name = "video_public_id")
+//    private String videoPublicId;
+
+//    private String link;
 
     @CreationTimestamp
     @Column(name = "created_at")
@@ -49,15 +56,12 @@ public class Post {
     public Post() {
     }
 
-    public Post(long id, String title, String caption, String imageUrl, String imagePublicId, String videoUrl, String videoPublicId, String link, LocalDateTime createdAt, LocalDateTime updatedAt, User user) {
+    public Post(long id, String title, String caption, String contentUrl, String contentId, LocalDateTime createdAt, LocalDateTime updatedAt, User user) {
         this.id = id;
         this.title = title;
         this.caption = caption;
-        this.imageUrl = imageUrl;
-        this.imagePublicId = imagePublicId;
-        this.videoUrl = videoUrl;
-        this.videoPublicId = videoPublicId;
-        this.link = link;
+        this.contentUrl = contentUrl;
+        this.contentId = contentId;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.user = user;
@@ -87,45 +91,6 @@ public class Post {
         this.caption = caption;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public String getImagePublicId() {
-        return imagePublicId;
-    }
-
-    public void setImagePublicId(String imagePublicId) {
-        this.imagePublicId = imagePublicId;
-    }
-
-    public String getVideoUrl() {
-        return videoUrl;
-    }
-
-    public void setVideoUrl(String videoUrl) {
-        this.videoUrl = videoUrl;
-    }
-
-    public String getVideoPublicId() {
-        return videoPublicId;
-    }
-
-    public void setVideoPublicId(String videoPublicId) {
-        this.videoPublicId = videoPublicId;
-    }
-
-    public String getLink() {
-        return link;
-    }
-
-    public void setLink(String link) {
-        this.link = link;
-    }
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
@@ -149,5 +114,21 @@ public class Post {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getContentUrl() {
+        return contentUrl;
+    }
+
+    public void setContentUrl(String contentUrl) {
+        this.contentUrl = contentUrl;
+    }
+
+    public String getContentId() {
+        return contentId;
+    }
+
+    public void setContentId(String contentId) {
+        this.contentId = contentId;
     }
 }
