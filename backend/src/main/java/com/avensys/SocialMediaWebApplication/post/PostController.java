@@ -24,7 +24,7 @@ public class PostController {
 
 //    @PostMapping("post")
 //    public ResponseEntity<PostCreateResponseDTO> createPost(@ModelAttribute PostCreateRequestDTO postCreatRequest) {
-//        postService.createPost;
+//        postService.createPost(postCreatRequest);
 //        return new ResponseEntity<>("Post deleted successfully", HttpStatus.OK);
 //    }
 
