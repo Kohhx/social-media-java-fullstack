@@ -10,14 +10,35 @@
   height: calc(100% - 73px);
 }
 
+.login-left {
+  background-image: url('../../../assets/images/landingpage.png');
+  background-size: cover;
+  background-position: center;
+  border-radius: 15px;
+}
+
 .copyright {
   background-color: #3e8492;
 }
 
 @media (max-width: 450px) {
-
   .h-custom {
   height: 100%;
   }
+}
 
+@media (max-width: 1200px) {
+  .copyright {
+    display: none;
+  }
+
+  .login-left {
+    height: 500px;
+    border-radius: 0;
+  }
+}
+@media (min-width: 1200px) {
+  .login-left {
+    height: 75vh;
+  }
 }
