@@ -1,6 +1,8 @@
 package com.avensys.SocialMediaWebApplication.configurations;
 
 import com.avensys.SocialMediaWebApplication.authentication.UserDetailsServiceImpl;
+import com.cloudinary.Cloudinary;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,6 +15,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 public class ApplicationConfiguration {
+
+    @Value("${cloudinary.url}")
+    private String cloudinaryAPIURL;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -36,6 +41,11 @@ public class ApplicationConfiguration {
         authProvider.setUserDetailsService(userDetailsService());
         authProvider.setPasswordEncoder(passwordEncoder());
         return authProvider;
+    }
+
+    @Bean
+    public Cloudinary cloudinaryConfig() {
+        return new Cloudinary(cloudinaryAPIURL);
     }
 
 }
