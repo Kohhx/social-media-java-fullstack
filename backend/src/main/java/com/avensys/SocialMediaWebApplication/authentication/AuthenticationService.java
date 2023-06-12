@@ -32,7 +32,11 @@ public class AuthenticationService {
         }
 
         User user = new User();
-
+        user.setEmail(userRegistration.email());
+        user.setPassword(passwordEncoder.encode(userRegistration.password()));
+        user.setFirstName(userRegistration.firstName());
+        user.setLastName(userRegistration.lastName());
+        user.setGender(userRegistration.gender());
 
         System.out.println("Display Roles");
         System.out.println(Arrays.toString(userRegistration.roles()));
