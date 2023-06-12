@@ -1,5 +1,6 @@
 package com.avensys.SocialMediaWebApplication.user;
 
+import com.avensys.SocialMediaWebApplication.post.Post;
 import com.avensys.SocialMediaWebApplication.role.Role;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -17,7 +18,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(updatable = false)
-    private int id;
+    private long id;
 
     @Column(unique = true, nullable = false)
     private String email;
@@ -25,23 +26,27 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @Column(name="first_name", nullable = false)
+    @Column(name="first_name", nullable = false, length = 150)
     private String firstName;
 
-    @Column(name="last_name", nullable = false)
+    @Column(name="last_name", nullable = false, length = 150)
     private String lastName;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 6)
     private String gender;
 
+    @Column(name= "avatar_url")
     private String avatarUrl;
 
+    @Column(name= "avatar_public_id")
     private String avatarPublicId;
 
     @CreationTimestamp
+    @Column(name ="created_at")
     private LocalDateTime createdAt;
 
     @UpdateTimestamp
+    @Column(name ="updated_at")
     private LocalDateTime updatedAt;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -51,6 +56,9 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
     )
     private List<Role> roles = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch= FetchType.EAGER)
+    private List<Post> posts = new ArrayList<>();
 
     public User() {}
 
@@ -67,7 +75,7 @@ public class User {
         this.updatedAt = updatedAt;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -165,5 +173,13 @@ public class User {
         return roles.stream()
                 .map(Role::getName)
                 .collect(Collectors.toList());
+    }
+
+    public void addPost(Post post) {
+        if (this.posts == null) {
+            this.posts = new ArrayList<>();
+        }
+        post.setUser(this);
+        this.posts.add(post);
     }
 }
