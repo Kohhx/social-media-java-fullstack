@@ -43,7 +43,6 @@ public class CloudinaryHelper {
     private String getExtension(MultipartFile file) throws IOException {
         Tika tika = new Tika();
         String mimeType = tika.detect(file.getInputStream());
-        System.out.println(mimeType);
         return mimeType;
     }
 }
