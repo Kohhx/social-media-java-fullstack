@@ -27,20 +27,6 @@ public class Post {
     @Column(name = "content_public_id")
     private String contentId;
 
-
-//    @Column(name = "image_url")
-//    private String imageUrl;
-//
-//    @Column(name = "image_public_id")
-//    private String imagePublicId;
-
-//    @Column(name = "video_url")
-//    private String videoUrl;
-//    @Column(name = "video_public_id")
-//    private String videoPublicId;
-
-//    private String link;
-
     @CreationTimestamp
     @Column(name = "created_at")
     private LocalDateTime createdAt;
