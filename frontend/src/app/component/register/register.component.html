@@ -1,1 +1,91 @@
-<p>register works!</p>
+<!-- Section: Design Block -->
+<section class="text-center text-lg-start">
+  <!-- Jumbotron -->
+  <div class="container mt-5">
+    <div class="row g-0 align-items-center">
+      <div class="col-lg-6 mb-5 mb-lg-0">
+        <div class="card cascading-right" style="
+            background: hsla(0, 0%, 100%, 0.55);
+            backdrop-filter: blur(30px);
+            ">
+          <div class="card-body p-5 shadow-5">
+            <h2 class="fw-bold mb-4">Create an Account</h2>
+            <form>
+              <!-- 2 column grid layout with text inputs for the first and last names -->
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <div class="form-floating mb-1">
+                    <input type="text" class="form-control" id="floatingInput" placeholder="First Name">
+                    <label for="floatingInput">First Name</label>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <div class="form-floating mb-1">
+                    <input type="text" class="form-control" id="floatingInput" placeholder="Last Name">
+                    <label for="floatingInput">Last Name</label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Gender Select -->
+              <select class="form-select mb-4" style="width: 150px;">
+                <option selected>Gender</option>
+                <option value="1">Male</option>
+                <option value="2">Female</option>
+              </select>
+
+              <!-- Email input -->
+              <div class="form-floating mb-4">
+                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                <label for="floatingInput">Email address</label>
+              </div>
+
+              <!-- Password input -->
+              <div class="form-floating mb-4">
+                <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                <label for="floatingPassword">Password</label>
+              </div>
+
+              <!-- Confirm Password input -->
+              <div class="form-floating mb-3">
+                <input type="password" class="form-control" id="floatingPassword" placeholder="Confirm Password">
+                <label for="floatingPassword">Confirm Password</label>
+              </div>
+
+              <!-- Input for Profile Image -->
+              <div class="form-group">
+                <label class="mb-1 ms-1" for="media">Add Image</label>
+                <div class="input-group">
+                  <div class="input-group-append mb-4">
+                    <input type="file" class="form-control" id="media" name="media" accept="image/*" />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Checkbox -->
+              <div class="form-check d-flex mt-2 mb-4">
+                <input class="form-check-input me-2" type="checkbox" value="" checked />
+                <label class="form-check-label">
+                 I accept the Terms and Conditions
+                </label>
+              </div>
+
+              <!-- Submit button -->
+              <button type="submit" class="btn btn-primary mb-4" style="width: 100%;">
+                Create an account
+              </button>
+
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6 mb-5 mb-lg-0">
+        <img src="../../../assets/images/registration.png" class="w-100 ms-3"
+          alt="" />
+      </div>
+    </div>
+  </div>
+  <!-- Jumbotron -->
+</section>
+<!-- Section: Design Block -->
