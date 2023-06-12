@@ -1,0 +1,9 @@
+.nav-item:hover {
+  font: green;
+  font-weight: bold;
+}
+
+.nav-item .active {
+  font: green;
+  font-weight: bold;
+}
