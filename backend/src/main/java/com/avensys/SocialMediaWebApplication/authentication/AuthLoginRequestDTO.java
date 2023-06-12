@@ -1,20 +1,20 @@
 package com.avensys.SocialMediaWebApplication.authentication;
 
 public class AuthLoginRequestDTO {
-    private String username;
+    private String email;
     private String password;
 
-    public AuthLoginRequestDTO(String username, String password) {
-        this.username = username;
+    public AuthLoginRequestDTO(String email, String password) {
+        this.email = email;
         this.password = password;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String username) {
+        this.email = username;
     }
 
     public String getPassword() {

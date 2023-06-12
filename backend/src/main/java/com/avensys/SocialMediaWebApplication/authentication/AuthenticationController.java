@@ -40,20 +40,20 @@ public class AuthenticationController {
     @PostMapping("/api/login")
     public ResponseEntity<AuthenticationResponseDTO> authenticateAndGetToken(@RequestBody AuthLoginRequestDTO authRequest) {
         Authentication authentication = authenticationManager
-                .authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(),
+                .authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmail(),
                         authRequest.getPassword()));
 
         System.out.println("AUTH" + authentication.getAuthorities());
         if (authentication.isAuthenticated()) {
-            String token = jwtService.generateToken(authRequest.getUsername());
-            List<String> roles = authenticationService.getUserRoles(authRequest.getUsername());
+            String token = jwtService.generateToken(authRequest.getEmail());
+            List<String> roles = authenticationService.getUserRoles(authRequest.getEmail());
             return  new ResponseEntity<>(new AuthenticationResponseDTO("Login successfully", token, roles), HttpStatus.OK);
         } else {
             throw new ResourceNotFoundException("Invalid user request");
         }
     }
 
-    // This route require basic auth, Both USER AND ADMIN can login
+    // This route require basic auth, Both USER AND ADMIN CAN
     @GetMapping("/")
     public String helloWorld() {
         return "Hello World";
