@@ -17,8 +17,9 @@
   border-radius: 15px;
 }
 
-.account-check {
-  font-size: 1.2em;
+.login-button {
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
 }
 
 .copyright {

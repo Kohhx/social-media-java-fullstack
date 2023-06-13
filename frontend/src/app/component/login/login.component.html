@@ -3,11 +3,11 @@
     <div class="row d-flex justify-content-center align-items-center h-100">
 
       <div class="col-lg-6 col-xl-5 mx-5 pt-3 login-left">
-        <h1 class="text-end text-white mx-5 mt-2 mb-0">AvenBook</h1>
-        <h3 class="text-end text-white mx-5">Create your posts and connect with your pals!</h3>
+        <h3 class="text-end text-white mx-5 mt-2 mb-0">AvenBook</h3>
+        <h5 class="text-end text-white mx-5">Create your posts and connect with your pals!</h5>
       </div>
       <div class="col-md-8 col-lg-6 col-xl-4 pb-4">
-        <form>
+        <form (ngSubmit)="onSubmit()">
           <!-- Email input -->
           <div class="form-outline fw-bold mt-3 mb-4">
             <label class="form-label">Email address</label>
@@ -25,7 +25,7 @@
           <div class="d-flex justify-content-between align-items-center">
             <!-- Checkbox -->
             <div class="form-check mb-0">
-              <input class="form-check-input me-2" type="checkbox" value="" />
+              <input class="form-check-input me-2" type="checkbox" value="" [required]="true"/>
               <label class="form-check-label">
                 Remember me
               </label>
@@ -34,9 +34,8 @@
           </div>
 
           <div class="text-center text-lg-start mt-3 pt-2 account-check">
-            <button type="button" class="btn btn-primary"
-              style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
-            <p class="small fw-bold mt-3 pt-1 mb-0">
+            <button type="submit" class="btn btn-primary login-button">Login</button>
+            <p class="fw-bold mt-3 pt-1 mb-0">
               Don't have an account?
               <a href="/register"
                 class="link-danger text-decoration-none ms-1">
@@ -44,6 +43,7 @@
               </a>
             </p>
           </div>
+
         </form>
       </div>
     </div>
