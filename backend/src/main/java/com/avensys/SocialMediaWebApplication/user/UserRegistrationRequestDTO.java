@@ -3,6 +3,7 @@ package com.avensys.SocialMediaWebApplication.user;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import org.springframework.web.multipart.MultipartFile;
 
 public record UserRegistrationRequestDTO(
   
@@ -24,6 +25,8 @@ public record UserRegistrationRequestDTO(
   
   @NotBlank(message = "Gender cannot be blank.")
   String gender,
+
+  MultipartFile avatarFile,
   
   @NotBlank(message = "Role cannot be blank.")
   String[] roles

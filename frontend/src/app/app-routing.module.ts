@@ -6,9 +6,10 @@ import { RegisterComponent } from './component/register/register.component';
 import { NavbarComponent } from './component/navbar/navbar.component';
 import { userguardGuard } from './guards/userguard.guard';
 import { adminguardGuard } from './guards/adminguard.guard';
+import { loginguardGuard } from './guards/loginguard.guard';
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent },
+  { path: 'login', component: LoginComponent, canActivate:[loginguardGuard] },
   { path: 'register', component: RegisterComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '', component: NavbarComponent, children: [
