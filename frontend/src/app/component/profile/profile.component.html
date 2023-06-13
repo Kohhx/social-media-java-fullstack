@@ -1,0 +1,115 @@
+<div style="background: #eef2f5; padding: 30px 0px 10px 0px">
+    <div class="container">
+        <div class="modal-wrapper">
+            <div class="modal-container" [class.open]="openUser">
+                <app-user-modal (cancel)="closeUserModal()"></app-user-modal>
+            </div>
+        </div>
+        <div class="modal-wrapper">
+            <div class="modal-post-container" [class.open]="openPost">
+                <app-post-modal (cancel)="closePostModal()"></app-post-modal>
+            </div>
+        </div>
+        <div class="panel profile-cover" style="position: relative; background-color: #3e8392; border-radius: 10px">
+            <div style="display: flex; flex-direction: column;">
+                <div style="display: flex; align-items: center;">
+                    <div style="margin: 25px; ">
+                        <img src="" alt="" width="150px" height="150px" style="background: black; border-radius: 50%" />
+                        <img src="../../../assets/images/Pencil Icon.png"
+                            style="width: 25px; height: 25px; position: absolute; left: 140px; top: 140px; "
+                            (click)="openUserModal()" />
+                    </div>
+                    <div style="margin-left: 10px;">
+                        <h2 style="text-align: left; color: #eee">Name</h2>
+                        <div style="text-align: left; color: #eee">Industry</div>
+                    </div>
+                </div>
+            </div>
+            <div style="position: absolute; bottom: 10px; right: 20px; display: flex; align-items: center;">
+                <h6 style="margin-right: 20px; padding: 10px 20px 10px 0;; border-right: 1px solid #eee; color: #eee">
+                    10 Followers</h6>
+                <h6 style="margin-right: 20px; padding: 10px 20px 10px 0;; border-right: 1px solid #eee; color: #eee">
+                    10 Following</h6>
+                <button class="btn" style="background: #eee; color: #3e8392">Follow User</button>
+            </div>
+        </div>
+        <div class="panel">
+            <div class="panel-content">
+                <form action="#">
+                    <div style="display: flex; margin-bottom: 20px">
+                        <img src="" alt=""
+                            style="background: #3e8392; height: 40px; width: 40px; margin: auto; border-radius: 50%; margin-right: 10px" />
+                        <input class="form-control" placeholder="Add a title" style="margin: auto" />
+                    </div>
+                    <textarea name="user_activity" placeholder="Write caption" class="form-control"
+                        style="border-radius: 10px 10px 0px 0px;"></textarea>
+                    <div class="actions" style="display: flex; flex-direction: column;">
+                        <input class="form-control" placeholder="Input a link" style="margin-bottom: 10px" />
+                        <div style="display: flex; flex-direction: row; align-items: center;">
+                            <div style="display: flex; ">
+                                <button type="button" class="btn-link"
+                                    style="margin-right: 10px; display: flex; justify-content: center; align-items: center;">
+                                    <img src="../../../assets/images/camera-icon.png" height="13px"
+                                        style="margin: 0px 5px" />
+                                    Photo
+                                </button>
+                                <button type="button" class="btn-link"
+                                    style="display: flex; justify-content: center; align-items: center;">
+                                    <img src="../../../assets/images/videos-icon.png" height="15px"
+                                        style="margin: 0px 5px" />
+                                    Video
+                                </button>
+                            </div>
+                            <button type="submit" class="btn"
+                                style="background: #3e8392; flex: 1; margin-left: 10px; color: #eee">
+                                CREATE POST
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="panel">
+            <div class="panel-content" style="padding-top: 20px; padding-bottom: 5px">
+                <div class="panel-title">User Posts</div>
+                <div *ngFor="let item of items" style="border-top: 1px solid #eee; margin-top: 20px">
+                    <div style="display: flex; margin-top: 20px">
+                        <img [src]="item.imageUrl" alt=""
+                            style="background: #3e8392; height: 50px; width: 50px; border-radius: 50%" />
+                        <div style="margin-left: 10px">
+                            <div>{{ item.name }}</div>
+                            <div>{{ item.timestamp }}</div>
+                        </div>
+                    </div>
+                    <p style="margin-top: 20px">{{ item.content }}</p>
+                    <img [src]="item.imageUrl" alt=""
+                        style="background: black; display: flex; width: 100%; height: 640px; border-radius: 10px; object-fit: contain" />
+                    <div class="activity__list__footer">
+                        <button type="button" class="btn-link"
+                            style="margin-right: 10px; display: flex; justify-content: center; align-items: center;">
+                            <img src="../../../assets/images/comment-icon.png" height="15px" style="margin: 0px 5px" />
+                            Comments
+                        </button>
+                        <button type="button" class="btn-link" (click)="openPostModal()" 
+                            style="margin-right: 10px; display: flex; justify-content: center; align-items: center;">
+                            <img src="../../../assets/images/edit-list-icon.png" height="15px" style="margin: 0px 5px"/>
+                            Update
+                        </button>
+                        <button type="button" class="btn-link"
+                            style="margin-right: 10px; display: flex; justify-content: center; align-items: center;">
+                            <img src="../../../assets/images/recycle-bin-line-icon.png" height="15px"
+                                style="margin: 0px 5px" />
+                            Delete
+                        </button>
+                    </div>
+                    <div style="display: flex; margin: 20px 0px">
+                        <img src="" alt=""
+                            style="background: #3e8392; height: 40px; width: 40px; margin: auto; border-radius: 50%; margin-right: 10px" />
+                        <input class="form-control" placeholder="Write a comment"
+                            style="margin: auto; border-radius: 50px; background: #e5e6eb;" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
