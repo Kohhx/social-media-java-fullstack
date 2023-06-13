@@ -1,1 +1,153 @@
-<p>register works!</p>
+<!-- Section: Design Block -->
+<section class="text-center text-lg-start">
+  <!-- Jumbotron -->
+  <div class="container mt-5">
+    <div class="row g-0 align-items-center">
+      <div class="col-lg-6 mb-5 mb-lg-0">
+        <div class="card cascading-right" style="
+            background: hsla(0, 0%, 100%, 0.55);
+            backdrop-filter: blur(30px);
+            ">
+          <div class="card-body p-5 shadow-5">
+            <h2 class="fw-bold mb-4">Create an Account</h2>
+
+            <form [formGroup]="registerFormGroup" (ngSubmit)="onSubmit()">
+              <!-- User Form Group -->
+              <div formGroupName="user" class="form-area">
+              <!-- 2 column grid layout with text inputs for the first and last names -->
+                <div class="row">
+
+                  <div class="col-md-6 mb-3">
+                    <div class="form-floating mb-1">
+                      <input formControlName="firstName" type="text" class="form-control" id="" placeholder="First Name" [ngClass]="{'is-invalid': firstName.invalid && (firstName.dirty || firstName.touched)}">
+                      <label for="">First Name</label>
+                      <!-- Error message for firstName: Required, at least 2 characters & notOnlyWhiteSpace-->
+                      <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="invalid-feedback">
+                        <div *ngIf="firstName.errors?.['required'] || firstName.errors?.['notOnlyWhiteSpace']">
+                            First name is required.
+                        </div>
+                        <div *ngIf="firstName.errors?.['minlength']">
+                            First name must be at least 2 characters long.
+                        </div>
+                      </div>
+                      <!-- Error message end -->
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <div class="form-floating mb-1">
+                      <input formControlName="lastName" type="text" class="form-control" id="" placeholder="Last Name"
+                       [ngClass]="{'is-invalid': lastName.invalid && (lastName.dirty || lastName.touched)}">
+                      <label for="">Last Name</label>
+                    </div>
+                    <!-- Error validation for lastName: Required, at least 2 characters & notOnlyWhiteSpace-->
+                    <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" class="invalid-feedback" style="display:block">
+                      <div *ngIf="lastName.errors?.['required'] || lastName.errors?.['notOnlyWhiteSpace']">
+                          Last Name is required.
+                      </div>
+                      <div *ngIf="lastName.errors?.['minlength']">
+                          Last Name must be at least 2 characters long.
+                      </div>
+                    </div>
+                    <!-- Error validation end -->
+                  </div>
+                </div>
+
+                <!-- Gender Select -->
+                <select class="form-select mb-4" style="width: 150px;" [required]="true">
+                  <option selected>Gender</option>
+                  <option value="1">Male</option>
+                  <option value="2">Female</option>
+                </select>
+
+                <!-- Email input -->
+                <div class="form-floating mb-4">
+                  <input formControlName="email" type="email" class="form-control" id="" placeholder="name@example.com"
+                  [ngClass]="{'is-invalid': email.invalid && (email.dirty || email.touched)}">
+                  <label for="">Email address</label>
+                  <!-- Error validation for email: Required-->
+                  <div *ngIf="email.invalid && (email.dirty || email.touched)" class="invalid-feedback">
+                    <div *ngIf="email.errors?.['required']">
+                      Email is required.
+                    </div>
+                    <div *ngIf="email.errors?.['pattern']">
+                      Email must be in a valid format.
+                    </div>
+                  </div>
+                  <!-- Error validation end -->
+                </div>
+
+                <!-- Password input -->
+                <div class="form-floating mb-4">
+                  <input formControlName="password" type="password" class="form-control" id="" placeholder="Password"
+                  [ngClass]="{'is-invalid': password.invalid && (password.dirty || password.touched)}">
+                  <label for="">Password</label>
+                  <!-- Error validation for password: Required-->
+                  <div *ngIf="password.invalid && (password.dirty || password.touched)" class="invalid-feedback">
+                    <div *ngIf="password.errors?.['required']">
+                      Password is required.
+                    </div>
+                    <div *ngIf="password.errors?.['minlength']">
+                      Password must be at least 7 characters long.
+                    </div>
+                  </div>
+                  <!-- Error validation end -->
+                </div>
+
+                <!-- Confirm Password input -->
+                <div class="form-floating mb-3">
+                  <input formControlName="confirmPassword" type="password" class="form-control" id="" placeholder="Confirm Password" [ngClass]="{'is-invalid': confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)}">
+                  <label for="">Confirm Password</label>
+                  <div *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)" class="invalid-feedback" style="display: block;">
+                    <div *ngIf="confirmPassword.errors?.['required']">
+                      Password confirmation is required.
+                    </div>
+                    <div *ngIf="confirmPassword.errors?.['matchPasswordValidator']">
+                      Must be the same as what you entered earlier.
+                    </div>
+                  </div>
+                  <!-- Error validation end -->
+                </div>
+
+                <!-- Input for Profile Image -->
+                <div class="form-group">
+                  <label class="mb-1 ms-1" for="">Add Image</label>
+                  <div class="input-group">
+                    <div class="input-group-append mb-4">
+                      <input type="file" class="form-control" id="media" name="media" accept="image/*" />
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Checkbox -->
+                <div class="form-check d-flex mt-2 mb-4">
+                  <input class="form-check-input me-2" type="checkbox" value="" [required]="true"/>
+                  <label class="form-check-label">
+                  I accept the Terms and Conditions
+                  </label>
+                </div>
+
+                <!-- Submit button -->
+                <button type="submit" class="btn btn-primary mb-4" style="width: 100%;">
+                  Create an account
+                </button>
+
+                <p class="fw-bold mb-0">
+                  I already have an account?
+                  <a href="/login" class="link-danger text-decoration-none ms-1">Login</a>
+                </p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6 mb-5 mb-lg-0">
+        <img src="../../../assets/images/registration.png" class="w-100 ms-3"
+          alt="" />
+      </div>
+    </div>
+  </div>
+  <!-- Jumbotron -->
+</section>
+<!-- Section: Design Block -->
