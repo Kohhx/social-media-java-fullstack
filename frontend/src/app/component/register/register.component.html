@@ -121,7 +121,9 @@
                 </div>
 
                 <!-- Gender Select -->
+
                 <div class="form-floating mb-4">
+                <!-- <div class="d-inline-flex"> -->
                   <select
                     class="form-select mb-4 w-100"
                     style="width: 150px"
@@ -140,7 +142,7 @@
                     *ngIf="gender.invalid && (gender.dirty || gender.touched)"
                     class="invalid-feedback"
                   >
-                    <div *ngIf="gender.errors?.['gender']">
+                    <div class="mx-2 mt-1" *ngIf="gender.errors?.['gender']">
                       Please select either male or female gender
                     </div>
                   </div>

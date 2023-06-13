@@ -13,6 +13,10 @@ import { FeedComponent } from './component/feed/feed.component';
 import { LoginComponent } from './component/login/login.component';
 import { NavbarComponent } from './component/navbar/navbar.component';
 import { RegisterComponent } from './component/register/register.component';
+import { ProfileComponent } from './component/profile/profile.component';
+import { UserModalComponent } from './component/user-modal/user-modal.component';
+import { PostModalComponent } from './component/post-modal/post-modal.component';
+import { ManagePostsComponent } from './component/manage-posts/manage-posts.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +24,11 @@ import { RegisterComponent } from './component/register/register.component';
     FeedComponent,
     LoginComponent,
     NavbarComponent,
-    RegisterComponent
+    RegisterComponent,
+    ProfileComponent,
+    UserModalComponent,
+    PostModalComponent,
+    ManagePostsComponent
   ],
   imports: [
     BrowserModule,
