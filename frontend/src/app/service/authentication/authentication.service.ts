@@ -34,21 +34,15 @@ export class AuthenticationService {
         map((data) => {
           console.log(data);
           let token = this.TOKEN_PREFIX + data.token;
-          // sessionStorage.setItem(this.AUTH_USER_KEY, userRegistration.email);
-          // sessionStorage.setItem(this.TOKEN_KEY, token);
-          // sessionStorage.setItem(this.ROLE_KEY, data.role);
           this.setSessionStorage(userRegistration.email, token, data.roles)
           return data;
         })
       );
   }
 
-  authenticate(email:string, password:string) {
+  login(email:string, password:string) {
     return this.http.post<any>(`${this.BASE_URL}/login`, {email, password}).pipe(map( data => {
       let token = this.TOKEN_PREFIX + data.token;
-      // sessionStorage.setItem(this.AUTH_USER_KEY, email);
-      // sessionStorage.setItem(this.TOKEN_KEY, token);
-      // sessionStorage.setItem(this.ROLE_KEY, data.role);
       this.setSessionStorage(email, token, data.roles)
       return data;
     }))
@@ -71,9 +65,6 @@ export class AuthenticationService {
   }
 
   logout() {
-    // sessionStorage.removeItem(this.AUTH_USER_KEY);
-    // sessionStorage.removeItem(this.TOKEN_KEY);
-    // sessionStorage.removeItem(this.ROLE_KEY);
     this.removeSessionStorage()
   }
 
@@ -84,6 +75,16 @@ export class AuthenticationService {
   checkRole(role: string): boolean {
       return this.getUserRoles()?.includes(role) ?? false;
   }
+
+  isAdmin(): boolean {
+    return this.checkRole('ROLE_ADMIN');
+  }
+
+
+  isUser(): boolean {
+    return this.checkRole('ROLE_USER');
+  }
+
 
   private setSessionStorage(email: string, token: string, roles: string) {
     sessionStorage.setItem(this.AUTH_USER_KEY, email);
@@ -96,6 +97,5 @@ export class AuthenticationService {
     sessionStorage.removeItem(this.TOKEN_KEY);
     sessionStorage.removeItem(this.ROLE_KEY);
   }
-
 
 }

@@ -19,9 +19,7 @@
           <a class="nav-link" href="#">Manage Feeds</a>
         </li>
       </ul>
-      <form>
-        <button class="btn btn-warning mx-3" type="submit">Logout</button>
-      </form>
+        <button (click)="logout()" class="btn btn-warning mx-3" type="submit">Logout</button>
       <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search for posts..." aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Search</button>
@@ -29,3 +27,5 @@
     </div>
   </div>
 </nav>
+
+<router-outlet></router-outlet>
