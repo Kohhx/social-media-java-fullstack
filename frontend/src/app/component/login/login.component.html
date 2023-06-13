@@ -7,19 +7,42 @@
         <h5 class="text-end text-white mx-5">Create your posts and connect with your pals!</h5>
       </div>
       <div class="col-md-8 col-lg-6 col-xl-4 pb-4">
-        <form (ngSubmit)="onSubmit()">
+        <form (ngSubmit)="login()" [formGroup]="loginFormGroup">
           <!-- Email input -->
           <div class="form-outline fw-bold mt-3 mb-4">
             <label class="form-label">Email address</label>
             <input type="email" class="form-control form-control-md"
-              placeholder="Enter a valid email address" />
+              placeholder="Enter a valid email address" formControlName="email"
+              [ngClass]="{
+                'is-invalid':
+                email.invalid &&
+                  (email.dirty || email.touched)
+              }"/>
+              <div *ngIf="email.invalid && (email.touched || email.dirty)" class="invalid-feedback">
+                  <div *ngIf="email.errors['required']">
+                    Email address is required
+                  </div>
+                  <div *ngIf="email.errors['email']">
+                    Email address is invalid
+                  </div>
+              </div>
           </div>
 
           <!-- Password input -->
           <div class="form-outline fw-bold mb-3">
             <label class="form-label">Password</label>
             <input type="password" class="form-control form-control-md"
-              placeholder="Enter password" />
+              placeholder="Enter password" formControlName="password"
+              [ngClass]="{
+                'is-invalid':
+                password.invalid &&
+                  (password.dirty || password.touched)
+              }"/>
+              <div *ngIf="password.invalid && (password.touched || password.dirty)" class="invalid-feedback">
+                <div *ngIf="password.errors['required']">
+                  Password is required
+                </div>
+            </div>
           </div>
 
           <div class="d-flex justify-content-between align-items-center">
