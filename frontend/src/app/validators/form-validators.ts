@@ -14,4 +14,15 @@ export class FormValidators {
     }
   }
 
+  static checkGender(control: FormControl): ValidationErrors {
+
+    // Check if value is either "male" or "female"
+    if ((control.value !== "male") && (control.value !=="female")) {
+      return { 'gender': true };
+    } else {
+      // valid - return empty object
+      return {};
+    }
+  }
+
 }
