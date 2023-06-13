@@ -23,10 +23,17 @@ public class PostController {
     }
 
     @PostMapping("posts")
-    public ResponseEntity<PostCreateResponseDTO> createPost(@ModelAttribute PostCreateRequestDTO postCreatRequest) {
-        PostCreateResponseDTO postCreateResponse = postService.createPost(postCreatRequest);
+    public ResponseEntity<PostResponseDTO> createPost(@ModelAttribute PostCreateRequestDTO postCreateRequest) {
+        PostResponseDTO postCreateResponse = postService.createPost(postCreateRequest);
         return new ResponseEntity<>(postCreateResponse, HttpStatus.OK);
     }
+
+    @PatchMapping("posts/{postId}")
+    public ResponseEntity<PostResponseDTO> updatePost(@PathVariable long postId, @ModelAttribute PostUpdateRequestDTO postUpdateRequest) {
+        PostResponseDTO postUpdateResponse = postService.updatePost(postId, postUpdateRequest);
+        return new ResponseEntity<>(postUpdateResponse, HttpStatus.OK);
+    }
+
 
     @DeleteMapping("posts/{postId}")
     public ResponseEntity<String> deletePost(@PathVariable long postId) {
