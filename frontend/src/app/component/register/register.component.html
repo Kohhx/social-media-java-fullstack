@@ -98,6 +98,7 @@
                 <div class="form-floating mb-3">
                   <input formControlName="confirmPassword" type="password" class="form-control" id="" placeholder="Confirm Password" [ngClass]="{'is-invalid': confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)}">
                   <label for="">Confirm Password</label>
+                  <!-- Error validation for password confirmation: Required and matching password -->
                   <div *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)" class="invalid-feedback" style="display: block;">
                     <div *ngIf="confirmPassword.errors?.['required']">
                       Password confirmation is required.
@@ -133,8 +134,8 @@
                 </button>
 
                 <p class="fw-bold mb-0">
-                  I already have an account?
-                  <a href="/login" class="link-danger text-decoration-none ms-1">Login</a>
+                  Already have an account?
+                  <a href="/login" class="link-danger text-decoration-none ms-1">Login here</a>
                 </p>
               </div>
             </form>
