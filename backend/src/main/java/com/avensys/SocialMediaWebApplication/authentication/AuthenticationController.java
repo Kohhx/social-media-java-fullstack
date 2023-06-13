@@ -10,14 +10,12 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/api")
 public class AuthenticationController {
 
     private final AuthenticationService authenticationService;
@@ -30,14 +28,14 @@ public class AuthenticationController {
         this.authenticationManager = authenticationManager;
     }
 
-    @PostMapping("/api/signup")
+    @PostMapping("signup")
     public ResponseEntity<AuthenticationResponseDTO> signup(@RequestBody UserRegistrationRequestDTO userRegistration) {
         User user = authenticationService.registerUser(userRegistration);
         String token = jwtService.generateToken(user.getEmail());
         return new ResponseEntity<>(new AuthenticationResponseDTO("Account has been registered", token, user.getRolesList() ), HttpStatus.CREATED);
     }
 
-    @PostMapping("/api/login")
+    @PostMapping("login")
     public ResponseEntity<AuthenticationResponseDTO> authenticateAndGetToken(@RequestBody AuthLoginRequestDTO authRequest) {
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmail(),
