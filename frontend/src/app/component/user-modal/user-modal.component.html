@@ -1,0 +1,69 @@
+<div class="center-section">
+    <section class="text-center text-lg-start">
+      <div class="container mt-5">
+        <div class="row g-0">
+          <div class="mb-5 mb-lg-0 justify-content-center">
+            <div class="card cascading-right" style="
+                background: hsla(0, 0%, 100%, 0.55);
+                backdrop-filter: blur(30px);
+                ">
+              <div class="card-body p-5 shadow-5">
+                <h2 class="fw-bold mb-4">Update Profile Details</h2>
+                <form [formGroup]="updateFormGroup" class="w-100">
+                  <div formGroupName="user" class="form-area">
+                  <div class="row">
+  
+                    <div class="col-md-6 mb-3">
+                      <div class="form-floating mb-1">
+                        <input formControlName="firstName" type="text" class="form-control" id="" placeholder="First Name" />
+                        <label for="">First Name</label>
+                      </div>
+                    </div>
+  
+                    <div class="col-md-6 mb-3">
+                      <div class="form-floating mb-1">
+                        <input formControlName="lastName" type="text" class="form-control" id="" placeholder="Last Name" />
+                        <label for="">Last Name</label>
+                      </div>
+                    </div>
+                  </div>
+  
+                  <select class="form-select mb-4" style="width: 150px;" [required]="true">
+                    <option selected>Gender</option>
+                    <option value="1">Male</option>
+                    <option value="2">Female</option>
+                  </select>
+  
+                  <div class="form-floating mb-4">
+                    <input formControlName="email" type="email" class="form-control" id="" placeholder="name@example.com" />
+                    <label for="">Email address</label>
+                  </div>
+  
+                  <div class="form-floating mb-4">
+                    <input formControlName="password" type="password" class="form-control" id="" placeholder="Password" />
+                    <label for="">Password</label>
+                  </div>
+                  <div class="form-group">
+                    <label class="mb-1 ms-1" for="">Add Image</label>
+                    <div class="input-group">
+                      <div class="input-group-append mb-4">
+                        <input type="file" class="form-control" id="media" name="media" accept="image/*" />
+                      </div>
+                    </div>
+                  </div>
+                  <button type="submit" class="btn btn-primary mb-4" style="width: 100%;">
+                    Update
+                  </button>
+                  <button type="button" class="btn btn-secondary" style="width: 100%;" (click)="closeModal()">
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+  

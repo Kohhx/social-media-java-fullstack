@@ -1,0 +1,246 @@
+body {
+    background-color: #eef2f5 !important;
+    margin-top: 20px;
+}
+
+.panel {
+    margin-bottom: 30px;
+    color: #696969;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
+}
+
+.panel-heading {
+    color: #393939;
+    padding: 10px 20px;
+    border-width: 0;
+    border-radius: 0;
+}
+
+.panel-title {
+    margin-top: 3px;
+    margin-bottom: 3px;
+    font-size: 14px;
+    line-height: 24px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.panel-title select {
+    border-width: 0;
+    background-color: transparent;
+    text-transform: uppercase;
+}
+
+.panel-title select option {
+    text-transform: capitalize;
+}
+
+.panel-title .select2 {
+    display: block;
+    min-width: 200px;
+}
+
+.panel-title .select2-selection {
+    height: auto;
+    padding: 0;
+    background-color: transparent;
+    border-width: 0;
+    border-radius: 0;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.no-outlines .panel-title .select2-selection {
+    outline: 0;
+}
+
+.panel-title .select2-selection .select2-selection__rendered {
+    float: left;
+    margin-right: 8px;
+    padding: 0;
+    line-height: inherit;
+}
+
+.panel-title .select2-selection .select2-selection__arrow {
+    float: left;
+    display: block;
+    position: relative;
+    top: auto;
+    right: auto;
+    width: auto;
+    height: auto;
+}
+
+.panel-title .select2-selection .select2-selection__arrow:before {
+    content: "\f107";
+    font-family: "Font Awesome\ 5 Free";
+    font-weight: 700;
+}
+
+.panel-title .select2-container--open .select2-selection__arrow:before {
+    content: "\f106";
+}
+
+.panel-heading .dropdown {
+    float: right;
+}
+
+.panel-heading .dropdown .dropdown-toggle {
+    margin: -10px -20px;
+    padding: 10px 20px;
+    color: #999;
+    border-width: 0;
+    font-size: 14px;
+    line-height: 30px;
+    cursor: pointer;
+}
+
+.panel-heading .dropdown .dropdown-toggle:after,
+.toolbar__nav>li>a>span {
+    display: none;
+}
+
+.panel-heading .dropdown-menu {
+    top: 30px !important;
+    left: auto !important;
+    right: -20px;
+    margin: 0;
+    padding: 10px 0;
+    border-width: 0;
+    border-radius: 4px 0 0 4px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
+    -webkit-transform: none !important;
+    transform: none !important;
+    z-index: 1001;
+}
+
+.panel-heading .dropdown-menu a {
+    padding: 5px 15px;
+    color: #999;
+    font-size: 13px;
+    line-height: 23px;
+}
+
+.panel-heading .dropdown-menu a:hover {
+    color: #e16123;
+}
+
+.panel-heading .dropdown-menu i {
+    min-width: 15px;
+    margin-right: 6px;
+    font-size: 11px;
+    text-align: center;
+}
+
+.panel-content {
+    border-top: 1px solid #eee;
+    padding: 30px 20px;
+}
+
+.actions {
+    display: flex;
+    padding: 10px;
+    background-color: #ebebea;
+    border: 0 1px 1px solid #ccc;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+.btn-link {
+    display: inline-block;
+    color: inherit;
+    font-weight: inherit;
+    cursor: pointer;
+    background-color: transparent;
+}
+
+button.btn-link {
+    border-width: 0;
+}
+
+.activity__list__icon {
+    display: none;
+    position: absolute;
+    top: 2px;
+    left: 0;
+    min-width: 30px;
+    color: #fff;
+    background-color: #2bb3c0;
+    border-radius: 50%;
+    line-height: 30px;
+    text-align: center;
+}
+
+.activity__list__header {
+    position: relative;
+    min-height: 35px;
+    padding-top: 4px;
+    padding-left: 45px;
+    color: #999;
+    z-index: 0;
+}
+
+.activity__list__body {
+    padding-top: 13px;
+    padding-left: 43px;
+}
+
+.activity__list__header img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    max-width: 35px;
+    border-radius: 50%;
+}
+
+.activity__list__header a {
+    color: #222;
+    font-weight: 600;
+}
+
+.activity__list__footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding: 15px 100px;
+    color: #999;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+.modal-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+  }
+
+.modal-container.open {
+    display: block;
+}
+
+.modal-post-container.open {
+    display: block;
+  }
+  
+  .modal-post-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+  }
+
+.modal-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: '100%'
+  }

@@ -1,0 +1,14 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Spring Boot-SocialMediaWebApplication<SocialMediaWebApplication>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.avensys.SocialMediaWebApplication.SocialMediaWebApplication",
+      "projectName": "SocialMediaWebApplication",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    }
+  ]
+}
