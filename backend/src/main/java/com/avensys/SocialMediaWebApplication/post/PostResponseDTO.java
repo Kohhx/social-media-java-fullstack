@@ -2,7 +2,7 @@ package com.avensys.SocialMediaWebApplication.post;
 
 import java.time.LocalDateTime;
 
-public record PostCreateResponseDTO(
+public record PostResponseDTO(
         long id,
         String title,
         String caption,
