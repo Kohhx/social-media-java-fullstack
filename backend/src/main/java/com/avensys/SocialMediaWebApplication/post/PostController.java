@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api")
 public class PostController {
 
     private final PostService postService;
@@ -22,11 +22,11 @@ public class PostController {
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 
-//    @PostMapping("post")
-//    public ResponseEntity<PostCreateResponseDTO> createPost(@ModelAttribute PostCreateRequestDTO postCreatRequest) {
-//        postService.createPost(postCreatRequest);
-//        return new ResponseEntity<>("Post deleted successfully", HttpStatus.OK);
-//    }
+    @PostMapping("posts")
+    public ResponseEntity<PostCreateResponseDTO> createPost(@ModelAttribute PostCreateRequestDTO postCreatRequest) {
+        PostCreateResponseDTO postCreateResponse = postService.createPost(postCreatRequest);
+        return new ResponseEntity<>(postCreateResponse, HttpStatus.OK);
+    }
 
     @DeleteMapping("posts/{postId}")
     public ResponseEntity<String> deletePost(@PathVariable long postId) {
