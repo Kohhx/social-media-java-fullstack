@@ -1,15 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-
-interface Post {
-  id: number;
-  title: string;
-  caption: string;
-  contentUrl: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
+import { observableToBeFn } from 'rxjs/internal/testing/TestScheduler';
+import { Post } from 'src/app/common/post';
 
 @Injectable({
   providedIn: 'root'
@@ -19,17 +12,25 @@ export class PostService {
   private BASE_URL: string = 'http://localhost:8080/api';
   private AUTH_USER_KEY: string = 'authenticatedUser';
   private TOKEN_KEY = "token"
+  private headers: HttpHeaders;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+
+    // To retreive the token from the session storage each time as a constant:
+    const token = this.getAuthenticationToken();
+
+    if (token) {
+      this.headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.getAuthenticationToken());
+    }
+  }
 
   getAllPosts(): Observable<Post[]> {
-
-    // To retreive the token from the session storage, we need to set the header
-    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.getAuthenticationToken());
-    console.log(headers);
-
     // Return the response from the server
-    return this.http.get<Post[]>(`${this.BASE_URL}/posts`, { headers });
+    return this.http.get<Post[]>(`${this.BASE_URL}/posts`, { headers: this.headers } );
+  }
+
+  getPostById(id: number): Observable<Post> {
+    return this.http.get<Post>(`${this.BASE_URL}/posts/${id}`, { headers: this.headers });
   }
 
   getAuthenticatedUser(): string {
@@ -52,8 +53,8 @@ export class PostService {
     return null;
   }
 
-  deletePost(id: any) {
-    throw new Error('Method not implemented.');
+  deletePost(id: number): Observable<any> {
+    return this.http.delete(`${this.BASE_URL}/posts/${id}`, { headers: this.headers });
   }
 
 }

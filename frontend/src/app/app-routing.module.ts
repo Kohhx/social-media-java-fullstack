@@ -13,10 +13,10 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'users/:id', component: ProfileComponent },
-  { path: 'admin/posts', component: ManagePostsComponent},
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '', component: NavbarComponent, children: [
     { path: 'feed', component: FeedComponent, canActivate: [userguardGuard] },
+    { path: 'admin/posts', component: ManagePostsComponent, canActivate: [userguardGuard] },
   ] },
   { path: '**', redirectTo: '/login', pathMatch: 'full' },
 ];

@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Post } from 'src/app/common/post';
 import { PostService } from 'src/app/service/post/post.service';
+import { PostModalComponent } from '../post-modal/post-modal.component';
 
 @Component({
   selector: 'app-manage-posts',
@@ -8,8 +10,11 @@ import { PostService } from 'src/app/service/post/post.service';
 })
 export class ManagePostsComponent implements OnInit {
 
-  postsList: any[] = [];
+  postsList: Post[] = [];
+  selectedPost: Post;
   storage: Storage = sessionStorage;
+
+  @ViewChild(PostModalComponent) model: PostModalComponent;
 
   constructor(private postService: PostService) {}
 
@@ -21,25 +26,32 @@ export class ManagePostsComponent implements OnInit {
     this.postService.getAllPosts().subscribe(
       (response: any) => {
         this.postsList = response;
-        console.log(this.postsList);
       },
     );
   }
 
-  updatePost(post: any) {
-
+  updatePost(post: Post) {
+    this.postService.getPostById(post.id).subscribe(
+      (response: Post) => {
+        this.openModal(response)
+      }
+    )
   }
 
-  deletePost(post: any) {
-    // this.postService.deletePost(post.id).subscribe(
-    //   (response: any) => {
-    //     console.log(response);
-    //     this.handleGetAllPosts();
-    //   },
-    //   (error: any) => {
-    //     console.log(error);
-    //   }
-    // );
+  deletePost(post: Post) {
+    this.postService.deletePost(post.id).pipe().subscribe(
+      (response: any) => {
+        console.log(response);
+        console.log(post)
+        console.log("Delete successful")
+        this.handleGetAllPosts();
+      }
+    );
+  }
+
+  openModal(post: Post) {
+    this.selectedPost = post; // Save the current post
+    // this.modalService.open(UpdatePostModalComponent, { data: {post: this.selectedPost}});
   }
 
 }
