@@ -1,5 +1,5 @@
 <div style="background: #eef2f5; padding: 30px 0px 10px 0px">
-  <div class="container">
+  <div class="container w-75">
     <div
       class="panel profile-cover"
       style="position: relative; background-color: #3e8392; border-radius: 10px"
@@ -23,20 +23,19 @@
               height="150px"
               style="background: black; border-radius: 50%"
             />
-            <img
-              src="../../../assets/images/Pencil Icon.png"
-              style="
-                width: 25px;
-                height: 25px;
-                position: absolute;
-                left: 140px;
-                top: 140px;
-              "
+
+            <fa-icon
+              *ngIf="authService.getAuthenticatedUserId() == user.id"
               (click)="openUserModal()"
-            />
+              [icon]="faPenToSquare"
+              class="icon fa-xl"
+              style="color: black; position: absolute; left: 145px; top: 135px"
+            ></fa-icon>
           </div>
           <div style="margin-left: 10px">
-            <h2 style="text-align: left; color: #eee">{{ user.firstName | titlecase }} {{ user.LastName | titlecase }}</h2>
+            <h2 style="text-align: left; color: #eee">
+              {{ user.firstName | titlecase }} {{ user.LastName | titlecase }}
+            </h2>
             <div style="text-align: left; color: #eee">
               <p>{{ user.gender }}</p>
               <p>{{ user.email }}</p>
@@ -84,133 +83,140 @@
       ></app-create-post-form>
     </div>
     <div class="panel">
-      <div class="panel-content" style="padding-top: 20px; padding-bottom: 5px">
-        <div class="panel-title">User Posts</div>
-        <div
-          *ngFor="let item of items"
-          style="border-top: 1px solid #eee; margin-top: 20px"
-        >
-          <div style="display: flex; margin-top: 20px">
-            <img
-            *ngIf="!item['user'].avatarUrl"
-            [src]="defaultProfileImage"
-            alt=""
-            style="
-              background: #3e8392;
-              height: 50px;
-              width: 50px;
-              border-radius: 50%;
-            "
-          />
-          <img
-            *ngIf="item['user'].avatarUrl"
-            [src]="item['user'].avatarUrl"
-            alt=""
-            style="
-              background: #3e8392;
-              height: 50px;
-              width: 50px;
-              border-radius: 50%;
-            "
-          />
-            <div style="margin-left: 10px">
-              <div>
-                {{ item["user"].firstName }} {{ item["user"].lastName }}
-              </div>
-              <div>{{ item.updatedAt | date : "medium" }}</div>
-            </div>
-          </div>
-          <p style="margin-top: 20px">{{ item.caption }}</p>
-          <div *ngIf="item.contentUrl != null">
-            <img
-              *ngIf="fileUtil.isImage(item.contentUrl)"
-              [src]="item.contentUrl"
-              alt="post image"
-              style="width: 100%; margin-top: 20px"
-            />
-            <video
-              *ngIf="fileUtil.isVideo(item.contentUrl)"
-              [src]="item.contentUrl"
-              alt="post video"
-              controls
-              style="width: 100%; margin-top: 20px"
-            ></video>
-          </div>
-          <div class="activity__list__footer">
-            <button
-              type="button"
-              class="btn-link"
-              style="
-                margin-right: 10px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-              "
-            >
-              <img
-                src="../../../assets/images/comment-icon.png"
-                height="15px"
-                style="margin: 0px 5px"
-              />
-              Comments
-            </button>
-            <button
-              type="button"
-              class="btn-link"
-              (click)="openPostModal(item)"
-              style="
-                margin-right: 10px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-              "
-            >
-              <img
-                src="../../../assets/images/edit-list-icon.png"
-                height="15px"
-                style="margin: 0px 5px"
-              />
-              Update
-            </button>
-            <button
-              type="button"
-              class="btn-link"
-              style="
-                margin-right: 10px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-              "
-            >
-              <img
-                src="../../../assets/images/recycle-bin-line-icon.png"
-                height="15px"
-                style="margin: 0px 5px"
-              />
-              Delete
-            </button>
-          </div>
-          <div style="display: flex; margin: 20px 0px">
-            <img
-              src=""
-              alt=""
-              style="
-                background: #3e8392;
-                height: 40px;
-                width: 40px;
-                margin: auto;
-                border-radius: 50%;
-                margin-right: 10px;
-              "
-            />
-            <input
-              class="form-control"
-              placeholder="Write a comment"
-              style="margin: auto; border-radius: 50px; background: #e5e6eb"
-            />
-          </div>
-        </div>
+      <div *ngIf="items.length === 0" class="panel-title text-center mb-4 p-5">
+        No posts
       </div>
+      <ng-container *ngIf="items.length !== 0">
+        <div
+          class="panel-content"
+          style="padding-top: 20px; padding-bottom: 5px"
+        >
+          <div class="panel-title">User Posts</div>
+          <div
+            *ngFor="let item of items"
+            style="border-top: 1px solid #eee; margin-top: 20px"
+          >
+            <div style="display: flex; margin-top: 20px">
+              <img
+                *ngIf="!item['user'].avatarUrl"
+                [src]="defaultProfileImage"
+                alt=""
+                style="
+                  background: #3e8392;
+                  height: 50px;
+                  width: 50px;
+                  border-radius: 50%;
+                "
+              />
+              <img
+                *ngIf="item['user'].avatarUrl"
+                [src]="item['user'].avatarUrl"
+                alt=""
+                style="
+                  background: #3e8392;
+                  height: 50px;
+                  width: 50px;
+                  border-radius: 50%;
+                "
+              />
+              <div style="margin-left: 10px">
+                <div>
+                  {{ item["user"].firstName }} {{ item["user"].lastName }}
+                </div>
+                <div>{{ item.updatedAt | date : "medium" }}</div>
+              </div>
+            </div>
+            <p style="margin-top: 20px">{{ item.caption }}</p>
+            <div *ngIf="item.contentUrl != null">
+              <img
+                *ngIf="fileUtil.isImage(item.contentUrl)"
+                [src]="item.contentUrl"
+                alt="post image"
+                style="width: 100%; margin-top: 20px"
+              />
+              <video
+                *ngIf="fileUtil.isVideo(item.contentUrl)"
+                [src]="item.contentUrl"
+                alt="post video"
+                controls
+                style="width: 100%; margin-top: 20px"
+              ></video>
+            </div>
+            <div class="activity__list__footer">
+              <button
+                type="button"
+                class="btn-link"
+                style="
+                  margin-right: 10px;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                "
+              >
+                <img
+                  src="../../../assets/images/comment-icon.png"
+                  height="15px"
+                  style="margin: 0px 5px"
+                />
+                Comments
+              </button>
+              <button
+                type="button"
+                class="btn-link"
+                (click)="openPostModal()"
+                style="
+                  margin-right: 10px;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                "
+              >
+                <img
+                  src="../../../assets/images/edit-list-icon.png"
+                  height="15px"
+                  style="margin: 0px 5px"
+                />
+                Update
+              </button>
+              <button
+                type="button"
+                class="btn-link"
+                style="
+                  margin-right: 10px;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                "
+              >
+                <img
+                  src="../../../assets/images/recycle-bin-line-icon.png"
+                  height="15px"
+                  style="margin: 0px 5px"
+                />
+                Delete
+              </button>
+            </div>
+            <div style="display: flex; margin: 20px 0px">
+              <img
+                src=""
+                alt=""
+                style="
+                  background: #3e8392;
+                  height: 40px;
+                  width: 40px;
+                  margin: auto;
+                  border-radius: 50%;
+                  margin-right: 10px;
+                "
+              />
+              <input
+                class="form-control"
+                placeholder="Write a comment"
+                style="margin: auto; border-radius: 50px; background: #e5e6eb"
+              />
+            </div>
+          </div></div
+      ></ng-container>
     </div>
   </div>
 </div>
