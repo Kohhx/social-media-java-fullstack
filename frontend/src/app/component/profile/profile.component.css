@@ -254,11 +254,32 @@ button.btn-link {
   background-color: black !important;
 }
 
-.icon{
+.icon {
   cursor: pointer;
-  color:#3e3e3e;
+  color: #3e3e3e;
 }
 
 .icon:hover {
   opacity: 0.8;
+}
+
+.comment-btn {
+  margin: 0 auto !important;
+}
+
+.modal-custom {
+  background-color: rgba(0, 0, 0, 0.5);
+  position:fixed;
+  inset: 0 0 0 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.delete-card {
+  padding:2rem;
+  background-color: white;
+  border-radius: 10px;
 }
