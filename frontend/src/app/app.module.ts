@@ -2,9 +2,11 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 // import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { HttpInterceptorService } from './service/http/http-interceptor.service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,7 +31,10 @@ import { ManageUsersComponent } from './component/manage-users/manage-users.comp
     UserModalComponent,
     PostModalComponent,
     ManagePostsComponent,
+<<<<<<< HEAD
+=======
     ManageUsersComponent
+>>>>>>> master
   ],
   imports: [
     BrowserModule,
@@ -39,8 +44,15 @@ import { ManageUsersComponent } from './component/manage-users/manage-users.comp
     HttpClientModule,
     // FormsModule,
     ReactiveFormsModule,
+    FontAwesomeModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpInterceptorService,
+      multi: true,
+    },
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

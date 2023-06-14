@@ -12,8 +12,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/api")
 public class AuthenticationController {
@@ -29,10 +27,16 @@ public class AuthenticationController {
     }
 
     @PostMapping("signup")
-    public ResponseEntity<AuthenticationResponseDTO> signup(@RequestBody UserRegistrationRequestDTO userRegistration) {
+    public ResponseEntity<AuthenticationResponseDTO> signup(@ModelAttribute UserRegistrationRequestDTO userRegistration) {
         User user = authenticationService.registerUser(userRegistration);
         String token = jwtService.generateToken(user.getEmail());
-        return new ResponseEntity<>(new AuthenticationResponseDTO("Account has been registered", token, user.getRolesList() ), HttpStatus.CREATED);
+        return new ResponseEntity<>(new AuthenticationResponseDTO(
+                "Account has been registered",
+                user.getEmail(),
+                token,
+                user.getAvatarUrl(),
+                user.getRolesList()),
+                HttpStatus.CREATED);
     }
 
     @PostMapping("login")
@@ -41,11 +45,9 @@ public class AuthenticationController {
                 .authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmail(),
                         authRequest.getPassword()));
 
-        System.out.println("AUTH" + authentication.getAuthorities());
         if (authentication.isAuthenticated()) {
-            String token = jwtService.generateToken(authRequest.getEmail());
-            List<String> roles = authenticationService.getUserRoles(authRequest.getEmail());
-            return  new ResponseEntity<>(new AuthenticationResponseDTO("Login successfully", token, roles), HttpStatus.OK);
+            AuthenticationResponseDTO responseDTO = authenticationService.getUserAuthResponse(authRequest.getEmail(), "Login successfully");
+            return new ResponseEntity<>(responseDTO, HttpStatus.OK);
         } else {
             throw new ResourceNotFoundException("Invalid user request");
         }
