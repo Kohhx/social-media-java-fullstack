@@ -31,10 +31,7 @@ import { ManageUsersComponent } from './component/manage-users/manage-users.comp
     UserModalComponent,
     PostModalComponent,
     ManagePostsComponent,
-<<<<<<< HEAD
-=======
     ManageUsersComponent
->>>>>>> master
   ],
   imports: [
     BrowserModule,
