@@ -39,7 +39,7 @@ export class ManagePostsComponent implements OnInit {
   }
 
   deletePost(post: Post) {
-    this.postService.deletePost(post.id).pipe().subscribe(
+    this.postService.deletePost(post.id).subscribe(
       (response: any) => {
         console.log(response);
         console.log(post)

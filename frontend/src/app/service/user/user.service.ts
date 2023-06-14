@@ -1,12 +1,12 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Post } from 'src/app/common/post';
+import { User } from 'src/app/common/user';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PostService {
+export class UserService {
 
   private BASE_URL: string = 'http://localhost:8080/api';
   private AUTH_USER_KEY: string = 'authenticatedUser';
@@ -15,45 +15,44 @@ export class PostService {
 
   constructor(private http: HttpClient) {
 
-    // To retreive the token from the session storage each time as a constant:
     const token = this.getAuthenticationToken();
 
     if (token) {
       this.headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.getAuthenticationToken());
     }
+
   }
 
   getAuthenticatedUser(): string {
     return sessionStorage.getItem(this.AUTH_USER_KEY);
   }
 
-  isUserLoggedIn():boolean {
+  isUserLoggedIn(): boolean {
     let user = sessionStorage.getItem(this.AUTH_USER_KEY);
     return user !== null;
   }
 
-  // Getting the token from the session storage
-  getAuthenticationToken(): string {
+  getAuthenticationToken() {
     if (this.getAuthenticatedUser() && this.isUserLoggedIn()) {
+
       let token = sessionStorage.getItem(this.TOKEN_KEY);
-      // Remove any 'Bearer ' prefix from the stored token to avoid duplication
+
       token = token.replace('Bearer ', '');
       return token;
     }
     return null;
   }
 
-  getAllPosts(): Observable<Post[]> {
-    // Return the response from the server
-    return this.http.get<Post[]>(`${this.BASE_URL}/posts`, { headers: this.headers });
+  getAllUsers(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.BASE_URL}/users`, { headers: this.headers });
   }
 
-  getPostById(id: number): Observable<Post> {
-    return this.http.get<Post>(`${this.BASE_URL}/posts/${id}`, { headers: this.headers });
+  getUserById(id: number): Observable<User> {
+    return this.http.get<User>(`${this.BASE_URL}/users/${id}`, { headers: this.headers });
   }
 
-  deletePost(id: number): Observable<any> {
-    return this.http.delete(`${this.BASE_URL}/posts/${id}`, { headers: this.headers });
+  deleteUser(id: number): Observable<any> {
+    return this.http.delete(`${this.BASE_URL}/users/${id}`, { headers: this.headers });
   }
 
 }
