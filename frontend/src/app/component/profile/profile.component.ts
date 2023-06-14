@@ -228,6 +228,7 @@ export class ProfileComponent implements OnInit {
     this.postService.deletePost(this.clickedPost.id).subscribe({
       next: (res) => {
         this.getAllPostsByUser(this.userId);
+        location.reload()
       },
       error: (err) => {},
     });
