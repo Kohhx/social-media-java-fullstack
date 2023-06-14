@@ -49,8 +49,8 @@ export class FeedComponent implements OnInit {
         console.log(posts[0]['user'].avatarUrl)
         this.items = posts;
       }),
-      error:(error => {
-        console.log(error)
+      error:(err => {
+        console.log(err)
       })
     })
 
