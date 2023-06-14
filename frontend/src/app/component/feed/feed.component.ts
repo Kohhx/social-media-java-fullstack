@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Form, FormBuilder, FormGroup } from '@angular/forms';
+import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from 'express-serve-static-core';
 import { ToastrService } from 'ngx-toastr';
 import { PostService } from 'src/app/service/post/post.service';
+import  { FileUtil } from '../../utility/file-util';
 
 @Component({
   selector: 'app-feed',
@@ -12,6 +13,7 @@ import { PostService } from 'src/app/service/post/post.service';
 })
 export class FeedComponent implements OnInit {
   createPostForm!: FormGroup;
+  fileUtil = FileUtil;
 
   defaultProfileImage = "https://w7.pngwing.com/pngs/754/2/png-transparent-samsung-galaxy-a8-a8-user-login-telephone-avatar-pawn-blue-angle-sphere-thumbnail.png";
 
@@ -32,8 +34,8 @@ export class FeedComponent implements OnInit {
 
   ngOnInit(): void {
     this.createPostForm = this.fb.group({
-      title: [''],
-      caption: [''],
+      title: ['',[Validators.required, Validators.maxLength(50)]],
+      caption: ['', [Validators.required]],
       link: [''],
       file: [null],
     });
@@ -47,10 +49,10 @@ export class FeedComponent implements OnInit {
       next:(posts => {
         console.log(posts)
         console.log(posts[0]['user'].avatarUrl)
-        this.items = posts;
+        this.items = this.sortPostsByUpdatedAt(posts);
       }),
-      error:(error => {
-
+      error:(err => {
+        console.log(err)
       })
     })
 
@@ -107,6 +109,15 @@ export class FeedComponent implements OnInit {
        fileReader.readAsDataURL(file);
   }
 
+  resetPostForm() {
+    this.createPostForm.reset({
+      title: '',
+      caption: '',
+      link: '',
+      file: null,
+    })
+  }
+
   handleCreatePost() {
     const post = new FormData();
     post.append('title', this.title?.value);
@@ -123,17 +134,25 @@ export class FeedComponent implements OnInit {
         console.log(data)
         this.postService.getAllPosts().subscribe({
           next:(posts => {
-              this.items = posts;
+              this.items = this.sortPostsByUpdatedAt(posts);
+              this.resetPostForm()
+              this.imagePreviewUrl = "";
+              this.videoPreviewUrl = "";
           }),
           error:(error => {
 
           })
         })
       },
-      error: (err) => {
-        console.log(err)
+      error: (error) => {
+        console.log(error)
       }
 
     })
   }
+
+  private sortPostsByUpdatedAt(posts:any) {
+     return posts.sort((a,b):any => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())
+  }
+
 }
