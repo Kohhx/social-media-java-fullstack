@@ -1,20 +1,29 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/service/authentication/authentication.service';
 import { FormValidators } from 'src/app/validators/form-validators';
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent implements OnInit {
   faCirclePlus = faCirclePlus;
   registerFormGroup: FormGroup;
 
-  avatarPreview: any = 'https://w7.pngwing.com/pngs/754/2/png-transparent-samsung-galaxy-a8-a8-user-login-telephone-avatar-pawn-blue-angle-sphere-thumbnail.png';
+  avatarPreview: any =
+    'https://w7.pngwing.com/pngs/754/2/png-transparent-samsung-galaxy-a8-a8-user-login-telephone-avatar-pawn-blue-angle-sphere-thumbnail.png';
 
   @ViewChild('avatar') avatar: any;
 
@@ -22,20 +31,41 @@ export class RegisterComponent implements OnInit {
     private formBuilder: FormBuilder,
     // private registerFormService: RegisterFormService,
     private router: Router,
-    private authenticationService: AuthenticationService
-  ) { }
+    private authenticationService: AuthenticationService,
+    private toastr: ToastrService,
+  ) {}
 
   ngOnInit(): void {
-
     // Initialize the form group
     this.registerFormGroup = this.formBuilder.group({
       user: this.formBuilder.group({
-        firstName: new FormControl('', [Validators.required, Validators.minLength(2), FormValidators.notOnlyWhiteSpace]),
-        lastName: new FormControl('', [Validators.required, Validators.minLength(2), FormValidators.notOnlyWhiteSpace]),
-        gender: new FormControl('Select Gender', [Validators.required, FormValidators.checkGender]),
-        email: new FormControl('', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
-        password: new FormControl('', [Validators.required, Validators.minLength(7)]),
-        confirmPassword: new FormControl('', [Validators.required, Validators.minLength(7), this.matchPasswordValidator()]),
+        firstName: new FormControl('', [
+          Validators.required,
+          Validators.minLength(2),
+          FormValidators.notOnlyWhiteSpace,
+        ]),
+        lastName: new FormControl('', [
+          Validators.required,
+          Validators.minLength(2),
+          FormValidators.notOnlyWhiteSpace,
+        ]),
+        gender: new FormControl('Select Gender', [
+          Validators.required,
+          FormValidators.checkGender,
+        ]),
+        email: new FormControl('', [
+          Validators.required,
+          Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+        ]),
+        password: new FormControl('', [
+          Validators.required,
+          Validators.minLength(7),
+        ]),
+        confirmPassword: new FormControl('', [
+          Validators.required,
+          Validators.minLength(7),
+          this.matchPasswordValidator(),
+        ]),
         // avatar: new FormControl(''),
         avatarFile: new FormControl(''),
       }),
@@ -44,19 +74,17 @@ export class RegisterComponent implements OnInit {
 
   onFileChange(event: Event) {
     const file = (event.target as HTMLInputElement).files![0];
-    this.registerFormGroup.get("user").patchValue({
+    this.registerFormGroup.get('user').patchValue({
       avatarFile: file,
     });
 
     // File Preview
-     const fileReader = new FileReader();
-     fileReader.onload = () => {
-       this.avatarPreview = fileReader.result;
-     };
-     fileReader.readAsDataURL(file);
+    const fileReader = new FileReader();
+    fileReader.onload = () => {
+      this.avatarPreview = fileReader.result;
+    };
+    fileReader.readAsDataURL(file);
   }
-
-
 
   // Custom validator function to match password and confirmPassword
   matchPasswordValidator(): ValidatorFn {
@@ -68,36 +96,50 @@ export class RegisterComponent implements OnInit {
   }
 
   // Getter methods for all form controls:
-  get firstName() { return this.registerFormGroup.get('user.firstName'); }
-  get lastName() { return this.registerFormGroup.get('user.lastName'); }
-  get gender() { return this.registerFormGroup.get('user.gender'); }
-  get email() { return this.registerFormGroup.get('user.email'); }
-  get password() { return this.registerFormGroup.get('user.password'); }
-  get confirmPassword() { return this.registerFormGroup.get('user.confirmPassword'); }
-  get avatarFile() { return this.registerFormGroup.get('user.avatarFile'); }
+  get firstName() {
+    return this.registerFormGroup.get('user.firstName');
+  }
+  get lastName() {
+    return this.registerFormGroup.get('user.lastName');
+  }
+  get gender() {
+    return this.registerFormGroup.get('user.gender');
+  }
+  get email() {
+    return this.registerFormGroup.get('user.email');
+  }
+  get password() {
+    return this.registerFormGroup.get('user.password');
+  }
+  get confirmPassword() {
+    return this.registerFormGroup.get('user.confirmPassword');
+  }
+  get avatarFile() {
+    return this.registerFormGroup.get('user.avatarFile');
+  }
 
   onSubmit() {
     const user = new FormData();
-    user.append("firstName", this.firstName?.value);
-    user.append("lastName", this.lastName?.value);
-    user.append("gender", this.gender?.value);
-    user.append("email", this.email?.value);
-    user.append("password", this.password?.value);
-    user.append("avatarFile", this.avatarFile?.value);
-    user.append("roles", ["ROLE_USER"].toString());
+    user.append('firstName', this.firstName?.value);
+    user.append('lastName', this.lastName?.value);
+    user.append('gender', this.gender?.value);
+    user.append('email', this.email?.value);
+    user.append('password', this.password?.value);
+    if (this.avatarFile?.value) {
+      user.append('avatarFile', this.avatarFile?.value);
+    }
+    user.append('roles', ['ROLE_USER'].toString());
 
     this.authenticationService.signup(user).subscribe({
       next: () => {
-        alert(`Your account has been created successfully`);
-        this.router.navigateByUrl("/feed");
+        this.toastr.success(`Your account has been created successfully`);
+        this.router.navigateByUrl('/feed');
       },
-      error: () => {
-
-      }
-    })
+      error: () => {},
+    });
   }
 
-  openFileBrowser(){
+  openFileBrowser() {
     this.avatar.nativeElement.click();
   }
 }

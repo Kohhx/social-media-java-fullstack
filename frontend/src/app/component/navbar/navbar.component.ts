@@ -11,7 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class NavbarComponent {
 
-  defaultProfile: string = "https://w7.pngwing.com/pngs/754/2/png-transparent-samsung-galaxy-a8-a8-user-login-telephone-avatar-pawn-blue-angle-sphere-thumbnail.png"
+  defaultProfileImage = "https://w7.pngwing.com/pngs/754/2/png-transparent-samsung-galaxy-a8-a8-user-login-telephone-avatar-pawn-blue-angle-sphere-thumbnail.png"
 
   constructor(public authenticationService: AuthenticationService, private router:Router, private toast:ToastrService){}
 
@@ -19,6 +19,10 @@ export class NavbarComponent {
     this.authenticationService.logout();
     this.router.navigate(['login']);
     this.toast.success("Logged out successfully");
+  }
+
+  isProfileImagePresent() {
+    return this.authenticationService.getProfileAvatar() != null;
   }
 
 }

@@ -13,6 +13,7 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PostService {
@@ -27,8 +28,11 @@ public class PostService {
         this.cloudinaryHelper = cloudinaryHelper;
     }
 
-    public List<Post> findAllPosts() {
-        return postRepository.findAll();
+    public List<PostResponseDTO> findAllPosts() {
+       return postRepository.findAll().stream()
+                .map(post -> postToPostResponseDTO(post))
+                .collect(Collectors.toList());
+
     }
 
     public Post findPostById(long id) {
@@ -65,7 +69,9 @@ public class PostService {
 
         post.setUser(user.get());
         Post postSaved = postRepository.save(post);
-        PostResponseDTO postCreateResponse = new PostResponseDTO(postSaved.getId(), postSaved.getTitle(), postSaved.getCaption(), postSaved.getContentUrl(), postSaved.getCreatedAt(), postSaved.getUpdatedAt());
+        PostUserInfoDTO postUserInfo = userToPostUserInfoDTO(user.get());
+
+        PostResponseDTO postCreateResponse = new PostResponseDTO(postSaved.getId(), postSaved.getTitle(), postSaved.getCaption(), postSaved.getContentUrl(), postSaved.getCreatedAt(), postSaved.getUpdatedAt(), postUserInfo);
         return postCreateResponse;
     }
 
@@ -93,7 +99,8 @@ public class PostService {
         }
 
         Post postSaved = postRepository.save(post);
-        PostResponseDTO postUpdateResponse = new PostResponseDTO(postSaved.getId(), postSaved.getTitle(), postSaved.getCaption(), postSaved.getContentUrl(), postSaved.getCreatedAt(), postSaved.getUpdatedAt());
+        PostUserInfoDTO postUserInfo = userToPostUserInfoDTO(postSaved.getUser());
+        PostResponseDTO postUpdateResponse = new PostResponseDTO(postSaved.getId(), postSaved.getTitle(), postSaved.getCaption(), postSaved.getContentUrl(), postSaved.getCreatedAt(), postSaved.getUpdatedAt(),postUserInfo);
         return postUpdateResponse;
     }
 
@@ -106,7 +113,9 @@ public class PostService {
                 throw new RuntimeException(e);
             }
         }
+        System.out.println("Deleting post.....");
         postRepository.delete(post);
+
     }
 
     private boolean isPostLinkEmpty(PostUpdateRequestDTO postUpdateRequest) {
@@ -131,6 +140,30 @@ public class PostService {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private PostUserInfoDTO userToPostUserInfoDTO(User user) {
+        return new PostUserInfoDTO(
+                user.getEmail(),
+                user.getFirstName(),
+                user.getLastName(),
+                user.getGender(),
+                user.getAvatarUrl()
+        );
+    }
+
+    private PostResponseDTO postToPostResponseDTO(Post post) {
+        PostUserInfoDTO postUserInfo = userToPostUserInfoDTO(post.getUser());
+        PostResponseDTO postResponse = new PostResponseDTO(
+                post.getId(),
+                post.getTitle(),
+                post.getCaption(),
+                post.getContentUrl(),
+                post.getCreatedAt(),
+                post.getUpdatedAt(),
+                postUserInfo
+        );
+        return postResponse;
     }
 
 

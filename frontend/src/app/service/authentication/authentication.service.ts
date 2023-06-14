@@ -61,7 +61,8 @@ export class AuthenticationService {
   }
 
   getProfileAvatar(): string {
-    if (this.getAuthenticatedUser() && this.isUserLoggedIn()) {
+    const avatar = sessionStorage.getItem(this.AVATAR_KEY);
+    if (this.getAuthenticatedUser() && this.isUserLoggedIn() && avatar != "null") {
       return sessionStorage.getItem(this.AVATAR_KEY);
     }
     return null;
