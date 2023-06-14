@@ -19,6 +19,34 @@
               <div formGroupName="user" class="form-area">
                 <!-- 2 column grid layout with text inputs for the first and last names -->
                 <div class="row">
+                  <!-- Input for Profile Image -->
+                  <div class="form-group">
+                    <div class="input-group">
+                      <div class="input-group-append mb-4">
+                        <input
+                          hidden
+                          type="file"
+                          class="form-control"
+                          id="media"
+                          name="media"
+                          accept="image/*"
+                          (change)="onFileChange($event)"
+                          #avatar
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="text-center mb-4 avatar-container">
+                    <img
+                      class="avatar"
+                      *ngIf="avatarPreview"
+                      [src]="avatarPreview"
+                      alt="avatar"
+                    />
+                    <fa-icon (click)="openFileBrowser()" [icon]="faCirclePlus" class="icon fa-xl"></fa-icon>
+                  </div>
+
                   <div class="col-md-6 mb-3">
                     <div class="form-floating mb-1">
                       <input
@@ -93,9 +121,11 @@
                 </div>
 
                 <!-- Gender Select -->
-                <div class="d-inline-flex">
+
+                <div class="form-floating mb-4">
+                <!-- <div class="d-inline-flex"> -->
                   <select
-                    class="form-select mb-4"
+                    class="form-select mb-4 w-100"
                     style="width: 150px"
                     formControlName="gender"
                     [ngClass]="{
@@ -103,10 +133,11 @@
                         gender.invalid && (gender.dirty || gender.touched)
                     }"
                   >
-                    <option selected disabled>Gender</option>
+                    <option selected disabled>Select Gender</option>
                     <option value="male">Male</option>
                     <option value="female">Female</option>
                   </select>
+                  <label for="">Gender</label>
                   <div
                     *ngIf="gender.invalid && (gender.dirty || gender.touched)"
                     class="invalid-feedback"
@@ -194,7 +225,14 @@
                   <label for="">Confirm Password</label>
 
                   <!-- Error validation for password confirmation: Required and matching password -->
-                  <div *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)" class="invalid-feedback" style="display: block;">
+                  <div
+                    *ngIf="
+                      confirmPassword.invalid &&
+                      (confirmPassword.dirty || confirmPassword.touched)
+                    "
+                    class="invalid-feedback"
+                    style="display: block"
+                  >
                     <div *ngIf="confirmPassword.errors?.['required']">
                       Password confirmation is required.
                     </div>
@@ -205,22 +243,6 @@
                     </div>
                   </div>
                   <!-- Error validation end -->
-                </div>
-
-                <!-- Input for Profile Image -->
-                <div class="form-group">
-                  <label class="mb-1 ms-1" for="">Add Image</label>
-                  <div class="input-group">
-                    <div class="input-group-append mb-4">
-                      <input
-                        type="file"
-                        class="form-control"
-                        id="media"
-                        name="media"
-                        accept="image/*"
-                      />
-                    </div>
-                  </div>
                 </div>
 
                 <!-- Checkbox -->
@@ -247,7 +269,9 @@
 
                 <p class="fw-bold mb-0">
                   Already have an account?
-                  <a href="/login" class="link-danger text-decoration-none ms-1">Login here</a>
+                  <a href="/login" class="link-danger text-decoration-none ms-1"
+                    >Login here</a
+                  >
                 </p>
               </div>
             </form>

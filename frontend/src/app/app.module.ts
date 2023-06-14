@@ -2,9 +2,11 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 // import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { HttpInterceptorService } from './service/http/http-interceptor.service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,6 +18,7 @@ import { ProfileComponent } from './component/profile/profile.component';
 import { UserModalComponent } from './component/user-modal/user-modal.component';
 import { PostModalComponent } from './component/post-modal/post-modal.component';
 import { ManagePostsComponent } from './component/manage-posts/manage-posts.component';
+import { ManageUsersComponent } from './component/manage-users/manage-users.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,11 @@ import { ManagePostsComponent } from './component/manage-posts/manage-posts.comp
     ProfileComponent,
     UserModalComponent,
     PostModalComponent,
-    ManagePostsComponent
+    ManagePostsComponent,
+<<<<<<< HEAD
+=======
+    ManageUsersComponent
+>>>>>>> master
   ],
   imports: [
     BrowserModule,
@@ -37,8 +44,15 @@ import { ManagePostsComponent } from './component/manage-posts/manage-posts.comp
     HttpClientModule,
     // FormsModule,
     ReactiveFormsModule,
+    FontAwesomeModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpInterceptorService,
+      multi: true,
+    },
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

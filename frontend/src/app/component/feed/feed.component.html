@@ -1,84 +1,259 @@
 <div style="background: #eef2f5; padding: 30px 0px 10px 0px">
-    <div class="container">
-        <div class="panel">
-            <ul class="nav">
-                <div style="display: flex; margin: 10px">
-                    <li class="nav-item">
-                        <a class="nav-link active" style="color: #3e8392; font-weight: bold;" href="#">FEED</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#">OTHERS</a>
-                    </li>
-                </div>
-            </ul>
-            <div class="panel-content">
-                <form action="#">
-                    <div style="display: flex; margin-bottom: 20px">
-                        <img src="" alt=""
-                            style="background: #3e8392; height: 40px; width: 40px; margin: auto; border-radius: 50%; margin-right: 10px" />
-                        <input class="form-control" placeholder="Add a title" style="margin: auto" />
-                    </div>
-                    <textarea name="user_activity" placeholder="Write caption" class="form-control"
-                        style="border-radius: 10px 10px 0px 0px;"></textarea>
-                    <div class="actions" style="display: flex; flex-direction: column;">
-                        <input class="form-control" placeholder="Input a link" style="margin-bottom: 10px" />
-                        <div style="display: flex; flex-direction: row; align-items: center;">
-                            <div style="display: flex; ">
-                                <button type="button" class="btn-link" style="margin-right: 10px; display: flex; justify-content: center; align-items: center;">
-                                    <img src="../../../assets/images/camera-icon.png" height="13px" style="margin: 0px 5px" />
-                                    Photo
-                                </button>
-                                <button type="button" class="btn-link" style="display: flex; justify-content: center; align-items: center;">
-                                    <img src="../../../assets/images/videos-icon.png" height="15px" style="margin: 0px 5px" />
-                                    Video
-                                </button>
-                            </div>
-                            <button type="submit" class="btn"
-                                style="background: #3e8392; flex: 1; margin-left: 10px; color: #eee">
-                                CREATE POST
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="panel">
-                <div class="panel-content" style="padding-top: 20px; padding-bottom: 5px">
-                    <div class="panel-title">Posts</div>
-                    <div *ngFor="let item of items" style="border-top: 1px solid #eee; margin-top: 20px">
-                        <div style="display: flex; margin-top: 20px">
-                            <img [src]="item.imageUrl" alt=""
-                                style="background: #3e8392; height: 50px; width: 50px; border-radius: 50%" />
-                            <div style="margin-left: 10px">
-                                <div>{{ item.name }}</div>
-                                <div>{{ item.timestamp }}</div>
-                            </div>
-                        </div>
-                        <p style="margin-top: 20px">{{ item.content }}</p>
-                        <img [src]="item.imageUrl" alt=""
-                            style="background: black; display: flex; width: 100%; height: 640px; border-radius: 10px; object-fit: contain" />
-                        <div class="activity__list__footer">
-                            <button type="button" class="btn-link" style="margin-right: 10px; display: flex; justify-content: center; align-items: center;">
-                                <img src="../../../assets/images/comment-icon.png" height="15px" style="margin: 0px 5px" />
-                                Comments
-                            </button>
-                            <button type="button" class="btn-link" style="margin-right: 10px; display: flex; justify-content: center; align-items: center;">
-                                <img src="../../../assets/images/edit-list-icon.png" height="15px" style="margin: 0px 5px" />
-                                Update
-                            </button>
-                            <button type="button" class="btn-link" style="margin-right: 10px; display: flex; justify-content: center; align-items: center;">
-                                <img src="../../../assets/images/recycle-bin-line-icon.png" height="15px" style="margin: 0px 5px" />
-                                Delete
-                            </button>
-                        </div>
-                        <div style="display: flex; margin: 20px 0px">
-                            <img src="" alt=""
-                                style="background: #3e8392; height: 40px; width: 40px; margin: auto; border-radius: 50%; margin-right: 10px" />
-                            <input class="form-control" placeholder="Write a comment"
-                                style="margin: auto; border-radius: 50px; background: #e5e6eb;" />
-                        </div>
-                    </div>
-                </div>
-            </div>
+  <div class="container">
+    <div class="panel">
+      <ul class="nav">
+        <div style="display: flex; margin: 10px">
+          <li class="nav-item">
+            <a
+              class="nav-link active"
+              style="color: #3e8392; font-weight: bold"
+              href="#"
+              >FEED</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#">OTHERS</a>
+          </li>
         </div>
+      </ul>
+
+      <div class="panel-content">
+        <form [formGroup]="createPostForm">
+          <div style="display: flex; margin-bottom: 20px">
+            <img
+              src=""
+              alt=""
+              style="
+                background: #3e8392;
+                height: 40px;
+                width: 40px;
+                margin: auto;
+                border-radius: 50%;
+                margin-right: 10px;
+              "
+            />
+            <input
+              class="form-control"
+              placeholder="Add a title"
+              style="margin: auto"
+              formControlName="title"
+            />
+          </div>
+          <textarea
+            name="user_activity"
+            placeholder="Write caption"
+            class="form-control"
+            style="border-radius: 10px 10px 0px 0px"
+            formControlName="caption"
+          ></textarea>
+          <div class="actions" style="display: flex; flex-direction: column">
+            <div *ngIf="imagePreviewUrl">
+              <img
+                class="image_preview"
+                [src]="imagePreviewUrl"
+                alt="image preview"
+              />
+            </div>
+
+            <div *ngIf="videoPreviewUrl">
+              <video controls class="image_preview" [src]="videoPreviewUrl"></video>
+            </div>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Input a link"
+              style="margin-bottom: 10px"
+              formControlName="link"
+            />
+            <div
+              style="display: flex; flex-direction: row; align-items: center"
+            >
+              <div style="display: flex">
+                <button
+                  (click)="handleImageFileClick()"
+                  type="button"
+                  class="btn-link"
+                  style="
+                    margin-right: 10px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                  "
+                >
+                  <img
+                    src="../../../assets/images/camera-icon.png"
+                    height="13px"
+                    style="margin: 0px 5px"
+                  />
+                  Photo
+                </button>
+                <button
+                  (click)="handleVideoFileClick()"
+                  type="button"
+                  class="btn-link"
+                  style="
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                  "
+                >
+                  <img
+                    src="../../../assets/images/videos-icon.png"
+                    height="15px"
+                    style="margin: 0px 5px"
+                  />
+                  Video
+                </button>
+                <input
+                  (change)="handleImageFileChange($event)"
+                  hidden
+                  #imageInput
+                  type="file"
+                />
+                <input
+                  (change)="handleVideoFileChange($event)"
+                  hidden
+                  #videoInput
+                  type="file"
+                />
+              </div>
+              <button
+                type="submit"
+                class="btn"
+                (click)="handleCreatePost()"
+                style="
+                  background: #3e8392;
+                  flex: 1;
+                  margin-left: 10px;
+                  color: #eee;
+                "
+              >
+                CREATE POST
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="panel">
+        <div
+          class="panel-content"
+          style="padding-top: 20px; padding-bottom: 5px"
+        >
+          <div class="panel-title">Posts</div>
+          <div
+            *ngFor="let item of items"
+            style="border-top: 1px solid #eee; margin-top: 20px"
+          >
+            <div style="display: flex; margin-top: 20px">
+              <img
+                *ngIf="!item['user'].avatarUrl"
+                [src]="defaultProfileImage"
+                alt=""
+                style="
+                  background: #3e8392;
+                  height: 50px;
+                  width: 50px;
+                  border-radius: 50%;
+                "
+              />
+              <img
+              *ngIf="item['user'].avatarUrl"
+                [src]="item['user'].avatarUrl"
+                alt=""
+                style="
+                  background: #3e8392;
+                  height: 50px;
+                  width: 50px;
+                  border-radius: 50%;
+                "
+              />
+              <div style="margin-left: 10px">
+                <div>{{ item['user'].firstName }} {{ item['user'].lastName }}</div>
+                <div>{{ item.updatedAt | date: 'medium' }}</div>
+              </div>
+            </div>
+            <p style="margin-top: 20px">{{ item.caption }}</p>
+            <img
+              *ngIf="item.contentUrl != null"
+              [src]="item.contentUrl"
+              alt=""
+              style="width: 100%; margin-top: 20px"
+            />
+            <div class="activity__list__footer">
+              <button
+                type="button"
+                class="btn-link"
+                style="
+                  margin-right: 10px;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                "
+              >
+                <img
+                  src="../../../assets/images/comment-icon.png"
+                  height="15px"
+                  style="margin: 0px 5px"
+                />
+                Comments
+              </button>
+              <button
+                type="button"
+                class="btn-link"
+                style="
+                  margin-right: 10px;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                "
+              >
+                <img
+                  src="../../../assets/images/edit-list-icon.png"
+                  height="15px"
+                  style="margin: 0px 5px"
+                />
+                Update
+              </button>
+              <button
+                type="button"
+                class="btn-link"
+                style="
+                  margin-right: 10px;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                "
+              >
+                <img
+                  src="../../../assets/images/recycle-bin-line-icon.png"
+                  height="15px"
+                  style="margin: 0px 5px"
+                />
+                Delete
+              </button>
+            </div>
+            <div style="display: flex; margin: 20px 0px">
+              <img
+                src=""
+                alt=""
+                style="
+                  background: #3e8392;
+                  height: 40px;
+                  width: 40px;
+                  margin: auto;
+                  border-radius: 50%;
+                  margin-right: 10px;
+                "
+              />
+              <input
+                class="form-control"
+                placeholder="Write a comment"
+                style="margin: auto; border-radius: 50px; background: #e5e6eb"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>

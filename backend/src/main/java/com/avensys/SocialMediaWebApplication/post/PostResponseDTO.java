@@ -8,5 +8,6 @@ public record PostResponseDTO(
         String caption,
         String contentUrl,
         LocalDateTime createdAt,
-        LocalDateTime updatedAt) {
+        LocalDateTime updatedAt,
+        PostUserInfoDTO user) {
 }

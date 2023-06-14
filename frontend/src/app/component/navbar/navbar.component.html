@@ -1,7 +1,15 @@
 <nav class="navbar bg-success-subtle navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#"><img src="" alt="logo"></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <a class="navbar-brand" href="#"><img src="" alt="logo" /></a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -19,11 +27,30 @@
           <a class="nav-link" href="#">Manage Feeds</a>
         </li>
       </ul>
-        <button (click)="logout()" class="btn btn-warning mx-3" type="submit">Logout</button>
+      <button (click)="logout()" class="btn btn-warning mx-3" type="submit">
+        Logout
+      </button>
       <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search for posts..." aria-label="Search">
+        <input
+          class="form-control me-2"
+          type="search"
+          placeholder="Search for posts..."
+          aria-label="Search"
+        />
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
+
+      <div>
+        <img
+        class="avatar-small"
+          *ngIf="isProfileImagePresent(); else defaultProfile"
+          [src]="authenticationService.getProfileAvatar()"
+          alt="profile avatar"
+        />
+        <ng-template #defaultProfile>
+          <img class="avatar-small" [src]="defaultProfileImage" alt="default profile" />
+        </ng-template>
+      </div>
     </div>
   </div>
 </nav>

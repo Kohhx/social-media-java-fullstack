@@ -10,6 +10,7 @@ export interface Post {
   createdAt: Date;
   updatedAt: Date;
 }
+// import { Post } from 'src/app/common/post';
 
 @Injectable({
   providedIn: 'root'
@@ -17,48 +18,31 @@ export interface Post {
 export class PostService {
 
   private BASE_URL: string = 'http://localhost:8080/api';
-  private AUTH_USER_KEY: string = 'authenticatedUser';
-  private TOKEN_KEY = "token"
+
 
   constructor(private http: HttpClient) { }
 
+
   getAllPosts(): Observable<Post[]> {
-
-    // To retreive the token from the session storage, we need to set the header
-    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.getAuthenticationToken());
-    console.log(headers);
-
     // Return the response from the server
-    return this.http.get<Post[]>(`${this.BASE_URL}/posts`, { headers });
+    return this.http.get<Post[]>(`${this.BASE_URL}/posts`);
   }
 
-  getAuthenticatedUser(): string {
-    return sessionStorage.getItem(this.AUTH_USER_KEY);
+  createPost(post: any) {
+    return this.http.post(`${this.BASE_URL}/posts`, post);
   }
 
-  isUserLoggedIn():boolean {
-    let user = sessionStorage.getItem(this.AUTH_USER_KEY);
-    return user !== null;
+
+  getPostById(id: number): Observable<Post> {
+    return this.http.get<Post>(`${this.BASE_URL}/posts/${id}`);
   }
 
-  // Getting the token from the session storage
-  getAuthenticationToken(): string {
-    if (this.getAuthenticatedUser() && this.isUserLoggedIn()) {
-      let token = sessionStorage.getItem(this.TOKEN_KEY);
-      // Remove any 'Bearer ' prefix from the stored token to avoid duplication
-      token = token.replace('Bearer ', '');
-      return token;
-    }
-    return null;
-  }
-
-  updatePost(post: Post): Observable<any> {
+  updatePost(id: number): Observable<any> {
     const headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.getAuthenticationToken());
-    return this.http.put(`${this.BASE_URL}/posts/${post.id}`, post, { headers });
+    return this.http.put(`${this.BASE_URL}/posts/${id}`, post, { headers });
   }
 
-  deletePost(id: any) {
-    throw new Error('Method not implemented.');
+  deletePost(id: number): Observable<any> {
+    return this.http.delete(`${this.BASE_URL}/posts/${id}`);
   }
-
 }
