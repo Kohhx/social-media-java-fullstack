@@ -9,5 +9,4 @@ public class SocialMediaWebApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SocialMediaWebApplication.class, args);
 	}
-
 }
