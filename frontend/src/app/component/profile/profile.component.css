@@ -227,7 +227,7 @@ button.btn-link {
 .modal-post-container.open {
     display: block;
   }
-  
+
   .modal-post-container {
     display: none;
     position: fixed;
@@ -243,4 +243,8 @@ button.btn-link {
     justify-content: center;
     align-items: center;
     width: '100%'
+  }
+
+  .form-container {
+    padding:2rem;
   }

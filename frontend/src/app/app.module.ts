@@ -19,6 +19,7 @@ import { UserModalComponent } from './component/user-modal/user-modal.component'
 import { PostModalComponent } from './component/post-modal/post-modal.component';
 import { ManagePostsComponent } from './component/manage-posts/manage-posts.component';
 import { ManageUsersComponent } from './component/manage-users/manage-users.component';
+import { CreatePostFormComponent } from './component/create-post-form/create-post-form.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { ManageUsersComponent } from './component/manage-users/manage-users.comp
     UserModalComponent,
     PostModalComponent,
     ManagePostsComponent,
-    ManageUsersComponent
+    ManageUsersComponent,
+    CreatePostFormComponent
   ],
   imports: [
     BrowserModule,

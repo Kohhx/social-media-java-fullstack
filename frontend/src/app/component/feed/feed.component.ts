@@ -12,16 +12,9 @@ import  { FileUtil } from '../../utility/file-util';
   styleUrls: ['./feed.component.css'],
 })
 export class FeedComponent implements OnInit {
-  createPostForm!: FormGroup;
   fileUtil = FileUtil;
 
   defaultProfileImage = "https://w7.pngwing.com/pngs/754/2/png-transparent-samsung-galaxy-a8-a8-user-login-telephone-avatar-pawn-blue-angle-sphere-thumbnail.png";
-
-  @ViewChild('imageInput') imageInput: any;
-  @ViewChild('videoInput') videoInput: any;
-
-  imagePreviewUrl: any = "";
-  videoPreviewUrl: any = "";
 
   items: any[] = [];
 
@@ -33,21 +26,23 @@ export class FeedComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.createPostForm = this.fb.group({
-      title: ['',[Validators.required, Validators.maxLength(50)]],
-      caption: ['', [Validators.required]],
-      link: [''],
-      file: [null],
-    });
+    this.getAllPosts()
+  }
 
-    this.link.valueChanges.subscribe((value) => {
-      console.log(value);
-      this.imagePreviewUrl = value
-    } )
+  reloadPage(isPostCreated: boolean) {
+    if (isPostCreated) {
+      this.getAllPosts()
+    }
+  }
 
+  private sortPostsByUpdatedAt(posts:any) {
+     return posts.sort((a,b):any => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())
+  }
+
+  private getAllPosts() {
     this.postService.getAllPosts().subscribe({
       next:(posts => {
-        console.log(posts)
+        // console.log(posts)
         console.log(posts[0]['user'].avatarUrl)
         this.items = this.sortPostsByUpdatedAt(posts);
       }),
@@ -55,104 +50,6 @@ export class FeedComponent implements OnInit {
         console.log(err)
       })
     })
-
-  }
-
-  get title() {
-    return this.createPostForm.get('title');
-  }
-  get caption() {
-    return this.createPostForm.get('caption');
-  }
-  get link() {
-    return this.createPostForm.get('link');
-  }
-  get file() {
-    return this.createPostForm.get('file');
-  }
-
-  handleImageFileClick() {
-    this.imageInput.nativeElement.click();
-  }
-
-  handleVideoFileClick() {
-    this.videoInput.nativeElement.click();
-  }
-
-  handleImageFileChange(event: Event) {
-    const file = (event.target as HTMLInputElement).files[0];
-    this.createPostForm.patchValue({ file: file });
-
-    // File Preview
-    const fileReader = new FileReader();
-    fileReader.onload = () => {
-      if (this.videoPreviewUrl) {
-        this.videoPreviewUrl = "";
-      }
-      this.imagePreviewUrl = fileReader.result;
-    };
-    fileReader.readAsDataURL(file);
-  }
-
-  handleVideoFileChange(event: Event) {
-    const file = (event.target as HTMLInputElement).files[0];
-    this.createPostForm.patchValue({ file: file });
-
-       // File Preview
-       const fileReader = new FileReader();
-       fileReader.onload = () => {
-        if (this.imagePreviewUrl) {
-          this.imagePreviewUrl = "";
-        }
-         this.videoPreviewUrl = fileReader.result;
-       };
-       fileReader.readAsDataURL(file);
-  }
-
-  resetPostForm() {
-    this.createPostForm.reset({
-      title: '',
-      caption: '',
-      link: '',
-      file: null,
-    })
-  }
-
-  handleCreatePost() {
-    const post = new FormData();
-    post.append('title', this.title?.value);
-    post.append('caption', this.caption?.value);
-    if (this.file?.value) {
-      post.append('file', this.file?.value);
-    }
-    if (this.link?.value) {
-      post.append('link', this.link?.value);
-    }
-
-    this.postService.createPost(post).subscribe({
-      next: (data) => {
-        console.log(data)
-        this.postService.getAllPosts().subscribe({
-          next:(posts => {
-              this.items = this.sortPostsByUpdatedAt(posts);
-              this.resetPostForm()
-              this.imagePreviewUrl = "";
-              this.videoPreviewUrl = "";
-          }),
-          error:(error => {
-
-          })
-        })
-      },
-      error: (error) => {
-        console.log(error)
-      }
-
-    })
-  }
-
-  private sortPostsByUpdatedAt(posts:any) {
-     return posts.sort((a,b):any => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())
   }
 
 }
