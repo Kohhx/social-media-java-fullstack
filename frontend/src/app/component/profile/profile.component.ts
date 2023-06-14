@@ -1,16 +1,47 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { UserModalComponent } from '../user-modal/user-modal.component';
+import { HttpClient } from '@angular/common/http';
+import { PostService } from 'src/app/service/post/post.service';
+import { ActivatedRoute } from '@angular/router';
+import { AuthenticationService } from 'src/app/service/authentication/authentication.service';
+import { UserService } from 'src/app/service/user/user.service';
+import  { FileUtil } from '../../utility/file-util';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  styleUrls: ['./profile.component.css'],
 })
-export class ProfileComponent {
-  items = [
-    { name: 'John Doe', timestamp: '2023-06-12', content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', imageUrl: 'https://img.freepik.com/premium-vector/business-global-economy_24877-41082.jpg' },
-    { name: 'Jane Smith', timestamp: '2023-06-11', content: 'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', imageUrl: 'https://png.pngtree.com/png-vector/20190704/ourmid/pngtree-businessman-user-avatar-free-vector-png-image_1538405.jpg' },
-  ];
+export class ProfileComponent implements OnInit {
+  fileUtil= FileUtil
+  userId: number;
+  items:any = [];
+  user:any = {};
+  defaultProfileImage = "https://w7.pngwing.com/pngs/754/2/png-transparent-samsung-galaxy-a8-a8-user-login-telephone-avatar-pawn-blue-angle-sphere-thumbnail.png";
+
+  constructor(
+    public authService: AuthenticationService,
+    private postService:PostService,
+    private activatedRoute:ActivatedRoute,
+    private userService: UserService) {}
+
+
+  ngOnInit(): void {
+    this.activatedRoute.params.subscribe({
+      next:(params) => {
+        this.userId = params['id'];
+      }
+    })
+
+    this.getAllPostsByUser(this.userId );
+
+    this.userService.getUserById(this.userId).subscribe({
+      next:(user) => {
+        console.log(user)
+        this.user = user;
+      }
+    })
+  }
 
   openUser: boolean = false;
 
@@ -31,4 +62,28 @@ export class ProfileComponent {
   closePostModal(): void {
     this.openPost = false;
   }
+
+  reloadPage(postCreated: boolean) {
+    if (postCreated) {
+      this.getAllPostsByUser(this.userId);
+    }
+  }
+
+  private getAllPostsByUser(id: number) {
+    this.postService.getPostsByUserId(id).subscribe({
+      next:(posts => {
+        console.log(posts)
+        console.log(posts[0]['user'].avatarUrl)
+        this.items = this.sortPostsByUpdatedAt(posts);
+      }),
+      error:(err => {
+        console.log(err)
+      })
+    })
+  }
+
+  private sortPostsByUpdatedAt(posts:any) {
+    return posts.sort((a,b):any => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())
+ }
+
 }

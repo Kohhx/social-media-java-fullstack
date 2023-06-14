@@ -25,4 +25,10 @@ export class NavbarComponent {
     return this.authenticationService.getProfileAvatar() != null;
   }
 
+  getOwnProfileLink() {
+    console.log(`/users/${this.authenticationService.getAuthenticatedUser()}/posts`)
+    return `/users/${this.authenticationService.getAuthenticatedUser()}/posts`
+  }
+
+
 }
