@@ -115,7 +115,17 @@ public class PostService {
         }
         System.out.println("Deleting post.....");
         postRepository.delete(post);
+    }
 
+    public List<PostResponseDTO> getPostsByUserId(long id) {
+        Optional<List<Post>> userPosts =  postRepository.findAllByUserId(id);
+        if (userPosts.isPresent()) {
+            return userPosts.get().stream()
+                    .map(post -> postToPostResponseDTO(post))
+                    .collect(Collectors.toList());
+        } else {
+            throw new ResourceNotFoundException("Posts for users not found");
+        }
     }
 
     private boolean isPostLinkEmpty(PostUpdateRequestDTO postUpdateRequest) {

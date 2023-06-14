@@ -5,11 +5,16 @@ import { Router } from 'express-serve-static-core';
 import { ToastrService } from 'ngx-toastr';
 import { PostService } from 'src/app/service/post/post.service';
 import  { FileUtil } from '../../utility/file-util';
+import { UserModalComponent } from '../user-modal/user-modal.component';
+import { ActivatedRoute } from '@angular/router';
+import { AuthenticationService } from 'src/app/service/authentication/authentication.service';
+import { UserService } from 'src/app/service/user/user.service';
+import { faPenToSquare} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent {
   createPostForm!: FormGroup;
@@ -30,6 +35,9 @@ export class ProfileComponent {
     private toastr: ToastrService,
     private http: HttpClient,
     private postService: PostService,
+    public authService: AuthenticationService,
+    private activatedRoute:ActivatedRoute,
+    private userService: UserService
   ) { }
 
   ngOnInit(): void {
@@ -54,6 +62,21 @@ export class ProfileComponent {
       error: (err => {
         console.log(err)
       })
+    })
+
+    this.activatedRoute.params.subscribe({
+      next:(params) => {
+        this.userId = +params['id'];
+      }
+    })
+
+    this.getAllPostsByUser(this.userId);
+
+    this.userService.getUserById(this.userId).subscribe({
+      next:(user) => {
+        console.log(user)
+        this.user = user;
+      }
     })
 
   }
@@ -157,6 +180,10 @@ export class ProfileComponent {
 
   item: any = {};
 
+  faPenToSquare = faPenToSquare;
+  userId: number;
+  user:any = {};
+
   openUser: boolean = false;
 
   openUserModal() {
@@ -177,4 +204,24 @@ export class ProfileComponent {
   closePostModal(): void {
     this.openPost = false;
   }
+
+  reloadPage(postCreated: boolean) {
+    if (postCreated) {
+      this.getAllPostsByUser(this.userId);
+    }
+  }
+
+  private getAllPostsByUser(id: number) {
+    this.postService.getPostsByUserId(id).subscribe({
+      next:(posts => {
+        console.log(posts)
+        console.log(posts[0]['user'].avatarUrl)
+        this.items = this.sortPostsByUpdatedAt(posts);
+      }),
+      error:(err => {
+        console.log(err)
+      })
+    })
+  }
+
 }

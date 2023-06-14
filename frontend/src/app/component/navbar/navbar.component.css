@@ -14,3 +14,7 @@
   border-radius:50%;
   margin-left: 20px;
 }
+
+.active{
+  color: var(--bs-nav-link-hover-color);
+}

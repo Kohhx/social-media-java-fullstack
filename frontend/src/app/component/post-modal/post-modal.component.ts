@@ -123,7 +123,7 @@ export class PostModalComponent implements OnChanges, OnInit {
         this.postService.getAllPosts().subscribe({
           next: (posts) => {
             this.items = posts;
-            // location.reload();
+            location.reload();
           },
           error: (error) => {
             

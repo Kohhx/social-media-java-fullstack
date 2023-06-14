@@ -9,5 +9,5 @@ export const loginguardGuard: CanActivateFn = (route, state) => {
   if (!authenticationService.isUserLoggedIn()) {
     return true;
   }
-  return router.navigate(['feed']);
+  return router.navigate(['posts']);
 };
