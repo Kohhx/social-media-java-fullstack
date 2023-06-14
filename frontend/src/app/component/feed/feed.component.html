@@ -16,7 +16,6 @@
           </li>
         </div>
       </ul>
-
       <div class="panel-content">
         <form [formGroup]="createPostForm">
           <div style="display: flex; margin-bottom: 20px">
@@ -56,7 +55,11 @@
             </div>
 
             <div *ngIf="videoPreviewUrl">
-              <video controls class="image_preview" [src]="videoPreviewUrl"></video>
+              <video
+                controls
+                class="image_preview"
+                [src]="videoPreviewUrl"
+              ></video>
             </div>
             <input
               type="text"
@@ -157,7 +160,7 @@
                 "
               />
               <img
-              *ngIf="item['user'].avatarUrl"
+                *ngIf="item['user'].avatarUrl"
                 [src]="item['user'].avatarUrl"
                 alt=""
                 style="
@@ -168,17 +171,28 @@
                 "
               />
               <div style="margin-left: 10px">
-                <div>{{ item['user'].firstName }} {{ item['user'].lastName }}</div>
-                <div>{{ item.updatedAt | date: 'medium' }}</div>
+                <div>
+                  {{ item["user"].firstName }} {{ item["user"].lastName }}
+                </div>
+                <div>{{ item.updatedAt | date : "medium" }}</div>
               </div>
             </div>
             <p style="margin-top: 20px">{{ item.caption }}</p>
-            <img
-              *ngIf="item.contentUrl != null"
-              [src]="item.contentUrl"
-              alt=""
-              style="width: 100%; margin-top: 20px"
-            />
+            <div *ngIf="item.contentUrl != null">
+              <img
+                *ngIf="isImage(item.contentUrl)"
+                [src]="item.contentUrl"
+                alt="post image"
+                style="width: 100%; margin-top: 20px"
+              />
+              <video
+                *ngIf="isVideo(item.contentUrl)"
+                [src]="item.contentUrl"
+                alt="post video"
+                controls
+                style="width: 100%; margin-top: 20px"
+              ></video>
+            </div>
             <div class="activity__list__footer">
               <button
                 type="button"

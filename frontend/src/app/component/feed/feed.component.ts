@@ -49,8 +49,8 @@ export class FeedComponent implements OnInit {
         console.log(posts[0]['user'].avatarUrl)
         this.items = posts;
       }),
-      error:(error => {
-
+      error:(err => {
+        console.log(err)
       })
     })
 
@@ -107,6 +107,15 @@ export class FeedComponent implements OnInit {
        fileReader.readAsDataURL(file);
   }
 
+  resetPostForm() {
+    this.createPostForm.reset({
+      title: '',
+      caption: '',
+      link: '',
+      file: null,
+    })
+  }
+
   handleCreatePost() {
     const post = new FormData();
     post.append('title', this.title?.value);
@@ -124,16 +133,48 @@ export class FeedComponent implements OnInit {
         this.postService.getAllPosts().subscribe({
           next:(posts => {
               this.items = posts;
+              this.resetPostForm()
+              this.imagePreviewUrl = "";
+              this.videoPreviewUrl = "";
           }),
           error:(error => {
 
           })
         })
       },
-      error: (err) => {
-        console.log(err)
+      error: (error) => {
+        console.log(error)
       }
 
     })
   }
+
+  getExtension(filename: string) {
+    return filename.split('.').pop();
+  }
+
+  isImage(filename: string) {
+    const ext = this.getExtension(filename);
+    if (ext) {
+      return ext.toLowerCase() === 'jpg' || ext.toLowerCase() === 'png'
+      || ext.toLowerCase() === 'jpeg' || ext.toLowerCase() === 'gif'
+      || ext.toLowerCase() === 'bmp' || ext.toLowerCase() === 'svg'
+      || ext.toLowerCase() === 'webp' || ext.toLowerCase() === 'ico'
+      || ext.toLowerCase() === 'tif' || ext.toLowerCase() === 'tiff';
+    }
+    return false;
+  }
+
+  isVideo(filename: string) {
+    const ext = this.getExtension(filename);
+    if (ext) {
+      return ext.toLowerCase() === 'mp4' || ext.toLowerCase() === 'webm'
+      || ext.toLowerCase() === 'mkv' || ext.toLowerCase() === 'flv'
+      || ext.toLowerCase() === 'avi' || ext.toLowerCase() === 'wmv'
+      || ext.toLowerCase() === 'mov' || ext.toLowerCase() === '3gp'
+      || ext.toLowerCase() === 'mpeg' || ext.toLowerCase() === 'mpg';
+    }
+    return false;
+  }
+
 }
