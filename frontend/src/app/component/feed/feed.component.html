@@ -180,13 +180,13 @@
             <p style="margin-top: 20px">{{ item.caption }}</p>
             <div *ngIf="item.contentUrl != null">
               <img
-                *ngIf="isImage(item.contentUrl)"
+                *ngIf="fileUtil.isImage(item.contentUrl)"
                 [src]="item.contentUrl"
                 alt="post image"
                 style="width: 100%; margin-top: 20px"
               />
               <video
-                *ngIf="isVideo(item.contentUrl)"
+                *ngIf="fileUtil.isVideo(item.contentUrl)"
                 [src]="item.contentUrl"
                 alt="post video"
                 controls
