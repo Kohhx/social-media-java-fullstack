@@ -105,7 +105,6 @@ export class PostModalComponent implements OnChanges, OnInit {
   }
 
   handleUpdatePost() {
-    console.log(this.file?.value)
     const post = new FormData();
     post.append('id', this.item.id)
     post.append('title', this.title?.value);
