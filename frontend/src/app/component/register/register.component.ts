@@ -9,8 +9,8 @@ import {
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/service/authentication/authentication.service';
 import { FormValidators } from 'src/app/validators/form-validators';
-import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
+import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({

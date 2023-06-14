@@ -1,0 +1,107 @@
+<div class="panel-content">
+  <form [formGroup]="createPostForm">
+    <div style="display: flex; margin-bottom: 20px">
+      <img
+        *ngIf="authService.getProfileAvatar() == null"
+        [src]="defaultProfileImage"
+        alt="profile avatar"
+        class="avatar"
+      />
+      <img
+        *ngIf="authService.getProfileAvatar()"
+        [src]="authService.getProfileAvatar()"
+        alt="default avatar"
+        class="avatar"
+      />
+      <input
+        class="form-control"
+        placeholder="Add a title"
+        style="margin: auto"
+        formControlName="title"
+      />
+    </div>
+    <textarea
+      name="user_activity"
+      placeholder="Write caption"
+      class="form-control"
+      style="border-radius: 10px 10px 0px 0px"
+      formControlName="caption"
+    ></textarea>
+    <div class="actions" style="display: flex; flex-direction: column">
+      <div *ngIf="imagePreviewUrl">
+        <img
+          class="image_preview"
+          [src]="imagePreviewUrl"
+          alt="image preview"
+        />
+      </div>
+
+      <div *ngIf="videoPreviewUrl">
+        <video controls class="image_preview" [src]="videoPreviewUrl"></video>
+      </div>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Input a link"
+        style="margin-bottom: 10px"
+        formControlName="link"
+      />
+      <div style="display: flex; flex-direction: row; align-items: center">
+        <div style="display: flex">
+          <button
+            (click)="handleImageFileClick()"
+            type="button"
+            class="btn-link"
+            style="
+              margin-right: 10px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            "
+          >
+            <img
+              src="../../../assets/images/camera-icon.png"
+              height="13px"
+              style="margin: 0px 5px"
+            />
+            Photo
+          </button>
+          <button
+            (click)="handleVideoFileClick()"
+            type="button"
+            class="btn-link"
+            style="display: flex; justify-content: center; align-items: center"
+          >
+            <img
+              src="../../../assets/images/videos-icon.png"
+              height="15px"
+              style="margin: 0px 5px"
+            />
+            Video
+          </button>
+          <input
+            (change)="handleImageFileChange($event)"
+            hidden
+            #imageInput
+            type="file"
+          />
+          <input
+            (change)="handleVideoFileChange($event)"
+            hidden
+            #videoInput
+            type="file"
+          />
+        </div>
+        <button
+          [disabled]="title.invalid || caption.invalid"
+          type="submit"
+          class="btn"
+          (click)="handleCreatePost()"
+          style="background: #3e8392; flex: 1; margin-left: 10px; color: #eee"
+        >
+          CREATE POST
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

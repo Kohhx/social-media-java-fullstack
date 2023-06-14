@@ -23,8 +23,8 @@ public class UserController {
     }
 
     @GetMapping("users/{userId}")
-    public ResponseEntity<User> getUser(@PathVariable long userId) {
-        User user = userService.findUserById(userId);
+    public ResponseEntity<UserResponseDTO> getUser(@PathVariable long userId) {
+        UserResponseDTO user = userService.findUserByIdDTO(userId);
         if (user != null) {
             return new ResponseEntity<>(user, HttpStatus.OK);
         } else {

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs';
+import { BehaviorSubject, Observable, map } from 'rxjs';
 
 interface AuthenticationBean {
   message: string;
@@ -16,6 +16,10 @@ export class AuthenticationService {
   private TOKEN_KEY = 'token';
   private ROLE_KEY = 'role';
   private AVATAR_KEY = 'avatar';
+  private AUTH_ID_KEY = 'id';
+
+  // private _authId: BehaviorSubject<any>;
+  // public authId: Observable<any> = this._authId.asObservable();
 
   constructor(private http: HttpClient) {}
 
@@ -26,7 +30,8 @@ export class AuthenticationService {
         map((data) => {
           console.log(data);
           let token = this.TOKEN_PREFIX + data.token;
-          this.setSessionStorage(data.email, token, data.avatarUrl, data.roles);
+          this.setSessionStorage(data.id, data.email, token, data.avatarUrl, data.roles);
+          // this._authId = new BehaviorSubject<any>(data.id);
           return data;
         })
       );
@@ -38,10 +43,16 @@ export class AuthenticationService {
       .pipe(
         map((data) => {
           let token = this.TOKEN_PREFIX + data.token;
-          this.setSessionStorage(data.email, token, data.avatarUrl, data.roles);
+          this.setSessionStorage(data.id, data.email, token, data.avatarUrl, data.roles);
+          // this._authId = new BehaviorSubject<any>(data.id);
           return data;
         })
       );
+  }
+
+  getAuthenticatedUserId():number {
+    // return this._authId.asObservable();
+    return +sessionStorage.getItem(this.AUTH_ID_KEY);
   }
 
   getAuthenticatedUser(): string {
@@ -89,11 +100,13 @@ export class AuthenticationService {
   }
 
   private setSessionStorage(
+    id: string,
     email: string,
     token: string,
     avatarUrl: string,
     roles: string
   ) {
+    sessionStorage.setItem(this.AUTH_ID_KEY, id);
     sessionStorage.setItem(this.AUTH_USER_KEY, email);
     sessionStorage.setItem(this.TOKEN_KEY, token);
     sessionStorage.setItem(this.ROLE_KEY, roles);
@@ -105,5 +118,6 @@ export class AuthenticationService {
     sessionStorage.removeItem(this.TOKEN_KEY);
     sessionStorage.removeItem(this.ROLE_KEY);
     sessionStorage.removeItem(this.AVATAR_KEY);
+
   }
 }

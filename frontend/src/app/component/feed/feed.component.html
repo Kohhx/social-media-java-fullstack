@@ -1,5 +1,5 @@
 <div style="background: #eef2f5; padding: 30px 0px 10px 0px">
-  <div class="container">
+  <div class="container w-75">
     <div class="panel">
       <ul class="nav">
         <div style="display: flex; margin: 10px">
@@ -17,63 +17,87 @@
         </div>
       </ul>
       <div class="panel-content">
-        <form [formGroup]="createPostForm">
-          <div style="display: flex; margin-bottom: 20px">
-            <img
-              src=""
-              alt=""
-              style="
-                background: #3e8392;
-                height: 40px;
-                width: 40px;
-                margin: auto;
-                border-radius: 50%;
-                margin-right: 10px;
-              "
-            />
-            <input
-              class="form-control"
-              placeholder="Add a title"
-              style="margin: auto"
-              formControlName="title"
-            />
-          </div>
-          <textarea
-            name="user_activity"
-            placeholder="Write caption"
-            class="form-control"
-            style="border-radius: 10px 10px 0px 0px"
-            formControlName="caption"
-          ></textarea>
-          <div class="actions" style="display: flex; flex-direction: column">
-            <div *ngIf="imagePreviewUrl">
-              <img
-                class="image_preview"
-                [src]="imagePreviewUrl"
-                alt="image preview"
-              />
-            </div>
-
-            <div *ngIf="videoPreviewUrl">
-              <video
-                controls
-                class="image_preview"
-                [src]="videoPreviewUrl"
-              ></video>
-            </div>
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Input a link"
-              style="margin-bottom: 10px"
-              formControlName="link"
-            />
+        <app-create-post-form
+          (postCreated)="reloadPage($event)"
+        ></app-create-post-form>
+      </div>
+      <div class="panel">
+        <div
+          class="panel-content"
+          style="padding-top: 20px; padding-bottom: 5px"
+        >
+          <div *ngIf="items.length === 0" class="panel-title text-center mb-4 p-5">No posts</div>
+          <ng-container *ngIf="items.length !== 0">
+            <div class="panel-title">Posts</div>
             <div
-              style="display: flex; flex-direction: row; align-items: center"
+              *ngFor="let item of items"
+              style="border-top: 1px solid #eee; margin-top: 20px"
             >
-              <div style="display: flex">
+              <div style="display: flex; margin-top: 20px">
+                <img
+                  *ngIf="!item['user'].avatarUrl"
+                  [src]="defaultProfileImage"
+                  alt=""
+                  style="
+                    background: #3e8392;
+                    height: 50px;
+                    width: 50px;
+                    border-radius: 50%;
+                  "
+                />
+                <img
+                  *ngIf="item['user'].avatarUrl"
+                  [src]="item['user'].avatarUrl"
+                  alt=""
+                  style="
+                    background: #3e8392;
+                    height: 50px;
+                    width: 50px;
+                    border-radius: 50%;
+                  "
+                />
+                <div style="margin-left: 10px">
+                  <div>
+                    {{ item["user"].firstName }} {{ item["user"].lastName }}
+                  </div>
+                  <div>{{ item.updatedAt | date : "medium" }}</div>
+                </div>
+              </div>
+              <p style="margin-top: 20px">{{ item.caption }}</p>
+              <div *ngIf="item.contentUrl != null">
+                <img
+                  *ngIf="fileUtil.isImage(item.contentUrl)"
+                  [src]="item.contentUrl"
+                  alt="post image"
+                  style="width: 100%; margin-top: 20px"
+                />
+                <video
+                  *ngIf="fileUtil.isVideo(item.contentUrl)"
+                  [src]="item.contentUrl"
+                  alt="post video"
+                  controls
+                  style="width: 100%; margin-top: 20px"
+                ></video>
+              </div>
+              <div class="activity__list__footer text-center w-100 comment-container">
                 <button
-                  (click)="handleImageFileClick()"
+                  type="button"
+                  class="btn-link comment-btn"
+                  style="
+                    margin-right: 10px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                  "
+                >
+                  <img
+                    src="../../../assets/images/comment-icon.png"
+                    height="15px"
+                    style="margin: 0px 5px"
+                  />
+                  Comments
+                </button>
+                <!-- <button
                   type="button"
                   class="btn-link"
                   style="
@@ -84,189 +108,51 @@
                   "
                 >
                   <img
-                    src="../../../assets/images/camera-icon.png"
-                    height="13px"
+                    src="../../../assets/images/edit-list-icon.png"
+                    height="15px"
                     style="margin: 0px 5px"
                   />
-                  Photo
+                  Update
                 </button>
                 <button
-                  (click)="handleVideoFileClick()"
                   type="button"
                   class="btn-link"
                   style="
+                    margin-right: 10px;
                     display: flex;
                     justify-content: center;
                     align-items: center;
                   "
                 >
                   <img
-                    src="../../../assets/images/videos-icon.png"
+                    src="../../../assets/images/recycle-bin-line-icon.png"
                     height="15px"
                     style="margin: 0px 5px"
                   />
-                  Video
-                </button>
-                <input
-                  (change)="handleImageFileChange($event)"
-                  hidden
-                  #imageInput
-                  type="file"
+                  Delete
+                </button> -->
+              </div>
+              <div style="display: flex; margin: 20px 0px">
+                <img
+                  src=""
+                  alt=""
+                  style="
+                    background: #3e8392;
+                    height: 40px;
+                    width: 40px;
+                    margin: auto;
+                    border-radius: 50%;
+                    margin-right: 10px;
+                  "
                 />
                 <input
-                  (change)="handleVideoFileChange($event)"
-                  hidden
-                  #videoInput
-                  type="file"
+                  class="form-control"
+                  placeholder="Write a comment"
+                  style="margin: auto; border-radius: 50px; background: #e5e6eb"
                 />
               </div>
-              <button
-              [disabled] = "title.invalid || caption.invalid"
-                type="submit"
-                class="btn"
-                (click)="handleCreatePost()"
-                style="
-                  background: #3e8392;
-                  flex: 1;
-                  margin-left: 10px;
-                  color: #eee;
-                "
-              >
-                CREATE POST
-              </button>
             </div>
-          </div>
-        </form>
-      </div>
-      <div class="panel">
-        <div
-          class="panel-content"
-          style="padding-top: 20px; padding-bottom: 5px"
-        >
-          <div class="panel-title">Posts</div>
-          <div
-            *ngFor="let item of items"
-            style="border-top: 1px solid #eee; margin-top: 20px"
-          >
-            <div style="display: flex; margin-top: 20px">
-              <img
-                *ngIf="!item['user'].avatarUrl"
-                [src]="defaultProfileImage"
-                alt=""
-                style="
-                  background: #3e8392;
-                  height: 50px;
-                  width: 50px;
-                  border-radius: 50%;
-                "
-              />
-              <img
-                *ngIf="item['user'].avatarUrl"
-                [src]="item['user'].avatarUrl"
-                alt=""
-                style="
-                  background: #3e8392;
-                  height: 50px;
-                  width: 50px;
-                  border-radius: 50%;
-                "
-              />
-              <div style="margin-left: 10px">
-                <div>
-                  {{ item["user"].firstName }} {{ item["user"].lastName }}
-                </div>
-                <div>{{ item.updatedAt | date : "medium" }}</div>
-              </div>
-            </div>
-            <p style="margin-top: 20px">{{ item.caption }}</p>
-            <div *ngIf="item.contentUrl != null">
-              <img
-                *ngIf="fileUtil.isImage(item.contentUrl)"
-                [src]="item.contentUrl"
-                alt="post image"
-                style="width: 100%; margin-top: 20px"
-              />
-              <video
-                *ngIf="fileUtil.isVideo(item.contentUrl)"
-                [src]="item.contentUrl"
-                alt="post video"
-                controls
-                style="width: 100%; margin-top: 20px"
-              ></video>
-            </div>
-            <div class="activity__list__footer">
-              <button
-                type="button"
-                class="btn-link"
-                style="
-                  margin-right: 10px;
-                  display: flex;
-                  justify-content: center;
-                  align-items: center;
-                "
-              >
-                <img
-                  src="../../../assets/images/comment-icon.png"
-                  height="15px"
-                  style="margin: 0px 5px"
-                />
-                Comments
-              </button>
-              <button
-                type="button"
-                class="btn-link"
-                style="
-                  margin-right: 10px;
-                  display: flex;
-                  justify-content: center;
-                  align-items: center;
-                "
-              >
-                <img
-                  src="../../../assets/images/edit-list-icon.png"
-                  height="15px"
-                  style="margin: 0px 5px"
-                />
-                Update
-              </button>
-              <button
-                type="button"
-                class="btn-link"
-                style="
-                  margin-right: 10px;
-                  display: flex;
-                  justify-content: center;
-                  align-items: center;
-                "
-              >
-                <img
-                  src="../../../assets/images/recycle-bin-line-icon.png"
-                  height="15px"
-                  style="margin: 0px 5px"
-                />
-                Delete
-              </button>
-            </div>
-            <div style="display: flex; margin: 20px 0px">
-              <img
-                src=""
-                alt=""
-                style="
-                  background: #3e8392;
-                  height: 40px;
-                  width: 40px;
-                  margin: auto;
-                  border-radius: 50%;
-                  margin-right: 10px;
-                "
-              />
-              <input
-                class="form-control"
-                placeholder="Write a comment"
-                style="margin: auto; border-radius: 50px; background: #e5e6eb"
-              />
-            </div>
-          </div>
+          </ng-container>
         </div>
       </div>
     </div>
