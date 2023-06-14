@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-interface Post {
+export interface Post {
   id: number;
   title: string;
   caption: string;
@@ -50,6 +50,11 @@ export class PostService {
       return token;
     }
     return null;
+  }
+
+  updatePost(post: Post): Observable<any> {
+    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.getAuthenticationToken());
+    return this.http.put(`${this.BASE_URL}/posts/${post.id}`, post, { headers });
   }
 
   deletePost(id: any) {

@@ -22,6 +22,7 @@ com\avensys\SocialMediaWebApplication\configurations\SecurityConfiguration$1.cla
 com\avensys\SocialMediaWebApplication\authentication\UserDetailsImpl.class
 com\avensys\SocialMediaWebApplication\exceptions\DuplicateResourceException.class
 com\avensys\SocialMediaWebApplication\authentication\AuthenticationControllerExceptionHandler.class
+com\avensys\SocialMediaWebApplication\user\UserCreateResponseDTO.class
 com\avensys\SocialMediaWebApplication\authentication\AuthenticationController.class
 com\avensys\SocialMediaWebApplication\post\ProductControllerExceptionHandler.class
 com\avensys\SocialMediaWebApplication\authentication\AuthLoginRequestDTO.class
@@ -29,6 +30,8 @@ com\avensys\SocialMediaWebApplication\user\UserRegistrationRequestDTO.class
 com\avensys\SocialMediaWebApplication\authentication\UserDetailsServiceImpl.class
 com\avensys\SocialMediaWebApplication\post\PostResponseDTO.class
 com\avensys\SocialMediaWebApplication\post\PostUpdateRequestDTO.class
+com\avensys\SocialMediaWebApplication\user\UserController.class
 com\avensys\SocialMediaWebApplication\user\User.class
+com\avensys\SocialMediaWebApplication\user\UserService.class
 com\avensys\SocialMediaWebApplication\configurations\ApplicationConfiguration.class
 com\avensys\SocialMediaWebApplication\exceptions\GlobalException.class
