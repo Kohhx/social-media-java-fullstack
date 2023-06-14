@@ -121,6 +121,7 @@
                 />
               </div>
               <button
+              [disabled] = "title.invalid || caption.invalid"
                 type="submit"
                 class="btn"
                 (click)="handleCreatePost()"

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Form, FormBuilder, FormGroup } from '@angular/forms';
+import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from 'express-serve-static-core';
 import { ToastrService } from 'ngx-toastr';
 import { PostService } from 'src/app/service/post/post.service';
@@ -34,8 +34,8 @@ export class FeedComponent implements OnInit {
 
   ngOnInit(): void {
     this.createPostForm = this.fb.group({
-      title: [''],
-      caption: [''],
+      title: ['',[Validators.required, Validators.maxLength(50)]],
+      caption: ['', [Validators.required]],
       link: [''],
       file: [null],
     });
