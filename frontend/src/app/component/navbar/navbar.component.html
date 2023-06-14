@@ -15,19 +15,33 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" routerLinkActive="active" routerLink="/posts">View Posts</a>
+          <a class="nav-link" routerLinkActive="active" routerLink="/posts"
+            >View Posts</a
+          >
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLinkActive="active" [routerLink]="getOwnProfileLink()">My Post</a>
+          <a
+            class="nav-link"
+            routerLinkActive="active"
+            [routerLink]="getOwnProfileLink()"
+            >My Post</a
+          >
         </li>
         <li *ngIf="authenticationService.isAdmin()" class="nav-item">
-          <a class="nav-link" routerLinkActive="active" routerLink="/admin/posts">Manage All Posts</a>
+          <a
+            class="nav-link"
+            routerLinkActive="active"
+            routerLink="/admin/posts"
+            >Manage All Posts</a
+          >
         </li>
         <li *ngIf="authenticationService.isAdmin()" class="nav-item">
-          <a class="nav-link" routerLinkActive="active" routerLink="admin/users">Manage All Users</a>
+          <a class="nav-link" routerLinkActive="active" routerLink="admin/users"
+            >Manage All Users</a
+          >
         </li>
         <li class="nav-item">
-          {{id}}
+          {{ id }}
         </li>
       </ul>
       <button (click)="logout()" class="btn btn-warning mx-3" type="submit">
@@ -45,13 +59,17 @@
 
       <div>
         <img
-        class="avatar-small"
+          class="avatar-small"
           *ngIf="isProfileImagePresent(); else defaultProfile"
           [src]="authenticationService.getProfileAvatar()"
           alt="profile avatar"
         />
         <ng-template #defaultProfile>
-          <img class="avatar-small" [src]="defaultProfileImage" alt="default profile" />
+          <img
+            class="avatar-small"
+            [src]="defaultProfileImage"
+            alt="default profile"
+          />
         </ng-template>
       </div>
     </div>

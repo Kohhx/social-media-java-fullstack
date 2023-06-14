@@ -13,45 +13,60 @@ export class ManagePostsComponent implements OnInit {
   postsList: Post[] = [];
   selectedPost: Post;
   storage: Storage = sessionStorage;
+  openPost: boolean = false;
 
-  @ViewChild(PostModalComponent) model: PostModalComponent;
+  // @ViewChild(PostModalComponent) model: PostModalComponent;
 
-  constructor(private postService: PostService) {}
+  constructor(private postService: PostService) { }
 
   ngOnInit(): void {
     this.handleGetAllPosts();
   }
 
   handleGetAllPosts() {
-    this.postService.getAllPosts().subscribe(
-      (response: any) => {
-        this.postsList = response;
-      },
-    );
+    this.postService.getAllPosts().subscribe({
+      next: (data: any) => {
+        this.postsList = data;
+      }
+    });
   }
 
   updatePost(post: Post) {
-    this.postService.getPostById(post.id).subscribe(
-      (response: Post) => {
-        this.openModal(response)
-      }
-    )
+    // this.postService.getPostById(post.id).subscribe(
+    //   (response: Post) => {
+        this.openModal(post)
+    //   }
+    // )
   }
 
   deletePost(post: Post) {
-    this.postService.deletePost(post.id).subscribe(
-      (response: any) => {
-        console.log(response);
+    this.postService.deletePost(post.id).subscribe({
+      next:(response: any) => {
+        this.handleDeletePost(post);
+        console.log(response)
         console.log(post)
-        console.log("Delete successful")
-        this.handleGetAllPosts();
       }
-    );
+    })
   }
 
+  handleDeletePost(post: Post) {
+    if (this.postsList.length == 1) {
+      this.postsList = [];
+    } else {
+      const index = this.postsList.indexOf(post);
+      this.postsList.splice(index, 1);
+    }
+    alert('Post deleted successfully!')
+  };
+
   openModal(post: Post) {
+    this.openPost = true;
     this.selectedPost = post; // Save the current post
     // this.modalService.open(UpdatePostModalComponent, { data: {post: this.selectedPost}});
+  }
+
+  closePostModal() {
+    this.openPost = false;
   }
 
 }
