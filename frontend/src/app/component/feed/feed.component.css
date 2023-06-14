@@ -209,3 +209,11 @@ button.btn-link {
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
 }
+
+.comment-container {
+
+}
+
+.comment-btn {
+  margin: 0 auto !important;
+}
