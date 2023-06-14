@@ -1,4 +1,5 @@
-<div class="container-fluid mt-4">
+<div class="container-fluid mt-4 manage-post">
+
   <table class="table table-striped">
     <thead>
       <tr>
@@ -6,7 +7,7 @@
         <th>Title</th>
         <th>Caption</th>
         <th>Content URL</th>
-        <th class="pe-4">User ID</th>
+        <th>User Name</th>
         <th>Created At</th>
         <th>Updated At</th>
         <th>Actions</th>
@@ -18,7 +19,7 @@
         <td>{{ post.title }}</td>
         <td>{{ post.caption }}</td>
         <td>{{ post.contentUrl }}</td>
-        <td>{{ post.user.id }}</td>
+        <td>{{ post.user.firstName + " " + post.user.lastName }}</td>
         <td>{{ post.createdAt | date }}</td>
         <td>{{ post.updatedAt | date }}</td>
         <td>
@@ -28,22 +29,8 @@
       </tr>
     </tbody>
   </table>
+
+  <app-post-modal class="center-section" *ngIf="openPost" (cancel)="closePostModal()"></app-post-modal>
 </div>
 
-<div class="modal" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Modal title</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <p>Modal body text goes here.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
+
