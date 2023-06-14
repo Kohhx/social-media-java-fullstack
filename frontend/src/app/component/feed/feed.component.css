@@ -209,9 +209,3 @@ button.btn-link {
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
 }
-
-.image_preview{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}

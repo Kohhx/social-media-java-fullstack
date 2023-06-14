@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
       next: (data) => {
         console.log('Login successful');
         this.toastr.success('Login successful');
-        this.router.navigate(['feed'])
+        this.router.navigate(['posts'])
       },
       error: (err) => {
         this.toastr.error('Invalid Credential. Please try again');

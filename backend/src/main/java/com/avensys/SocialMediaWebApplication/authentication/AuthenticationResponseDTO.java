@@ -4,13 +4,15 @@ import java.util.List;
 
 public class AuthenticationResponseDTO {
 
+    private long id;
     private String message;
     private String email;
     private String token;
     private String avatarUrl;
     private List<String> roles;
 
-    public AuthenticationResponseDTO(String message, String email, String token, String avatarUrl, List<String> roles) {
+    public AuthenticationResponseDTO(long id, String message, String email, String token, String avatarUrl, List<String> roles) {
+        this.id = id;
         this.message = message;
         this.email = email;
         this.token = token;
@@ -56,5 +58,13 @@ public class AuthenticationResponseDTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

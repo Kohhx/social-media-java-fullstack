@@ -17,6 +17,8 @@ export class AuthenticationService {
   private ROLE_KEY = 'role';
   private AVATAR_KEY = 'avatar';
 
+  private userid;
+
   constructor(private http: HttpClient) {}
 
   signup(userRegistration: any) {
@@ -26,7 +28,8 @@ export class AuthenticationService {
         map((data) => {
           console.log(data);
           let token = this.TOKEN_PREFIX + data.token;
-          this.setSessionStorage(data.email, token, data.avatarUrl, data.roles);
+          this.setSessionStorage(data.id, token, data.avatarUrl, data.roles);
+          this.userid = data.id;
           return data;
         })
       );
@@ -38,11 +41,16 @@ export class AuthenticationService {
       .pipe(
         map((data) => {
           let token = this.TOKEN_PREFIX + data.token;
-          this.setSessionStorage(data.email, token, data.avatarUrl, data.roles);
+          this.setSessionStorage(data.id, token, data.avatarUrl, data.roles);
+          this.userid = data.id;
           return data;
         })
       );
   }
+
+  // getAuthenticatedUserId(): number {
+  //   return this.userid;
+  // }
 
   getAuthenticatedUser(): string {
     return sessionStorage.getItem(this.AUTH_USER_KEY);
