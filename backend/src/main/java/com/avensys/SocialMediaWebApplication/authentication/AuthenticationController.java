@@ -31,6 +31,7 @@ public class AuthenticationController {
         User user = authenticationService.registerUser(userRegistration);
         String token = jwtService.generateToken(user.getEmail());
         return new ResponseEntity<>(new AuthenticationResponseDTO(
+                user.getId(),
                 "Account has been registered",
                 user.getEmail(),
                 token,

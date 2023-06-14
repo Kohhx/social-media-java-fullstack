@@ -14,11 +14,11 @@ import { ManageUsersComponent } from './component/manage-users/manage-users.comp
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate:[loginguardGuard] },
-  { path: 'register', component: RegisterComponent },
-  { path: 'users/:id', component: ProfileComponent },
+  { path: 'signup', component: RegisterComponent, canActivate:[loginguardGuard] },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '', component: NavbarComponent, children: [
-    { path: 'feed', component: FeedComponent, canActivate: [userguardGuard] },
+    { path: 'posts', component: FeedComponent, canActivate: [userguardGuard] },
+    { path: 'users/:id/posts', component: ProfileComponent },
     { path: 'admin/posts', component: ManagePostsComponent, canActivate: [userguardGuard] },
     { path: 'admin/users', component: ManageUsersComponent, canActivate: [userguardGuard] },
   ] },

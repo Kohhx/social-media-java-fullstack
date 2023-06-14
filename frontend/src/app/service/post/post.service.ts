@@ -28,6 +28,11 @@ export class PostService {
     return this.http.get<Post>(`${this.BASE_URL}/posts/${id}`);
   }
 
+  getPostsByUserId(id: number): Observable<Post[]> {
+    return this.http.get<Post[]>(`${this.BASE_URL}/users/${id}/posts`);
+  }
+
+
   deletePost(id: number): Observable<any> {
     return this.http.delete(`${this.BASE_URL}/posts/${id}`);
   }
