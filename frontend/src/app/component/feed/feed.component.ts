@@ -50,7 +50,7 @@ export class FeedComponent implements OnInit {
         this.items = posts;
       }),
       error:(error => {
-
+        console.log(error)
       })
     })
 
