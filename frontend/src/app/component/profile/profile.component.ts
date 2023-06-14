@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from 'src/app/service/authentication/authentication.service';
 import { UserService } from 'src/app/service/user/user.service';
 import  { FileUtil } from '../../utility/file-util';
+import { faPenToSquare} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-profile',
@@ -13,6 +14,7 @@ import  { FileUtil } from '../../utility/file-util';
   styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent implements OnInit {
+  faPenToSquare = faPenToSquare;
   fileUtil= FileUtil
   userId: number;
   items:any = [];
@@ -29,11 +31,11 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.params.subscribe({
       next:(params) => {
-        this.userId = params['id'];
+        this.userId = +params['id'];
       }
     })
 
-    this.getAllPostsByUser(this.userId );
+    this.getAllPostsByUser(this.userId);
 
     this.userService.getUserById(this.userId).subscribe({
       next:(user) => {

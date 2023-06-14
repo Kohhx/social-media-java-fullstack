@@ -1,3 +1,4 @@
+import { AuthenticationService } from 'src/app/service/authentication/authentication.service';
 import { HttpClient } from '@angular/common/http';
 import { Component, ViewChild, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -31,7 +32,8 @@ export class CreatePostFormComponent {
     private fb: FormBuilder,
     private toastr: ToastrService,
     private http: HttpClient,
-    private postService: PostService
+    private postService: PostService,
+    public authService: AuthenticationService
   ) {}
 
   ngOnInit(): void {

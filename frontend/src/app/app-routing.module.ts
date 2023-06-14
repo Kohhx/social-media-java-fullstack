@@ -18,9 +18,9 @@ const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '', component: NavbarComponent, children: [
     { path: 'posts', component: FeedComponent, canActivate: [userguardGuard] },
-    { path: 'users/:id/posts', component: ProfileComponent },
-    { path: 'admin/posts', component: ManagePostsComponent, canActivate: [userguardGuard] },
-    { path: 'admin/users', component: ManageUsersComponent, canActivate: [userguardGuard] },
+    { path: 'users/:id/posts', component: ProfileComponent, canActivate: [userguardGuard] },
+    { path: 'admin/posts', component: ManagePostsComponent, canActivate: [adminguardGuard] },
+    { path: 'admin/users', component: ManageUsersComponent, canActivate: [adminguardGuard] },
   ] },
   { path: '**', redirectTo: '/login', pathMatch: 'full' },
 ];
