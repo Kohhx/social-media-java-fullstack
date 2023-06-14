@@ -4,6 +4,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.avensys.SocialMediaWebApplication.response.CustomResponse;
+
 import java.util.List;
 
 @RestController
@@ -36,9 +38,9 @@ public class PostController {
 
 
     @DeleteMapping("posts/{postId}")
-    public ResponseEntity<String> deletePost(@PathVariable long postId) {
+    public ResponseEntity<CustomResponse> deletePost(@PathVariable long postId) {
         postService.deletePostById(postId);
-        return new ResponseEntity<>("Post deleted successfully", HttpStatus.OK);
+        return new ResponseEntity<>(new CustomResponse("Post deleted successfully"), HttpStatus.OK);
     }
 
 }

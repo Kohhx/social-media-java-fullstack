@@ -20,7 +20,7 @@ export class PostService {
   }
 
   createPost(post: any) {
-      return this.http.post(`${this.BASE_URL}/posts`, post);
+    return this.http.post(`${this.BASE_URL}/posts`, post);
   }
 
 
