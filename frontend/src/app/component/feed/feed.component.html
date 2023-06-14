@@ -132,17 +132,29 @@
               </div>
               <div style="display: flex; margin: 20px 0px">
                 <img
-                  src=""
-                  alt=""
-                  style="
-                    background: #3e8392;
-                    height: 40px;
-                    width: 40px;
-                    margin: auto;
-                    border-radius: 50%;
-                    margin-right: 10px;
-                  "
-                />
+                *ngIf="!item['user'].avatarUrl"
+                [src]="defaultProfileImage"
+                alt=""
+                style="
+                  background: #3e8392;
+                  height: 40px;
+                  width: 40px;
+                  border-radius: 50%;
+                  margin-right: 10px;
+                "
+              />
+              <img
+                *ngIf="item['user'].avatarUrl"
+                [src]="item['user'].avatarUrl"
+                alt=""
+                style="
+                  background: #3e8392;
+                  height: 40px;
+                  width: 40px;
+                  border-radius: 50%;
+                  margin-right: 10px;
+                "
+              />
                 <input
                   class="form-control"
                   placeholder="Write a comment"

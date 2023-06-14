@@ -20,6 +20,7 @@ import { PostModalComponent } from './component/post-modal/post-modal.component'
 import { ManagePostsComponent } from './component/manage-posts/manage-posts.component';
 import { ManageUsersComponent } from './component/manage-users/manage-users.component';
 import { CreatePostFormComponent } from './component/create-post-form/create-post-form.component';
+import { ModalComponent } from './shared/modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { CreatePostFormComponent } from './component/create-post-form/create-pos
     PostModalComponent,
     ManagePostsComponent,
     ManageUsersComponent,
-    CreatePostFormComponent
+    CreatePostFormComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,

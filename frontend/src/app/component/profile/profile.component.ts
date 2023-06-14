@@ -16,19 +16,25 @@ import { faPenToSquare} from '@fortawesome/free-solid-svg-icons';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css'],
 })
-export class ProfileComponent {
-  createPostForm!: FormGroup;
-  fileUtil = FileUtil;
 
-  defaultProfileImage = "https://w7.pngwing.com/pngs/754/2/png-transparent-samsung-galaxy-a8-a8-user-login-telephone-avatar-pawn-blue-angle-sphere-thumbnail.png";
+export class ProfileComponent implements OnInit {
+  createPostForm!: FormGroup;
+  faPenToSquare = faPenToSquare;
+  fileUtil = FileUtil;
+  userId: number;
+  items: any = [];
+  user: any = {};
+  defaultProfileImage =
+    'https://w7.pngwing.com/pngs/754/2/png-transparent-samsung-galaxy-a8-a8-user-login-telephone-avatar-pawn-blue-angle-sphere-thumbnail.png';
+
+  isModalOpen: boolean = false;
+  clickedPost: any;
 
   @ViewChild('imageInput') imageInput: any;
   @ViewChild('videoInput') videoInput: any;
 
   imagePreviewUrl: any = "";
   videoPreviewUrl: any = "";
-
-  items: any[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -65,16 +71,16 @@ export class ProfileComponent {
     })
 
     this.activatedRoute.params.subscribe({
-      next:(params) => {
+      next: (params) => {
         this.userId = +params['id'];
-      }
-    })
+      },
+    });
 
     this.getAllPostsByUser(this.userId);
 
     this.userService.getUserById(this.userId).subscribe({
-      next:(user) => {
-        console.log(user)
+      next: (user) => {
+        console.log(user);
         this.user = user;
       }
     })
@@ -174,15 +180,7 @@ export class ProfileComponent {
     })
   }
 
-  private sortPostsByUpdatedAt(posts: any) {
-    return posts.sort((a, b): any => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())
-  }
-
   item: any = {};
-
-  faPenToSquare = faPenToSquare;
-  userId: number;
-  user:any = {};
 
   openUser: boolean = false;
 
@@ -211,17 +209,49 @@ export class ProfileComponent {
     }
   }
 
-  private getAllPostsByUser(id: number) {
-    this.postService.getPostsByUserId(id).subscribe({
-      next:(posts => {
-        console.log(posts)
-        console.log(posts[0]['user'].avatarUrl)
-        this.items = this.sortPostsByUpdatedAt(posts);
-      }),
-      error:(err => {
-        console.log(err)
-      })
-    })
+  openDeleteModal(post) {
+    console.log(post);
+    this.clickedPost = post;
+    this.isModalOpen = true;
+    const body = document.getElementsByTagName('body')[0];
+    body.style.overflow = 'hidden';
   }
 
+  closeDeleteModal() {
+    this.isModalOpen = false;
+    const body = document.getElementsByTagName('body')[0];
+    body.style.overflow = 'auto';
+  }
+
+  deletePost() {
+    console.log(this.clickedPost);
+    this.postService.deletePost(this.clickedPost.id).subscribe({
+      next: (res) => {
+        this.getAllPostsByUser(this.userId);
+      },
+      error: (err) => {},
+    });
+    this.clickedPost = null;
+    this.closeDeleteModal();
+  }
+
+  private getAllPostsByUser(id: number) {
+    this.postService.getPostsByUserId(id).subscribe({
+      next: (posts) => {
+        // console.log(posts);
+        // console.log(posts[0]['user'].avatarUrl);
+        this.items = this.sortPostsByUpdatedAt(posts);
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
+
+  private sortPostsByUpdatedAt(posts: any) {
+    return posts.sort(
+      (a, b): any =>
+        new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
+    );
+  }
 }
