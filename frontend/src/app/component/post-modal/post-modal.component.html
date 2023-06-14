@@ -12,16 +12,19 @@
                             <form [formGroup]="updateFormGroup" class="w-100" (ngSubmit)="handleUpdatePost()">
                                 <div formGroupName="user" class="form-area">
                                     <div style="display: flex; margin-bottom: 20px">
-                                        <input class="form-control" placeholder="Add a title" style="margin: auto" />
+                                        <input class="form-control" placeholder="Add a title" style="margin: auto"
+                                            formControlName="title" />
                                     </div>
                                     <textarea name="user_activity" placeholder="Write caption" class="form-control"
-                                        style="border-radius: 10px; margin-bottom: 20px" rows="5"></textarea>
+                                        formControlName="caption" style="border-radius: 10px; margin-bottom: 20px"
+                                        rows="5"></textarea>
                                     <div class="actions" style="display: flex; flex-direction: column;">
-                                        <input class="form-control" placeholder="Input a link"
+                                        <input class="form-control" placeholder="Input a link" formControlName="link"
                                             style="margin-bottom: 20px" />
                                         <div style="display: flex; flex-direction: row; align-items: center;">
                                             <div style="display: flex; ">
                                                 <button type="button" class="btn btn-link"
+                                                    (click)="handleImageFileClick()"
                                                     style="margin-right: 10px; display: flex; justify-content: center; align-items: center;">
                                                     <img src="../../../assets/images/camera-icon.png" height="13px"
                                                         style="margin: 0px 5px" />
@@ -33,15 +36,19 @@
                                                         style="margin: 0px 5px" />
                                                     Video
                                                 </button>
+                                                <input (change)="handleImageFileChange($event)" hidden #imageInput
+                                                formControlName="file"type="file" />
+                                                <input (change)="handleVideoFileChange($event)" hidden #videoInput
+                                                formControlName="file" type="file" />
                                             </div>
                                             <button type="submit" class="btn"
                                                 style="background: #3e8392; flex: 1; margin-left: 10px; color: #eee">
                                                 Update
                                             </button>
-                                            <button type="button" class="btn btn-secondary" style="flex: 1; margin-left: 10px; "
-                                            (click)="closeModal()">
-                                            Cancel
-                                        </button>
+                                            <button type="button" class="btn btn-secondary"
+                                                style="flex: 1; margin-left: 10px; " (click)="closeModal()">
+                                                Cancel
+                                            </button>
                                         </div>
                                     </div>
                                 </div>

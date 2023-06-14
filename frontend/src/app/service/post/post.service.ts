@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+// import { Post } from 'src/app/common/post';
 
 export interface Post {
   id: number;
@@ -10,7 +11,6 @@ export interface Post {
   createdAt: Date;
   updatedAt: Date;
 }
-// import { Post } from 'src/app/common/post';
 
 @Injectable({
   providedIn: 'root'
@@ -36,8 +36,8 @@ export class PostService {
     return this.http.get<Post>(`${this.BASE_URL}/posts/${id}`);
   }
 
-  updatePost(post: any): Observable<any> {
-    return this.http.put(`${this.BASE_URL}/posts`, post);
+  updatePost(id: number, post: any): Observable<Post> {
+    return this.http.patch<Post>(`${this.BASE_URL}/posts/${id}`, post);
   }
 
   deletePost(id: number): Observable<any> {
