@@ -10,6 +10,8 @@ import { PostService, Post } from 'src/app/service/post/post.service';
 export class PostModalComponent {
   updateFormGroup: FormGroup;
 
+  items: any[] = [];
+
   constructor(
     private formBuilder: FormBuilder,
     private postService: PostService
@@ -20,27 +22,53 @@ export class PostModalComponent {
       user: this.formBuilder.group({
         title: ['', [Validators.required, Validators.minLength(5)]],
         caption: ['', [Validators.required, Validators.minLength(5)]],
-        contentUrl: [''],
+        link: [''],
+        file: [null],
       })
     });
   }
 
-  updatePost() {
-    const formData = this.updateFormGroup.value;
-    const post: Post = {
-      id: null,
-      title: formData.user.title,
-      caption: formData.user.caption,
-      contentUrl: formData.user.contentUrl,
-      createdAt: null,
-      updatedAt: null
-    };
+  get title() {
+    return this.updateFormGroup.get('title');
+  }
+  get caption() {
+    return this.updateFormGroup.get('caption');
+  }
+  get link() {
+    return this.updateFormGroup.get('link');
+  }
+  get file() {
+    return this.updateFormGroup.get('file');
+  }
 
-    this.postService.updatePost(post).subscribe(() => {
-      console.log('Post updated successfully.')
-    }, (error) => {
-      alert(error)
-    });
+  handleUpdatePost() {
+    const post = new FormData();
+    post.append('title', this.title?.value);
+    post.append('caption', this.caption?.value);
+    if (this.file?.value) {
+      post.append('file', this.file?.value);
+    }
+    if (this.link?.value) {
+      post.append('link', this.link?.value);
+    }
+
+    this.postService.createPost(post).subscribe({
+      next: (data) => {
+        console.log(data)
+        this.postService.getAllPosts().subscribe({
+          next:(posts => {
+              this.items = posts;
+          }),
+          error:(error => {
+
+          })
+        })
+      },
+      error: (err) => {
+        console.log(err)
+      }
+
+    })
   }
 
   @Output() cancel: EventEmitter<void> = new EventEmitter<void>();

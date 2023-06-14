@@ -32,14 +32,12 @@ export class PostService {
     return this.http.post(`${this.BASE_URL}/posts`, post);
   }
 
-
   getPostById(id: number): Observable<Post> {
     return this.http.get<Post>(`${this.BASE_URL}/posts/${id}`);
   }
 
-  updatePost(id: number): Observable<any> {
-    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.getAuthenticationToken());
-    return this.http.put(`${this.BASE_URL}/posts/${id}`, post, { headers });
+  updatePost(post: any): Observable<any> {
+    return this.http.put(`${this.BASE_URL}/posts`, post);
   }
 
   deletePost(id: number): Observable<any> {

@@ -9,7 +9,7 @@
                 ">
                         <div class="card-body p-5 shadow-5">
                             <h2 class="fw-bold mb-4">Update Post</h2>
-                            <form [formGroup]="updateFormGroup" class="w-100" (ngSubmit)="updatePost()>
+                            <form [formGroup]="updateFormGroup" class="w-100" (ngSubmit)="handleUpdatePost()">
                                 <div formGroupName="user" class="form-area">
                                     <div style="display: flex; margin-bottom: 20px">
                                         <input class="form-control" placeholder="Add a title" style="margin: auto" />
