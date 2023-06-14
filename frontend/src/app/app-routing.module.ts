@@ -8,15 +8,17 @@ import { NavbarComponent } from './component/navbar/navbar.component';
 import { userguardGuard } from './guards/userguard.guard';
 import { adminguardGuard } from './guards/adminguard.guard';
 import { ManagePostsComponent } from './component/manage-posts/manage-posts.component';
+import { ManageUsersComponent } from './component/manage-users/manage-users.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'users/:id', component: ProfileComponent },
-  { path: 'admin/posts', component: ManagePostsComponent},
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '', component: NavbarComponent, children: [
     { path: 'feed', component: FeedComponent, canActivate: [userguardGuard] },
+    { path: 'admin/posts', component: ManagePostsComponent, canActivate: [userguardGuard] },
+    { path: 'admin/users', component: ManageUsersComponent, canActivate: [userguardGuard] },
   ] },
   { path: '**', redirectTo: '/login', pathMatch: 'full' },
 ];

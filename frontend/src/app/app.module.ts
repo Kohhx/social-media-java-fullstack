@@ -16,6 +16,7 @@ import { ProfileComponent } from './component/profile/profile.component';
 import { UserModalComponent } from './component/user-modal/user-modal.component';
 import { PostModalComponent } from './component/post-modal/post-modal.component';
 import { ManagePostsComponent } from './component/manage-posts/manage-posts.component';
+import { ManageUsersComponent } from './component/manage-users/manage-users.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { ManagePostsComponent } from './component/manage-posts/manage-posts.comp
     ProfileComponent,
     UserModalComponent,
     PostModalComponent,
-    ManagePostsComponent
+    ManagePostsComponent,
+    ManageUsersComponent
   ],
   imports: [
     BrowserModule,
