@@ -41,4 +41,12 @@ public class PostController {
         return new ResponseEntity<>("Post deleted successfully", HttpStatus.OK);
     }
 
+
+    @GetMapping("users/{userId}/posts")
+    public ResponseEntity<List<PostResponseDTO>> getAllPostsByUserId(@PathVariable long userId) {
+        List<PostResponseDTO> PostResponses = postService.getPostsByUserId(userId);
+        return new ResponseEntity<>(PostResponses, HttpStatus.OK);
+    }
+
+
 }
