@@ -1,15 +1,12 @@
 package com.avensys.SocialMediaWebApplication.configurations;
 
-import com.avensys.SocialMediaWebApplication.exceptions.ExceptionResponse;
 import com.avensys.SocialMediaWebApplication.jwt.JwtAuthFilter;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -23,7 +20,6 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 @Configuration
 @EnableWebSecurity
@@ -50,29 +46,29 @@ public class SecurityConfiguration {
                             .requestMatchers("/api/admin/**").hasRole("ADMIN")
                             .anyRequest().authenticated();
                 })
-                .exceptionHandling( exception -> {
-                    exception
-                            .authenticationEntryPoint((request, response, authException) -> {
-
-                                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                                response.setContentType("application/json");
-
-                                var exceptionResponse = new ExceptionResponse();
-                                exceptionResponse.setMessage("Unauthorized: Access denied");
-                                exceptionResponse.setHttpStatus(HttpStatus.UNAUTHORIZED);
-                                exceptionResponse.setTimestamp(null);
-                                exceptionResponse.setThrowable(null);
-
-                                ObjectMapper objectMapper = new ObjectMapper();
-                                String jsonBody = objectMapper.writeValueAsString(exceptionResponse);
-                                System.out.println(jsonBody);
-
-                                // Write the JSON response body to the response
-                                PrintWriter writer = response.getWriter();
-                                writer.print(jsonBody);
-                                writer.flush();
-                            });
-                })
+//                .exceptionHandling( exception -> {
+//                    exception
+//                            .authenticationEntryPoint((request, response, authException) -> {
+//
+//                                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+//                                response.setContentType("application/json");
+//
+//                                var exceptionResponse = new ExceptionResponse();
+//                                exceptionResponse.setMessage("Unauthorized: Access denied");
+//                                exceptionResponse.setHttpStatus(HttpStatus.UNAUTHORIZED);
+//                                exceptionResponse.setTimestamp(null);
+//                                exceptionResponse.setThrowable(null);
+//
+//                                ObjectMapper objectMapper = new ObjectMapper();
+//                                String jsonBody = objectMapper.writeValueAsString(exceptionResponse);
+//                                System.out.println(jsonBody);
+//
+//                                // Write the JSON response body to the response
+//                                PrintWriter writer = response.getWriter();
+//                                writer.print(jsonBody);
+//                                writer.flush();
+//                            });
+//                })
                 .sessionManagement(session ->
                         session
                                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
