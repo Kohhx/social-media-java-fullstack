@@ -1,7 +1,7 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Post } from 'src/app/common/post';
 import { PostService } from 'src/app/service/post/post.service';
-import { PostModalComponent } from '../post-modal/post-modal.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-manage-posts',
@@ -25,7 +25,10 @@ export class ManagePostsComponent implements OnInit {
 
   @Output() cancel: EventEmitter<void> = new EventEmitter<void>();
 
-  constructor(private postService: PostService) { }
+  constructor(
+    private postService: PostService,
+    private toastr: ToastrService
+  ) { }
 
   ngOnInit(): void {
     this.handleGetAllPosts();
@@ -51,18 +54,19 @@ export class ManagePostsComponent implements OnInit {
         this.handleDeletePost(post);
         console.log(response)
         console.log(post)
+
+        // Get update list of posts:
+        this.handleGetAllPosts();
       }
     })
   }
 
   handleDeletePost(post: Post) {
-    if (this.postsList.length == 1) {
-      this.postsList = [];
-    } else {
-      const index = this.postsList.indexOf(post);
+    const index = this.postsList.indexOf(post);
+    if (index > -1) {
       this.postsList.splice(index, 1);
+      this.toastr.success('Post deleted successfully!')
     }
-    alert('Post deleted successfully!')
   };
 
   openModal(post: Post) {
