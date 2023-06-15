@@ -57,3 +57,15 @@ section {
     left: 61%;
   }
 }
+
+.available {
+  text-align: center;
+  color: #22a627;
+  font-size: 15px;
+  margin-top: 5px;
+  font-weight: 500;
+}
+
+.spinner{
+  display:inline-block;
+}

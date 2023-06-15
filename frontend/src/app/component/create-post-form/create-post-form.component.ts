@@ -13,7 +13,7 @@ import { FileUtil } from 'src/app/utility/file-util';
 })
 export class CreatePostFormComponent {
   @Output('postCreated') postCreated = new EventEmitter<any>();
-
+  loading = false;
   createPostForm!: FormGroup;
   fileUtil = FileUtil;
 
@@ -122,6 +122,7 @@ export class CreatePostFormComponent {
   }
 
   handleCreatePost() {
+    this.loading = true;
     const post = new FormData();
     post.append('title', this.title?.value);
     post.append('caption', this.caption?.value);
@@ -135,15 +136,20 @@ export class CreatePostFormComponent {
     this.postService.createPost(post).subscribe({
       next: (data) => {
         // console.log(data);
+        this.loading = false;
+        this.toastr.success('Post created successfully', 'Success');
         this.postCreated.emit(true);
         this.resetPostForm();
         this.imagePreviewUrl = '';
         this.videoPreviewUrl = '';
+        this.imageInput.nativeElement.value = '';
+        this.videoInput.nativeElement.value = '';
       },
       error: (error) => {
+        this.loading = false;
         console.log(error);
+        this.toastr.error(error.error.message, 'Error');
       },
     });
   }
-
 }

@@ -120,7 +120,15 @@
                           color: #eee;
                         "
                       >
-                        Update
+                      <mat-spinner
+                      *ngIf="loading"
+                      class="spinner"
+                      color="accent"
+                      mode="indeterminate"
+                      diameter="25"
+                      style="text-align: center; display:inline-block"
+                    ></mat-spinner>
+                    <span *ngIf="!loading">Update</span>
                       </button>
                       <button
                         type="button"

@@ -42,7 +42,7 @@
   </div>
 </nav> -->
 <nav class="navbar navbar-expand-lg navbar-dark" style="background: linear-gradient(to bottom, #3e8392, #336b7d);">
-  <a href="#"><img src="../../../assets/images/feedid.png" style="height: 50px; margin-right: 20px" /></a>
+  <a routerLink="/"><img src="../../../assets/images/feedid.png" style="height: 50px; margin-right: 20px" /></a>
   <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -72,7 +72,7 @@
     <div class="nav-item">
       <div class="nav-link" style="margin-left: 10px; position: relative;">
         <img class="avatar" *ngIf="isProfileImagePresent(); else defaultProfile"
-          [src]="authenticationService.getProfileAvatar()" alt="profile avatar" 
+          [src]="authenticationService.getProfileAvatar()" alt="profile avatar"
           (click)="toggleDropdown()"/>
           <div class="id-badge">
             <b>{{ id }}</b>
