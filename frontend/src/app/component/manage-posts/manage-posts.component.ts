@@ -32,11 +32,8 @@ export class ManagePostsComponent implements OnInit {
   }
 
   updatePost(post: Post) {
-    // this.postService.getPostById(post.id).subscribe(
-    //   (response: Post) => {
-        this.openModal(post)
-    //   }
-    // )
+    this.selectedPost = post;
+    this.openModal(post)
   }
 
   deletePost(post: Post) {
@@ -47,6 +44,10 @@ export class ManagePostsComponent implements OnInit {
         console.log(post)
       }
     })
+  }
+
+  onSubmit() {
+    console.log('Post updated successfully.')
   }
 
   handleDeletePost(post: Post) {
@@ -61,8 +62,6 @@ export class ManagePostsComponent implements OnInit {
 
   openModal(post: Post) {
     this.openPost = true;
-    this.selectedPost = post; // Save the current post
-    // this.modalService.open(UpdatePostModalComponent, { data: {post: this.selectedPost}});
   }
 
   closePostModal() {

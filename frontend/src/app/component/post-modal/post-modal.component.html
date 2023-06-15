@@ -9,15 +9,16 @@
                 ">
                         <div class="card-body p-5 shadow-5">
                             <h2 class="fw-bold mb-4">Update Post</h2>
-                            <form [formGroup]="updateFormGroup" class="w-100">
+                            <form [formGroup]="updateFormGroup" (ngSubmit)="updatePost()" class="w-100">
                                 <div formGroupName="user" class="form-area">
                                     <div style="display: flex; margin-bottom: 20px">
-                                        <input class="form-control" placeholder="Add a title" style="margin: auto" />
+                                        <input formControlName="title" class="form-control" placeholder="Add a title" style="margin: auto" />
                                     </div>
-                                    <textarea name="user_activity" placeholder="Write caption" class="form-control"
+                                    <input formControlName="id" type="hidden">
+                                    <textarea formControlName="caption" name="user_activity" placeholder="Write caption" class="form-control"
                                         style="border-radius: 10px; margin-bottom: 20px" rows="5"></textarea>
                                     <div class="actions" style="display: flex; flex-direction: column;">
-                                        <input class="form-control" placeholder="Input a link"
+                                        <input formControlName="contentUrl" class="form-control" placeholder="Input a link"
                                             style="margin-bottom: 20px" />
                                         <div style="display: flex; flex-direction: row; align-items: center;">
                                             <div style="display: flex; ">

@@ -19,7 +19,7 @@
         <td>{{ post.title }}</td>
         <td>{{ post.caption }}</td>
         <td>{{ post.contentUrl }}</td>
-        <td>{{ post.user.firstName + " " + post.user.lastName }}</td>
+        <td>{{ post.user.firstName }} {{ post.user.lastName }}</td>
         <td>{{ post.createdAt | date }}</td>
         <td>{{ post.updatedAt | date }}</td>
         <td>
@@ -30,7 +30,7 @@
     </tbody>
   </table>
 
-  <app-post-modal class="center-section" *ngIf="openPost" (cancel)="closePostModal()"></app-post-modal>
+  <app-post-modal [item]="selectedPost" class="center-section" *ngIf="openPost" (cancel)="closePostModal()"></app-post-modal>
 </div>
 
 
