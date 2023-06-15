@@ -4,11 +4,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PostService, Post } from 'src/app/service/post/post.service';
-import { Component, Output, EventEmitter, Input, ViewChild, SimpleChange, SimpleChanges } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { Post } from 'src/app/common/post';
-import { PostService } from 'src/app/service/post/post.service';
 import { FormValidators } from 'src/app/validators/form-validators';
 
 @Component({

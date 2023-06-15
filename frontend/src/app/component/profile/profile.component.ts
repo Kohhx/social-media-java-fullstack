@@ -181,11 +181,13 @@ export class ProfileComponent implements OnInit {
   }
 
   item: any = {};
+  userItem: any = {};
 
   openUser: boolean = false;
 
-  openUserModal(item) {
-    this.item = item
+  openUserModal(userItem) {
+    console.log(userItem)
+    this.userItem = userItem
     this.openUser = true;
   }
 
