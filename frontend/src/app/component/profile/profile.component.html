@@ -26,21 +26,29 @@
 
             <fa-icon
               *ngIf="authService.getAuthenticatedUserId() == user.id"
-              (click)="openUserModal()"
+              (click)="openUserModal(userItem)"
               [icon]="faPenToSquare"
               class="icon fa-xl"
               style="color: black; position: absolute; left: 145px; top: 135px"
             ></fa-icon>
           </div>
-          <div style="margin-left: 10px">
-            <h2 style="text-align: left; color: #eee">
+          <div style="margin-left: 10px; text-align: left; color: #eee">
+            <h2>
               {{ user.firstName | titlecase }} {{ user.LastName | titlecase }}
             </h2>
-            <div style="text-align: left; color: #eee">
-              <p>{{ user.gender }}</p>
-              <p>{{ user.email }}</p>
-            </div>
+            <div>{{ user.gender }}</div>
+            <div>{{ user.email }}</div>
           </div>
+        </div>
+      </div>
+      <div class="modal-wrapper">
+        <div class="modal-post-container" [class.open]="openPost">
+          <app-post-modal (cancel)="closePostModal()" [item]="item"></app-post-modal>
+        </div>
+      </div>
+      <div class="modal-wrapper">
+        <div class="modal-container" [class.open]="openUser">
+          <app-user-modal (cancel)="closeUserModal()" [item]="userItem"></app-user-modal>
         </div>
       </div>
       <div
@@ -79,7 +87,7 @@
     </div>
     <div
       *ngIf="authService.getAuthenticatedUserId() === user.id"
-      class="panel form-container"
+      class="panel" style="padding: 0px 20px"
     >
       <app-create-post-form
         (postCreated)="reloadPage($event)"
@@ -170,7 +178,7 @@
               <button
                 type="button"
                 class="btn-link"
-                (click)="openPostModal()"
+                (click)="openPostModal(item)"
                 style="
                   margin-right: 10px;
                   display: flex;
