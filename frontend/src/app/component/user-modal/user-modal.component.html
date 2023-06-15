@@ -30,23 +30,33 @@
                       </div>
                     </div>
 
-                    <div class="text-center mb-4 avatar-container">
+                    <div class="text-center mb-4 avatar-container d-flex gap-3 align-items-center justify-content-center">
                       <img
                         class="avatar"
                         *ngIf="avatarPreview"
                         [src]="avatarPreview"
                         alt="avatar"
                       />
-                      <fa-icon (click)="openFileBrowser()" [icon]="faCirclePlus" class="icon fa-xl"></fa-icon>
+                      <img
+                        class="avatar"
+                        *ngIf="avatarPreview == null"
+                        [src]="defaultImage"
+                        alt="avatar"
+                      />
+                      <button (click)="openFileBrowser()" class="btn btn-success" type="button">Add Photo</button>
+                      <button (click)="resetLink()" class="btn btn-danger" type="button">Delete Photo</button>
+                      <!-- <fa-icon (click)="openFileBrowser()" [icon]="faCirclePlus" class="icon fa-xl"></fa-icon> -->
                     </div>
-  
+
+                    <input hidden type="text" formControlName="avatarUrl">
+
                     <div class="col-md-6 mb-3">
                       <div class="form-floating mb-1">
                         <input formControlName="firstName" type="text" class="form-control" id="" placeholder="First Name" />
                         <label for="">First Name</label>
                       </div>
                     </div>
-  
+
                     <div class="col-md-6 mb-3">
                       <div class="form-floating mb-1">
                         <input formControlName="lastName" type="text" class="form-control" id="" placeholder="Last Name" />
@@ -54,18 +64,39 @@
                       </div>
                     </div>
                   </div>
-  
-                  <select class="form-select mb-4" style="width: 150px;" [required]="true">
-                    <option selected>Gender</option>
-                    <option value="1">Male</option>
-                    <option value="2">Female</option>
-                  </select>
-  
+
+                  <div class="form-floating mb-4">
+                    <!-- <div class="d-inline-flex"> -->
+                      <select
+                        class="form-select mb-4 w-100"
+                        style="width: 150px"
+                        formControlName="gender"
+                        [ngClass]="{
+                          'is-invalid':
+                            gender.invalid && (gender.dirty || gender.touched)
+                        }"
+                      >
+                        <option disabled>Select Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                      </select>
+                      <label for="">Gender</label>
+                      <!-- <div
+                        *ngIf="gender.invalid && (gender.dirty || gender.touched)"
+                        class="invalid-feedback"
+                      >
+                        <div class="mx-2 mt-1" *ngIf="gender.errors?.['gender']">
+                          Please select either male or female gender
+                        </div>
+                      </div> -->
+                    </div>
+
+
                   <div class="form-floating mb-4">
                     <input formControlName="email" type="email" class="form-control" id="" placeholder="name@example.com" />
                     <label for="">Email address</label>
                   </div>
-  
+
                   <div class="form-floating mb-4">
                     <input formControlName="password" type="password" class="form-control" id="" placeholder="Password" />
                     <label for="">Password</label>
@@ -76,7 +107,7 @@
                       </div>
                     </div>
                   </div>
-                  <button type="submit" class="btn btn-primary mb-4" style="width: 100%;">
+                  <button (click)="handleUpdateUser()" type="submit" class="btn btn-primary mb-4" style="width: 100%;">
                     Update
                   </button>
                   <button type="button" class="btn btn-secondary" style="width: 100%;" (click)="closeModal()">
@@ -91,4 +122,3 @@
     </div>
   </section>
 </div>
-  
