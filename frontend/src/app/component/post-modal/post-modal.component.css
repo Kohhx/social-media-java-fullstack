@@ -12,3 +12,12 @@
     align-items: center;
     height: 100vh;
   }
+
+
+  .icon{
+    cursor: pointer;
+  }
+
+  .icon:hover{
+    opacity: 0.7;
+  }

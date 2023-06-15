@@ -12,7 +12,6 @@ export class ManageUsersComponent implements OnInit {
   usersList: User[] = [];
   selectedUser: User;
   storage: Storage = sessionStorage;
-
   openUser: boolean = false;
 
   constructor(private userService: UserService) { }
@@ -23,27 +22,36 @@ export class ManageUsersComponent implements OnInit {
 
   handleGetAllUsers() {
     this.userService.getAllUsers().subscribe(
-      (response: any) => {
-        console.log(response)
-        this.usersList = response;
+      (data: any) => {
+        console.log(data)
+        this.usersList = data;
       },
     );
   }
 
   updateUser(user: User) {
     this.selectedUser = user;
-    this.openModal(user)
+    this.openModal(user);
   }
 
   deleteUser(user: User) {
-    this.userService.deleteUser(user.id).subscribe(
-      (response: any) => {
-        console.log(response);
-        console.log(`${user} has been deleted.`)
-
-        this.handleGetAllUsers();
+    this.userService.deleteUser(user.id).subscribe({
+      next:(response: any) => {
+        this.handleDeleteUser(user);
+        console.log(response)
+        console.log(user)
       }
-    );
+    });
+  }
+
+  handleDeleteUser(user: User) {
+    if (this.usersList.length == 1) {
+      this.usersList = [];
+    } else {
+      const index = this.usersList.indexOf(user);
+      this.usersList.splice(index, 1);
+    }
+    alert('User deleted successfully!')
   }
 
   openModal(user: User) {

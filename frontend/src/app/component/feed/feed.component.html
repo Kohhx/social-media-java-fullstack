@@ -64,6 +64,12 @@
               <p style="margin-top: 20px">{{ item.caption }}</p>
               <div *ngIf="item.contentUrl != null">
                 <img
+                *ngIf="!fileUtil.isVideoOrImage(item.contentUrl)"
+                [src]="item.contentUrl"
+                alt="post image"
+                style="width: 100%; margin-top: 20px"
+              />
+                <img
                   *ngIf="fileUtil.isImage(item.contentUrl)"
                   [src]="item.contentUrl"
                   alt="post image"

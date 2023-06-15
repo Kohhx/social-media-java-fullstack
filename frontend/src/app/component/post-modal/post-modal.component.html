@@ -1,62 +1,143 @@
 <div class="center-section">
-    <section class="text-center text-lg-start">
-        <div class="container mt-5">
-            <div class="row g-0">
-                <div class="mb-5 mb-lg-0 justify-content-center">
-                    <div class="card cascading-right" style="
-                background: hsla(0, 0%, 100%, 0.55);
-                backdrop-filter: blur(30px);
-                ">
-                        <div class="card-body p-5 shadow-5">
-                            <h2 class="fw-bold mb-4">Update Post</h2>
-                            <form [formGroup]="updateFormGroup" class="w-100" (ngSubmit)="handleUpdatePost()">
-                                <div formGroupName="user" class="form-area">
-                                    <div style="display: flex; margin-bottom: 20px">
-                                        <input class="form-control" placeholder="Add a title" style="margin: auto"
-                                            formControlName="title" />
-                                    </div>
-                                    <textarea name="user_activity" placeholder="Write caption" class="form-control"
-                                        formControlName="caption" style="border-radius: 10px; margin-bottom: 20px"
-                                        rows="5"></textarea>
-                                    <div class="actions" style="display: flex; flex-direction: column;">
-                                        <input class="form-control" placeholder="Input a link" formControlName="link"
-                                            style="margin-bottom: 20px" />
-                                        <div style="display: flex; flex-direction: row; align-items: center;">
-                                            <div style="display: flex; ">
-                                                <button type="button" class="btn btn-link"
-                                                    (click)="handleImageFileClick()"
-                                                    style="margin-right: 10px; display: flex; justify-content: center; align-items: center;">
-                                                    <img src="../../../assets/images/camera-icon.png" height="13px"
-                                                        style="margin: 0px 5px" />
-                                                    Photo
-                                                </button>
-                                                <button type="button" class="btn btn-link"
-                                                    style="display: flex; justify-content: center; align-items: center;">
-                                                    <img src="../../../assets/images/videos-icon.png" height="15px"
-                                                        style="margin: 0px 5px" />
-                                                    Video
-                                                </button>
-                                                <input (change)="handleImageFileChange($event)" hidden #imageInput
-                                                formControlName="file" type="file" />
-                                                <input (change)="handleVideoFileChange($event)" hidden #videoInput
-                                                formControlName="file" type="file" />
-                                            </div>
-                                            <button type="submit" class="btn"
-                                                style="background: #3e8392; flex: 1; margin-left: 10px; color: #eee">
-                                                Update
-                                            </button>
-                                            <button type="button" class="btn btn-secondary"
-                                                style="flex: 1; margin-left: 10px; " (click)="closeModal()">
-                                                Cancel
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
+  <section class="text-center text-lg-start">
+    <div class="container mt-5">
+      <div class="row g-0">
+        <div class="mb-5 mb-lg-0 justify-content-center">
+          <div
+            class="card cascading-right"
+            style="
+              background: hsla(0, 0%, 100%, 0.55);
+              backdrop-filter: blur(30px);
+            "
+          >
+            <div class="card-body p-5 shadow-5">
+              <h2 class="fw-bold mb-4">Update Post</h2>
+              <form
+                [formGroup]="updateFormGroup"
+                class="w-100"
+                (ngSubmit)="handleUpdatePost()"
+              >
+                <div formGroupName="user" class="form-area">
+                  <div style="display: flex; margin-bottom: 20px">
+                    <input
+                      class="form-control"
+                      placeholder="Add a title"
+                      style="margin: auto"
+                      formControlName="title"
+                    />
+                  </div>
+                  <textarea
+                    name="user_activity"
+                    placeholder="Write caption"
+                    class="form-control"
+                    formControlName="caption"
+                    style="border-radius: 10px; margin-bottom: 20px"
+                    rows="5"
+                  ></textarea>
+                  <div
+                    class="actions"
+                    style="display: flex; flex-direction: column"
+                  >
+                  <div class="d-flex gap-2">    <input
+                    class="form-control"
+                    placeholder="Input a link"
+                    formControlName="link"
+                    style="margin-bottom: 20px"
+                  />
+                  <fa-icon
+                    (click)="resetLink()"
+                    [icon]="faCircleXmark"
+                    class="icon fa-xl"
+                    style="
+                      color: black;
+                      margin-top:7px
+                    "
+                  ></fa-icon></div>
+
+                    <div
+                      style="
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                      "
+                    >
+                      <div style="display: flex">
+                        <button
+                          type="button"
+                          class="btn btn-link"
+                          (click)="handleImageFileClick()"
+                          style="
+                            margin-right: 10px;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                          "
+                        >
+                          <img
+                            src="../../../assets/images/camera-icon.png"
+                            height="13px"
+                            style="margin: 0px 5px"
+                          />
+                          Photo
+                        </button>
+                        <button
+                          type="button"
+                          class="btn btn-link"
+                          (click)="handleVideoFileClick()"
+                          style="
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                          "
+                        >
+                          <img
+                            src="../../../assets/images/videos-icon.png"
+                            height="15px"
+                            style="margin: 0px 5px"
+                          />
+                          Video
+                        </button>
+                        <input
+                          (change)="handleImageFileChange($event)"
+                          hidden
+                          #imageInput
+                          type="file"
+                        />
+                        <input
+                          (change)="handleVideoFileChange($event)"
+                          hidden
+                          #videoInput
+                          type="file"
+                        />
+                      </div>
+                      <button
+                        type="submit"
+                        class="btn"
+                        style="
+                          background: #3e8392;
+                          flex: 1;
+                          margin-left: 10px;
+                          color: #eee;
+                        "
+                      >
+                        Update
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-secondary"
+                        style="flex: 1; margin-left: 10px"
+                        (click)="closeModal()"
+                      >
+                        Cancel
+                      </button>
                     </div>
+                  </div>
                 </div>
+              </form>
             </div>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 </div>

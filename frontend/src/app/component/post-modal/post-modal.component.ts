@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PostService, Post } from 'src/app/service/post/post.service';
 import { FormValidators } from 'src/app/validators/form-validators';
+import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-post-modal',
@@ -12,6 +13,9 @@ import { FormValidators } from 'src/app/validators/form-validators';
   styleUrls: ['./post-modal.component.css']
 })
 export class PostModalComponent implements OnChanges, OnInit {
+  faCircleXmark = faCircleXmark
+  @Output() postedUpdated = new EventEmitter<any>();
+
   updateFormGroup!: FormGroup;
 
   items: any[] = [];
@@ -30,12 +34,16 @@ export class PostModalComponent implements OnChanges, OnInit {
   ) { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes)
+    console.log("Changes")
     if (changes['item']) {
       const updatedItem = changes['item'].currentValue;
       this.updateFormGroup.get('user').patchValue(updatedItem);
       if (updatedItem && updatedItem.title) {
-        this.updateFormGroup.get('user.link').setValue(updatedItem.contentUrl);
+        this.updateFormGroup.get('user').patchValue({
+          title: updatedItem.title,
+          caption: updatedItem.caption,
+          link: updatedItem.contentUrl
+        })
       }
     }
   }
@@ -78,7 +86,10 @@ export class PostModalComponent implements OnChanges, OnInit {
   handleImageFileChange(event: Event) {
     const file = (event.target as HTMLInputElement).files[0];
     this.updateFormGroup.get('user.file').setValue(file);
-  
+
+    //Reset link value
+    this.updateFormGroup.get('user.link').setValue("");
+
     // File Preview
     const fileReader = new FileReader();
     fileReader.onload = () => {
@@ -92,8 +103,11 @@ export class PostModalComponent implements OnChanges, OnInit {
 
   handleVideoFileChange(event: Event) {
     const file = (event.target as HTMLInputElement).files[0];
-    this.updateFormGroup.patchValue({ file: file });
-  
+    this.updateFormGroup.get('user.file').setValue(file);
+
+    //Reset link value
+    this.updateFormGroup.get('user.link').setValue("");
+
     // File Preview
     const fileReader = new FileReader();
     fileReader.onload = () => {
@@ -116,71 +130,31 @@ export class PostModalComponent implements OnChanges, OnInit {
     if (this.link?.value) {
       post.append('link', this.link?.value);
     }
+    console.log("Checking")
+    console.log(this.file?.value)
 
     this.postService.updatePost(this.item.id, post).subscribe({
       next: (data) => {
         console.log(data);
-        this.postService.getAllPosts().subscribe({
-          next: (posts) => {
-            this.items = posts;
-            location.reload();
-          },
-          error: (error) => {
-            
-          }
-        });
+        console.log("Updated")
+        this.postedUpdated.emit(true)
+        this.closeModal();
       },
       error: (err) => {
         console.log(err);
       }
     });
   }
-  
+
   @Output() cancel: EventEmitter<void> = new EventEmitter<void>();
 
-  // constructor(
-  //   private formBuilder: FormBuilder,
-  //   private postService: PostService
-  // ) {
-  //   this.updateFormGroup = this.formBuilder.group({
-  //     user: this.formBuilder.group({
-  //       id: [''],
-  //       title: ['', [Validators.required, Validators.minLength(5)]],
-  //       caption: ['', [Validators.required, Validators.minLength(5)]],
-  //       contentUrl: [''],
-  //     })
-  //   });
-  // }
-
-  // ngOnChanges(changes: SimpleChanges): void {
-  //   if (changes['item'] && changes['item'].currentValue) {
-  //     this.updateFormGroup.get('user').patchValue(changes['item'].currentValue);
-  //   }
-  // }
-
-  // updatePost() {
-  //   if (this.updateFormGroup.valid) {
-  //     const formData = this.updateFormGroup.value;
-  //     console.log('formData: ' + JSON.stringify(formData))
-  //     const post: Post = {
-  //       id: formData.user.id,
-  //       title: formData.user.title,
-  //       caption: formData.user.caption,
-  //       contentUrl: formData.user.contentUrl || '',
-  //       createdAt: null,
-  //       updatedAt: null,
-  //       user: undefined
-  //     };
-
-  //     console.log('Post Data:', post);
-
-  //     this.postService.updatePost(post).subscribe(() => {
-  //       console.log('Post updated successfully.')
-  //     });
-  //   }
-  // }
-
   closeModal(): void {
+    this.updateFormGroup.get('user.file').setValue(null);
     this.cancel.emit();
   }
+
+  resetLink() {
+    this.updateFormGroup.get('user.link').setValue("");
+  }
+
 }
