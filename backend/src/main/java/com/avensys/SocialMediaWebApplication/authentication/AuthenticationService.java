@@ -50,8 +50,8 @@ public class AuthenticationService {
             user.setAvatarPublicId(uploadResult.get("public_id").toString());
         }
 
-        System.out.println("Display Roles");
-        System.out.println(Arrays.toString(userRegistration.roles()));
+//        System.out.println("Display Roles");
+//        System.out.println(Arrays.toString(userRegistration.roles()));
 
         Arrays.stream(userRegistration.roles()).forEach(role -> {
             System.out.println(role);

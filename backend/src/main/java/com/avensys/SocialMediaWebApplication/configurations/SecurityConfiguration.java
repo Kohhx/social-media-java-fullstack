@@ -23,7 +23,7 @@ import java.io.IOException;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity
+@EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration {
 
     private final AuthenticationProvider authenticationProvider;
@@ -43,8 +43,32 @@ public class SecurityConfiguration {
                     auth
                             .requestMatchers("/api/signup").permitAll()
                             .requestMatchers("/api/login").permitAll()
+                            .requestMatchers("/api/admin/**").hasRole("ADMIN")
                             .anyRequest().authenticated();
                 })
+//                .exceptionHandling( exception -> {
+//                    exception
+//                            .authenticationEntryPoint((request, response, authException) -> {
+//
+//                                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+//                                response.setContentType("application/json");
+//
+//                                var exceptionResponse = new ExceptionResponse();
+//                                exceptionResponse.setMessage("Unauthorized: Access denied");
+//                                exceptionResponse.setHttpStatus(HttpStatus.UNAUTHORIZED);
+//                                exceptionResponse.setTimestamp(null);
+//                                exceptionResponse.setThrowable(null);
+//
+//                                ObjectMapper objectMapper = new ObjectMapper();
+//                                String jsonBody = objectMapper.writeValueAsString(exceptionResponse);
+//                                System.out.println(jsonBody);
+//
+//                                // Write the JSON response body to the response
+//                                PrintWriter writer = response.getWriter();
+//                                writer.print(jsonBody);
+//                                writer.flush();
+//                            });
+//                })
                 .sessionManagement(session ->
                         session
                                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS))

@@ -137,7 +137,8 @@
                 <div>{{ item.updatedAt | date : "medium" }}</div>
               </div>
             </div>
-            <p style="margin-top: 20px">{{ item.caption }}</p>
+            <h4 style="margin-top: 20px;">{{ item.title }}</h4>
+            <p style="margin-top: 10px">{{ item.caption }}</p>
             <div *ngIf="item.contentUrl != null">
               <img
                 *ngIf="fileUtil.isImage(item.contentUrl)"
@@ -235,7 +236,7 @@
             </div>
             <div style="display: flex; margin: 20px 0px">
               <img
-                *ngIf="!item['user'].avatarUrl"
+                *ngIf="authService.getProfileAvatar() === null"
                 [src]="defaultProfileImage"
                 alt=""
                 style="
@@ -247,8 +248,8 @@
                 "
               />
               <img
-                *ngIf="item['user'].avatarUrl"
-                [src]="item['user'].avatarUrl"
+              *ngIf="authService.getProfileAvatar() !== null"
+                [src]="authService.getProfileAvatar()"
                 alt=""
                 style="
                   background: #3e8392;
