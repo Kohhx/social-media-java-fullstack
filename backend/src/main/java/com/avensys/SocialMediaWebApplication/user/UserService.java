@@ -111,6 +111,7 @@ public class UserService {
                 user.getGender(),
                 user.getAvatarUrl(),
                 token,
+                user.getRolesList(),
                 user.getCreatedAt(),
                 user.getUpdatedAt()
         );
