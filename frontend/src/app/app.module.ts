@@ -20,6 +20,7 @@ import { ManagePostsComponent } from './component/manage-posts/manage-posts.comp
 import { ManageUsersComponent } from './component/manage-users/manage-users.component';
 import { CreatePostFormComponent } from './component/create-post-form/create-post-form.component';
 import { ModalComponent } from './shared/modal/modal.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { ModalComponent } from './shared/modal/modal.component';
     FormsModule,
     ReactiveFormsModule,
     FontAwesomeModule,
+    NgxPaginationModule
   ],
   providers: [
     {
