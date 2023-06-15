@@ -1,5 +1,21 @@
-import { Component, Output, EventEmitter, Input, AfterContentInit, OnChanges, SimpleChanges, ViewChild, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import {
+  Component,
+  Output,
+  EventEmitter,
+  Input,
+  AfterContentInit,
+  OnChanges,
+  SimpleChanges,
+  ViewChild,
+  OnInit,
+} from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { FormValidators } from 'src/app/validators/form-validators';
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
@@ -8,39 +24,43 @@ import { UserService } from 'src/app/service/user/user.service';
 @Component({
   selector: 'app-user-modal',
   templateUrl: './user-modal.component.html',
-  styleUrls: ['./user-modal.component.css']
+  styleUrls: ['./user-modal.component.css'],
 })
 export class UserModalComponent {
   faCirclePlus = faCirclePlus;
   updateFormGroup: FormGroup;
 
-  avatarPreview: any =
+  defaultImage =
     'https://w7.pngwing.com/pngs/754/2/png-transparent-samsung-galaxy-a8-a8-user-login-telephone-avatar-pawn-blue-angle-sphere-thumbnail.png';
 
+  avatarPreview: any = this.defaultImage;
+
+  @Output() updatedUser = new EventEmitter<any>();
+  @Output() cancel: EventEmitter<void> = new EventEmitter<void>();
   @ViewChild('avatar') avatar: any;
-
-  items: any[] = [];
-
   @Input() item: any;
-
   @ViewChild('imageInput') imageInput: any;
 
-  imagePreviewUrl: any = "";
+  imagePreviewUrl: any = '';
 
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService
-  ) { }
+  ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['item']) {
       const updatedItem = changes['item'].currentValue;
-      this.updateFormGroup.get('user').patchValue(updatedItem);
+
       if (updatedItem) {
-        this.updateFormGroup.get('user.firstName').setValue(updatedItem.firstName);
-        this.updateFormGroup.get('user.lastName').setValue(updatedItem.lastName);
-        this.updateFormGroup.get('user.email').setValue(updatedItem.email);
-        
+        this.avatarPreview = updatedItem.avatarUrl;
+        this.updateFormGroup.get('user').patchValue({
+          firstName: updatedItem.firstName,
+          lastName: updatedItem.lastName,
+          email: updatedItem.email,
+          avatarUrl: updatedItem.avatarUrl,
+          gender: updatedItem.gender,
+        });
       }
     }
   }
@@ -48,15 +68,32 @@ export class UserModalComponent {
   ngOnInit(): void {
     this.updateFormGroup = this.formBuilder.group({
       user: this.formBuilder.group({
-        firstName: new FormControl('', [Validators.required, Validators.minLength(2), FormValidators.notOnlyWhiteSpace]),
-        lastName: new FormControl('', [Validators.required, Validators.minLength(2), FormValidators.notOnlyWhiteSpace]),
-        email: new FormControl('', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
-        password: new FormControl('', [Validators.required, Validators.minLength(7)]),
-        confirmPassword: new FormControl('', [Validators.required, Validators.minLength(7), this.matchPasswordValidator()]),
+        firstName: new FormControl('', [
+          Validators.required,
+          Validators.minLength(2),
+          FormValidators.notOnlyWhiteSpace,
+        ]),
+        lastName: new FormControl('', [
+          Validators.required,
+          Validators.minLength(2),
+          FormValidators.notOnlyWhiteSpace,
+        ]),
+        email: new FormControl('', [
+          Validators.required,
+          Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+        ]),
+        password: new FormControl('', [
+          Validators.required,
+          Validators.minLength(7),
+        ]),
+        gender: new FormControl('Select Gender', [
+          Validators.required,
+          FormValidators.checkGender,
+        ]),
+        avatarUrl: new FormControl(''),
         avatarFile: new FormControl(''),
       }),
     });
-
   }
 
   matchPasswordValidator(): ValidatorFn {
@@ -68,25 +105,40 @@ export class UserModalComponent {
     };
   }
 
-  get firstName() { return this.updateFormGroup.get('user.firstName'); }
-  get lastName() { return this.updateFormGroup.get('user.lastName'); }
-  get gender() { return this.updateFormGroup.get('user.gender'); }
-  get email() { return this.updateFormGroup.get('user.email'); }
-  get password() { return this.updateFormGroup.get('user.password'); }
-  get confirmPassword() { return this.updateFormGroup.get('user.confirmPassword'); }
-  get avatarFile() { return this.updateFormGroup.get('user.avatarFile'); }
-
-  @Output() cancel: EventEmitter<void> = new EventEmitter<void>();
+  get firstName() {
+    return this.updateFormGroup.get('user.firstName');
+  }
+  get lastName() {
+    return this.updateFormGroup.get('user.lastName');
+  }
+  get gender() {
+    return this.updateFormGroup.get('user.gender');
+  }
+  get email() {
+    return this.updateFormGroup.get('user.email');
+  }
+  get password() {
+    return this.updateFormGroup.get('user.password');
+  }
+  get confirmPassword() {
+    return this.updateFormGroup.get('user.confirmPassword');
+  }
+  get avatarUrl() {
+    return this.updateFormGroup.get('user.avatarUrl');
+  }
+  get avatarFile() {
+    return this.updateFormGroup.get('user.avatarFile');
+  }
 
   closeModal(): void {
+    this.updateFormGroup.get('user.avatarFile').setValue(null);
     this.cancel.emit();
   }
 
   onFileChange(event: Event) {
     const file = (event.target as HTMLInputElement).files![0];
-    this.updateFormGroup.get('user').patchValue({
-      avatarFile: file,
-    });
+    this.updateFormGroup.get('user.avatarUrl').setValue('');
+    this.updateFormGroup.get('user.avatarFile').setValue(file);
 
     // File Preview
     const fileReader = new FileReader();
@@ -111,10 +163,23 @@ export class UserModalComponent {
     if (this.avatarFile?.value) {
       user.append('avatarFile', this.avatarFile?.value);
     }
-    user.append('avatarUrl', '');
+    if (this.avatarUrl?.value) {
+      user.append('avatarUrl', this.avatarUrl?.value);
+    }
 
     this.userService.updateUser(this.item.id, user).subscribe(() => {
-      console.log('Post updated successfully.')
+      console.log('Post updated successfully.');
+      this.updatedUser.emit(true);
+      this.closeModal();
     });
+  }
+
+  resetLink() {
+    this.avatarPreview = this.defaultImage;
+    this.updateFormGroup.get('user.avatarUrl').setValue('');
+  }
+
+  captializeFirstLetter(string: string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
   }
 }

@@ -1,4 +1,28 @@
 <div class="container-fluid mt-4">
+
+  <!-- Search Bar -->
+  <div class="form-outline my-4">
+    <input
+      [(ngModel)]="searchTerm"
+      type="search"
+      class="form-control fw-bold"
+      (keyup)="filterUsers()"
+      placeholder="Search users by id, name or email..."
+      aria-label="Search"
+    />
+  </div>
+
+  <!-- Items per page -->
+  <div class="d-flex justify-content-end me-4">
+    <label for="itemsPerPage" class="fw-bold">Users per page: </label>
+    <select [(ngModel)]="usersPerPage" name="itemsPerPage" id="itemsPerPage" class="ms-2">
+      <option value="5">5</option>
+      <option value="10">10</option>
+      <option value="20">20</option>
+      <option value="50">50</option>
+    </select>
+  </div>
+
   <table class="table table-striped">
     <thead>
       <tr>
@@ -13,7 +37,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let user of usersList">
+      <tr *ngFor="let user of filteredUsersList | paginate: { itemsPerPage: usersPerPage, currentPage: page }">
         <td>{{ user.id }}</td>
         <td>{{ user.avatarUrl }}</td>
         <td>{{ user.firstName }}</td>
@@ -28,18 +52,16 @@
       </tr>
     </tbody>
   </table>
-  <app-user-modal [item]="selectedUser" class="center-section" *ngIf="openUser" (cancel)="closeUserModal()"></app-user-modal>
-</div>
 
-<!-- <div class="modal" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Modal title</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <p>Modal body text goes here.</p>
+  <!-- Pagination -->
+  <div class="d-flex justify-content-center mt-5">
+    <pagination-controls
+      previousLabel="Previous"
+      nextLabel="Next"
+      (pageChange)="page = $event"
+    >
+    </pagination-controls>
+  </div>
 
   <app-user-modal [item]="selectedUser" class="center-section" *ngIf="openUser" (cancel)="closeUserModal()"></app-user-modal>
 </div> -->

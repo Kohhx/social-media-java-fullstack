@@ -72,12 +72,7 @@ export class ProfileComponent implements OnInit {
 
     this.getAllPostsByUser(this.userId);
 
-    this.userService.getUserById(this.userId).subscribe({
-      next: (user) => {
-        console.log(user);
-        this.user = user;
-      }
-    })
+    this.getUserById(this.userId)
 
   }
 
@@ -175,8 +170,7 @@ export class ProfileComponent implements OnInit {
   }
 
   openUserModal(userItem) {
-    console.log(userItem)
-    this.userItem = userItem
+    console.log(this.user)
     this.openUser = true;
   }
 
@@ -233,6 +227,12 @@ export class ProfileComponent implements OnInit {
     }
   }
 
+  userUpdated(isUserUpdated: boolean) {
+    if (isUserUpdated) {
+      this.getUserById(this.userId);
+    }
+  }
+
   private getAllPostsByUser(id: number) {
     this.postService.getPostsByUserId(id).subscribe({
       next: (posts) => {
@@ -251,5 +251,14 @@ export class ProfileComponent implements OnInit {
       (a, b): any =>
         new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
     );
+  }
+
+  private getUserById(id: number) {
+    this.userService.getUserById(id).subscribe({
+      next: (user) => {
+        console.log(user);
+        this.user = user;
+      }
+    })
   }
 }

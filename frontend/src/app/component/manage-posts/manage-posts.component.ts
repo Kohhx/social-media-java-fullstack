@@ -15,6 +15,14 @@ export class ManagePostsComponent implements OnInit {
   storage: Storage = sessionStorage;
   openPost: boolean = false;
 
+  // For searchbar in manage posts page:
+  private _searchTerm: string = '';
+  filteredPostsList: Post[] = [];
+
+  // For pagination:
+  page: number = 1;
+  postsPerPage: number = 10;
+
   constructor(private postService: PostService) { }
 
   ngOnInit(): void {
@@ -25,6 +33,7 @@ export class ManagePostsComponent implements OnInit {
     this.postService.getAllPosts().subscribe({
       next: (data: any) => {
         this.postsList = data;
+        this.filterPosts();
       }
     });
   }
@@ -60,6 +69,28 @@ export class ManagePostsComponent implements OnInit {
 
   closePostModal() {
     this.openPost = false;
+  }
+
+  // For searchbar in manage posts page:
+  filterPosts() {
+    this.filteredPostsList = this.postsList.filter((post: Post) => {
+      // Add filters for id / username / title / content:
+      return post.id.toString().includes(this.searchTerm) ||
+      (post.user.firstName ? post.user.firstName.toLowerCase().includes(this.searchTerm.toLowerCase()) : false) ||
+      (post.user.lastName ? post.user.lastName.toLowerCase().includes(this.searchTerm.toLowerCase()) : false) ||
+      (post.title ? post.title.toLowerCase().includes(this.searchTerm.toLowerCase()) : false) ||
+      (post.caption ? post.caption.toLowerCase().includes(this.searchTerm.toLowerCase()) : false)
+    })
+  }
+
+  get searchTerm(): string {
+    return this._searchTerm;
+  }
+
+
+  set searchTerm(value: string) {
+    this._searchTerm = value;
+    this.filterPosts();
   }
 
 }
