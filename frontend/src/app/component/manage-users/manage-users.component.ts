@@ -44,7 +44,7 @@ export class ManageUsersComponent implements OnInit {
 
   updateUser(user: User) {
     this.selectedUser = user;
-    this.openModal(user);
+    this.openUser = true;
   }
 
   deleteUser(user: User) {
@@ -53,23 +53,20 @@ export class ManageUsersComponent implements OnInit {
         this.handleDeleteUser(user);
         console.log(response)
         console.log(user)
+
+        // Get updated list of users:
+        this.handleGetAllUsers();
       }
     });
   }
 
   handleDeleteUser(user: User) {
-    if (this.usersList.length == 1) {
-      this.usersList = [];
-    } else {
-      const index = this.usersList.indexOf(user);
+    const index = this.usersList.indexOf(user);
+    if (index > -1) {
       this.usersList.splice(index, 1);
+      this.toastr.success('User deleted successfully!')
     }
-    this.toastr.success('User deleted successfully!')
-  }
-
-  openModal(user: User) {
-    this.openUser = true;
-  }
+  };
 
   closeUserModal() {
     this.openUser = false;
