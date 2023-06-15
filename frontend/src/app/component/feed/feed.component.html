@@ -4,10 +4,7 @@
       <ul class="nav">
         <div style="display: flex; margin: 10px; z-index: 2;">
           <li class="nav-item">
-            <a
-              class="nav-link active"
-              style="color: #3e8392; font-weight: bold;"
-              href="#">
+            <a class="nav-link active" style="color: #3e8392; font-weight: bold;" href="#">
               FEED
             </a>
           </li>
@@ -20,40 +17,24 @@
         <app-create-post-form (postCreated)="reloadPage($event)"></app-create-post-form>
       </div>
       <div class="panel">
-        <div
-          class="panel-content"
-          style="padding-top: 20px; padding-bottom: 5px"
-        >
+        <div class="panel-content" style="padding-top: 20px; padding-bottom: 5px">
           <div *ngIf="items.length === 0" class="panel-title text-center mb-4 p-4">No posts</div>
           <ng-container *ngIf="items.length !== 0">
             <div class="panel-title">Posts</div>
-            <div
-              *ngFor="let item of items"
-              style="border-top: 1px solid #eee; margin-top: 20px"
-            >
+            <div *ngFor="let item of items" style="border-top: 1px solid #eee; margin-top: 20px">
               <div style="display: flex; margin-top: 20px">
-                <img
-                  *ngIf="!item['user'].avatarUrl"
-                  [src]="defaultProfileImage"
-                  alt=""
-                  style="
+                <img *ngIf="!item['user'].avatarUrl" [src]="defaultProfileImage" alt="" style="
                     background: #3e8392;
                     height: 50px;
                     width: 50px;
                     border-radius: 50%;
-                  "
-                />
-                <img
-                  *ngIf="item['user'].avatarUrl"
-                  [src]="item['user'].avatarUrl"
-                  alt=""
-                  style="
+                  " />
+                <img *ngIf="item['user'].avatarUrl" [src]="item['user'].avatarUrl" alt="" style="
                     background: #3e8392;
                     height: 50px;
                     width: 50px;
                     border-radius: 50%;
-                  "
-                />
+                    object-fit: cover;" />
                 <div style="margin-left: 10px">
                   <div>
                     {{ item["user"].firstName }} {{ item["user"].lastName }}
@@ -63,42 +44,21 @@
               </div>
               <p style="margin-top: 20px">{{ item.caption }}</p>
               <div *ngIf="item.contentUrl != null">
-                <img
-                *ngIf="!fileUtil.isVideoOrImage(item.contentUrl)"
-                [src]="item.contentUrl"
-                alt="post image"
-                style="width: 100%; margin-top: 20px"
-              />
-                <img
-                  *ngIf="fileUtil.isImage(item.contentUrl)"
-                  [src]="item.contentUrl"
-                  alt="post image"
-                  style="width: 100%; margin-top: 20px"
-                />
-                <video
-                  *ngIf="fileUtil.isVideo(item.contentUrl)"
-                  [src]="item.contentUrl"
-                  alt="post video"
-                  controls
-                  style="width: 100%; margin-top: 20px"
-                ></video>
+                <img *ngIf="!fileUtil.isVideoOrImage(item.contentUrl)" [src]="item.contentUrl" alt="post image"
+                  style="width: 100%; margin-top: 20px" />
+                <img *ngIf="fileUtil.isImage(item.contentUrl)" [src]="item.contentUrl" alt="post image"
+                  style="width: 100%; margin-top: 20px" />
+                <video *ngIf="fileUtil.isVideo(item.contentUrl)" [src]="item.contentUrl" alt="post video" controls
+                  style="width: 100%; margin-top: 20px"></video>
               </div>
               <div class="activity__list__footer text-center w-100 comment-container">
-                <button
-                  type="button"
-                  class="btn-link comment-btn"
-                  style="
+                <button type="button" class="btn-link comment-btn" style="
                     margin-right: 10px;
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                  "
-                >
-                  <img
-                    src="../../../assets/images/comment-icon.png"
-                    height="15px"
-                    style="margin: 0px 5px"
-                  />
+                  ">
+                  <img src="../../../assets/images/comment-icon.png" height="15px" style="margin: 0px 5px" />
                   Comments
                 </button>
                 <!-- <button
@@ -137,35 +97,22 @@
                 </button> -->
               </div>
               <div style="display: flex; margin: 20px 0px">
-                <img
-                *ngIf="!item['user'].avatarUrl"
-                [src]="defaultProfileImage"
-                alt=""
-                style="
+                <img *ngIf="!item['user'].avatarUrl" [src]="defaultProfileImage" alt="" style="
                   background: #3e8392;
                   height: 40px;
                   width: 40px;
                   border-radius: 50%;
                   margin-right: 10px;
-                "
-              />
-              <img
-                *ngIf="item['user'].avatarUrl"
-                [src]="item['user'].avatarUrl"
-                alt=""
-                style="
+                " />
+                <img *ngIf="item['user'].avatarUrl" [src]="item['user'].avatarUrl" alt="" style="
                   background: #3e8392;
                   height: 40px;
                   width: 40px;
                   border-radius: 50%;
                   margin-right: 10px;
-                "
-              />
-                <input
-                  class="form-control"
-                  placeholder="Write a comment"
-                  style="margin: auto; border-radius: 50px; background: #e5e6eb"
-                />
+                " />
+                <input class="form-control" placeholder="Write a comment"
+                  style="margin: auto; border-radius: 50px; background: #e5e6eb" />
               </div>
             </div>
           </ng-container>

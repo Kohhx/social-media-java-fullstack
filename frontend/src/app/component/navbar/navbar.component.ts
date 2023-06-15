@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ElementRef, ViewChild, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/service/authentication/authentication.service';
 import { ToastrService } from 'ngx-toastr';
@@ -14,11 +14,33 @@ export class NavbarComponent implements OnInit {
   defaultProfileImage =
     'https://w7.pngwing.com/pngs/754/2/png-transparent-samsung-galaxy-a8-a8-user-login-telephone-avatar-pawn-blue-angle-sphere-thumbnail.png';
 
+  showDropdown = false;
+
+  toggleDropdown() {
+    this.showDropdown = !this.showDropdown;
+  }
+
+  selectOption() {
+    this.showDropdown = false;
+  }
+
+  @HostListener('document:click', ['$event.target'])
+  onDocumentClick(target: HTMLElement) {
+    if (!this.isDropdownClicked(target)) {
+      this.showDropdown = false;
+    }
+  }
+
+  isDropdownClicked(target: HTMLElement): boolean {
+    const dropdownElement = document.querySelector('.dropdown');
+    return dropdownElement?.contains(target);
+  }
+
   constructor(
     public authenticationService: AuthenticationService,
     private router: Router,
     private toast: ToastrService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.id = this.authenticationService.getAuthenticatedUserId();

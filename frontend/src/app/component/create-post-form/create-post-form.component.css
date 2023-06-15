@@ -39,3 +39,16 @@ button.btn-link {
   border-radius: 50%;
   margin-right: 10px;
 }
+
+.create-post {
+  background: #3e8392; 
+  flex: 1; 
+  margin-left: 10px; 
+  color: #eee;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.create-post:hover {
+  background: #5b9da8; 
+}
