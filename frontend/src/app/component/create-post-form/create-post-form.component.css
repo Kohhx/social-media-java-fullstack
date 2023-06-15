@@ -41,14 +41,19 @@ button.btn-link {
 }
 
 .create-post {
-  background: #3e8392; 
-  flex: 1; 
-  margin-left: 10px; 
+  background: #3e8392;
+  flex: 1;
+  margin-left: 10px;
   color: #eee;
   border-radius: 5px;
   cursor: pointer;
+  border: none;
 }
 
-.create-post:hover {
-  background: #5b9da8; 
+.create-post:hover:enabled {
+  background: #5b9da8;
+}
+
+.create-post:disabled {
+  background: #5b9da8;
 }
