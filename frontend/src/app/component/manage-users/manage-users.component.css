@@ -1,3 +1,9 @@
+.center-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
 .modal-container .open {
   display: block;
   z-index: 1000;
