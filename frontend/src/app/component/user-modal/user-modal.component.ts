@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, Input, AfterContentInit, OnChanges, SimpleChanges, ViewChild, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FormValidators } from 'src/app/validators/form-validators';
@@ -8,14 +8,28 @@ import { FormValidators } from 'src/app/validators/form-validators';
   templateUrl: './user-modal.component.html',
   styleUrls: ['./user-modal.component.css']
 })
-export class UserModalComponent {
+export class UserModalComponent implements OnChanges, OnInit {
 
   updateFormGroup: FormGroup;
+
+  @Input() item: any;
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router
   ) { }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes)
+    if (changes['item']) {
+      const updatedItem = changes['item'].currentValue;
+      if (updatedItem && updatedItem.title) {
+        this.updateFormGroup.get('user.firstName').setValue(updatedItem.firstName);
+        this.updateFormGroup.get('user.lastName').setValue(updatedItem.lastName);
+        this.updateFormGroup.get('user.email').setValue(updatedItem.email);
+      }
+    }
+  }
 
   ngOnInit(): void {
     this.updateFormGroup = this.formBuilder.group({

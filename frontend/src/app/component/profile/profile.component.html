@@ -26,7 +26,7 @@
 
             <fa-icon
               *ngIf="authService.getAuthenticatedUserId() == user.id"
-              (click)="openUserModal()"
+              (click)="openUserModal(item)"
               [icon]="faPenToSquare"
               class="icon fa-xl"
               style="color: black; position: absolute; left: 145px; top: 135px"
@@ -44,6 +44,11 @@
       <div class="modal-wrapper">
         <div class="modal-post-container" [class.open]="openPost">
           <app-post-modal (cancel)="closePostModal()" [item]="item"></app-post-modal>
+        </div>
+      </div>
+      <div class="modal-wrapper">
+        <div class="modal-post-container" [class.open]="openUser">
+          <app-user-modal (cancel)="closeUserModal()" [item]="item"></app-user-modal>
         </div>
       </div>
       <div

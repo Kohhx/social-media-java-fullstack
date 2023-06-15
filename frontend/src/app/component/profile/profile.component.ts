@@ -184,7 +184,8 @@ export class ProfileComponent implements OnInit {
 
   openUser: boolean = false;
 
-  openUserModal() {
+  openUserModal(item) {
+    this.item = item
     this.openUser = true;
   }
 
