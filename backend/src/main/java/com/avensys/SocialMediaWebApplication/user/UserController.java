@@ -35,6 +35,12 @@ public class UserController {
         }
     }
 
+    @PatchMapping("users/{userId}")
+    public ResponseEntity<UserUpdateResponseDTO> UpdateUser(@PathVariable long userId, @ModelAttribute UserUpdateRequestDTO userUpdateRequest) {
+        UserUpdateResponseDTO userResponse = userService.updateUserById(userId, userUpdateRequest);
+        return new ResponseEntity<>(userResponse, HttpStatus.OK);
+    }
+
     @DeleteMapping("users/{userId}")
     public ResponseEntity<String> deleteUser(@PathVariable long userId) {
         userService.deleteUserById(userId);

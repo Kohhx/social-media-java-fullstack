@@ -227,6 +227,12 @@ export class ProfileComponent implements OnInit {
     this.closeDeleteModal();
   }
 
+  postUpdated(isPostUpdated: boolean) {
+    if (isPostUpdated) {
+      this.getAllPostsByUser(this.userId);
+    }
+  }
+
   private getAllPostsByUser(id: number) {
     this.postService.getPostsByUserId(id).subscribe({
       next: (posts) => {

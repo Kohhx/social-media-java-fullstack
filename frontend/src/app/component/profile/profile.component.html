@@ -43,7 +43,7 @@
       </div>
       <div class="modal-wrapper">
         <div class="modal-post-container" [class.open]="openPost">
-          <app-post-modal (cancel)="closePostModal()" [item]="item"></app-post-modal>
+          <app-post-modal (postedUpdated)="postUpdated($event)" (cancel)="closePostModal()" [item]="item"></app-post-modal>
         </div>
       </div>
       <div class="modal-wrapper">
@@ -140,6 +140,12 @@
             <h4 style="margin-top: 20px;">{{ item.title }}</h4>
             <p style="margin-top: 10px">{{ item.caption }}</p>
             <div *ngIf="item.contentUrl != null">
+              <img
+              *ngIf="!fileUtil.isVideoOrImage(item.contentUrl)"
+              [src]="item.contentUrl"
+              alt="post image"
+              style="width: 100%; margin-top: 20px"
+            />
               <img
                 *ngIf="fileUtil.isImage(item.contentUrl)"
                 [src]="item.contentUrl"

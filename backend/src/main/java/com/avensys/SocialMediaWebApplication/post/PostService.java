@@ -30,7 +30,7 @@ public class PostService {
     }
 
     public List<PostResponseDTO> findAllPosts() {
-       return postRepository.findAll().stream()
+        return postRepository.findAll().stream()
                 .map(post -> postToPostResponseDTO(post))
                 .collect(Collectors.toList());
 
@@ -80,34 +80,50 @@ public class PostService {
         Post post = findPostById(id);
 
         // Check if user is admin or post belong to user before user is allowed to update a post
-        if (!checkIsAdmin()){
+        if (!checkIsAdmin()) {
             checkPostBelongToUser(post);
         }
 
         post.setTitle(postUpdateRequest.title());
         post.setCaption(postUpdateRequest.caption());
 
+        System.out.println("FILE: " + postUpdateRequest.file());
+
         if (!isPostLinkEmpty(postUpdateRequest) && !postUpdateRequest.link().equals(post.getContentUrl())) {
+            System.out.println("------------->>>> 1");
             deleteFile(post);
             post.setContentId(null);
             post.setContentUrl(postUpdateRequest.link());
         } else if (isPostLinkEmpty(postUpdateRequest) && !isPostFileEmpty(postUpdateRequest)) {
+            System.out.println("------------->>>> 2");
             if (post.getContentId() != null && !post.getContentId().isEmpty()) {
                 deleteFile(post);
                 post.setContentId(null);
+                post.setContentUrl(null);
             }
             Map uploadResult = addFile(postUpdateRequest);
             post.setContentUrl((uploadResult.get("url").toString()));
             post.setContentId((uploadResult.get("public_id").toString()));
+        } else if (!isPostLinkEmpty(postUpdateRequest) && postUpdateRequest.link() != post.getContentUrl()) {
+            if (post.getContentId() != null && !post.getContentId().isEmpty()) {
+                deleteFile(post);
+                post.setContentId(null);
+                post.setContentUrl(null);
+            }
+            post.setContentUrl(postUpdateRequest.link());
         } else if (isPostFileEmpty(postUpdateRequest) && isPostLinkEmpty(postUpdateRequest)) {
-            deleteFile(post);
-            post.setContentUrl(null);
-            post.setContentId(null);
+            System.out.println("------------->>>> 3");
+            if (post.getContentId() != null && !post.getContentId().isEmpty()) {
+                deleteFile(post);
+                post.setContentId(null);
+                post.setContentUrl(null);
+            }
         }
 
+        System.out.println("=============================================");
         Post postSaved = postRepository.save(post);
         PostUserInfoDTO postUserInfo = userToPostUserInfoDTO(postSaved.getUser());
-        PostResponseDTO postUpdateResponse = new PostResponseDTO(postSaved.getId(), postSaved.getTitle(), postSaved.getCaption(), postSaved.getContentUrl(), postSaved.getCreatedAt(), postSaved.getUpdatedAt(),postUserInfo);
+        PostResponseDTO postUpdateResponse = new PostResponseDTO(postSaved.getId(), postSaved.getTitle(), postSaved.getCaption(), postSaved.getContentUrl(), postSaved.getCreatedAt(), postSaved.getUpdatedAt(), postUserInfo);
         return postUpdateResponse;
     }
 
@@ -115,7 +131,7 @@ public class PostService {
         Post post = findPostById(id);
 
         // Check if user is admin or post belong to user before user is allowed to delete a post
-        if (!checkIsAdmin()){
+        if (!checkIsAdmin()) {
             checkPostBelongToUser(post);
         }
 
@@ -131,7 +147,7 @@ public class PostService {
     }
 
     public List<PostResponseDTO> getPostsByUserId(long id) {
-        Optional<List<Post>> userPosts =  postRepository.findAllByUserId(id);
+        Optional<List<Post>> userPosts = postRepository.findAllByUserId(id);
         if (userPosts.isPresent()) {
             return userPosts.get().stream()
                     .map(post -> postToPostResponseDTO(post))
@@ -197,7 +213,7 @@ public class PostService {
         }
     }
 
-    private boolean checkIsAdmin(){
+    private boolean checkIsAdmin() {
         return SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream()
                 .anyMatch(role -> role.getAuthority().equals("ROLE_ADMIN"));
     }
