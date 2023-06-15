@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { Post } from 'src/app/common/post';
 import { PostService } from 'src/app/service/post/post.service';
 import { PostModalComponent } from '../post-modal/post-modal.component';
@@ -22,6 +22,8 @@ export class ManagePostsComponent implements OnInit {
   // For pagination:
   page: number = 1;
   postsPerPage: number = 10;
+
+  @Output() cancel: EventEmitter<void> = new EventEmitter<void>();
 
   constructor(private postService: PostService) { }
 
@@ -69,6 +71,7 @@ export class ManagePostsComponent implements OnInit {
 
   closePostModal() {
     this.openPost = false;
+    this.cancel.emit();
   }
 
   // For searchbar in manage posts page:
@@ -86,7 +89,6 @@ export class ManagePostsComponent implements OnInit {
   get searchTerm(): string {
     return this._searchTerm;
   }
-
 
   set searchTerm(value: string) {
     this._searchTerm = value;
