@@ -2,31 +2,29 @@
   <div class="container w-75">
     <div class="panel">
       <ul class="nav">
-        <div style="display: flex; margin: 10px">
+        <div style="display: flex; margin: 10px; z-index: 2;">
           <li class="nav-item">
             <a
               class="nav-link active"
-              style="color: #3e8392; font-weight: bold"
-              href="#"
-              >FEED</a
-            >
+              style="color: #3e8392; font-weight: bold;"
+              href="#">
+              FEED
+            </a>
           </li>
           <li class="nav-item">
             <a class="nav-link disabled" href="#">OTHERS</a>
           </li>
         </div>
       </ul>
-      <div class="panel-content">
-        <app-create-post-form
-          (postCreated)="reloadPage($event)"
-        ></app-create-post-form>
+      <div class="panel-content" style="padding: 0px 20px">
+        <app-create-post-form (postCreated)="reloadPage($event)"></app-create-post-form>
       </div>
       <div class="panel">
         <div
           class="panel-content"
           style="padding-top: 20px; padding-bottom: 5px"
         >
-          <div *ngIf="items.length === 0" class="panel-title text-center mb-4 p-5">No posts</div>
+          <div *ngIf="items.length === 0" class="panel-title text-center mb-4 p-4">No posts</div>
           <ng-container *ngIf="items.length !== 0">
             <div class="panel-title">Posts</div>
             <div

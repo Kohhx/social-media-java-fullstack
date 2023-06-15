@@ -1,7 +1,16 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Post } from 'src/app/common/post';
+// import { Post } from 'src/app/common/post';
+
+export interface Post {
+  id: number;
+  title: string;
+  caption: string;
+  contentUrl: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +19,8 @@ export class PostService {
 
   private BASE_URL: string = 'http://localhost:8080/api';
 
-  constructor(private http: HttpClient) {}
+
+  constructor(private http: HttpClient) { }
 
   createPost(post: any) {
     return this.http.post(`${this.BASE_URL}/posts`, post);
@@ -24,26 +34,15 @@ export class PostService {
     return this.http.get<Post>(`${this.BASE_URL}/posts/${id}`);
   }
 
-  getPostsByUserId(id: number): Observable<Post[]> {
-    return this.http.get<Post[]>(`${this.BASE_URL}/users/${id}/posts`);
+  updatePost(id: number, post: any): Observable<Post> {
+    return this.http.patch<Post>(`${this.BASE_URL}/posts/${id}`, post);
   }
 
-  updatePost(post: Post): Observable<any> {
-
-    console.log('Service Post Data:', post);
-
-    const formData: FormData = new FormData();
-
-    formData.append('id', post.id.toString());
-    formData.append('title', post.title);
-    formData.append('caption', post.caption);
-    formData.append('contentUrl', post.contentUrl);
-
-    return this.http.patch(`${this.BASE_URL}/posts/${post.id}`, formData);
+  getPostsByUserId(id: number): Observable<Post[]> {
+    return this.http.get<Post[]>(`${this.BASE_URL}/users/${id}/posts`);
   }
 
   deletePost(id: number): Observable<any> {
     return this.http.delete(`${this.BASE_URL}/posts/${id}`);
   }
-
 }
