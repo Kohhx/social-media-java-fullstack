@@ -15,8 +15,6 @@ export class ManagePostsComponent implements OnInit {
   storage: Storage = sessionStorage;
   openPost: boolean = false;
 
-  // @ViewChild(PostModalComponent) model: PostModalComponent;
-
   constructor(private postService: PostService) { }
 
   ngOnInit(): void {
@@ -44,10 +42,6 @@ export class ManagePostsComponent implements OnInit {
         console.log(post)
       }
     })
-  }
-
-  onSubmit() {
-    console.log('Post updated successfully.')
   }
 
   handleDeletePost(post: Post) {
