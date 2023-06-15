@@ -1,5 +1,6 @@
 <div class="container-fluid mt-4 manage-post">
 
+  <!-- Search bar -->
   <div class="form-outline my-4">
     <input
       [(ngModel)]="searchTerm"
@@ -9,6 +10,17 @@
       placeholder="Search posts by id, title, caption or username..."
       aria-label="Search"
     />
+  </div>
+
+  <!-- Items per page -->
+  <div class="d-flex justify-content-end me-4">
+    <label for="itemsPerPage" class="fw-bold">Posts per page: </label>
+    <select [(ngModel)]="postsPerPage" name="itemsPerPage" id="itemsPerPage" class="ms-2">
+      <option value="5">5</option>
+      <option value="10">10</option>
+      <option value="20">20</option>
+      <option value="50">50</option>
+    </select>
   </div>
 
   <table class="table table-striped">
@@ -25,7 +37,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let post of filteredPostsList">
+      <tr *ngFor="let post of filteredPostsList | paginate: { itemsPerPage: postsPerPage, currentPage: page }">
         <td>{{ post.id }}</td>
         <td>{{ post.title }}</td>
         <td>{{ post.caption }}</td>
@@ -40,6 +52,16 @@
       </tr>
     </tbody>
   </table>
+
+  <!-- Pagination -->
+  <div class="d-flex justify-content-center mt-5">
+    <pagination-controls
+      previousLabel="Previous"
+      nextLabel="Next"
+      (pageChange)="page = $event"
+    >
+    </pagination-controls>
+  </div>
 
   <app-post-modal [item]="selectedPost" class="center-section" *ngIf="openPost" (cancel)="closePostModal()"></app-post-modal>
 </div>

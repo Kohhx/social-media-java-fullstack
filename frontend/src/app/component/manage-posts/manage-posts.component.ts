@@ -19,6 +19,10 @@ export class ManagePostsComponent implements OnInit {
   private _searchTerm: string = '';
   filteredPostsList: Post[] = [];
 
+  // For pagination:
+  page: number = 1;
+  postsPerPage: number = 10;
+
   constructor(private postService: PostService) { }
 
   ngOnInit(): void {

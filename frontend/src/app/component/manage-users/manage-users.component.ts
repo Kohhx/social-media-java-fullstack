@@ -18,6 +18,10 @@ export class ManageUsersComponent implements OnInit {
   private _searchTerm: string = '';
   filteredUsersList: User[] = [];
 
+  // For pagination:
+  page: number = 1;
+  usersPerPage: number = 10;
+
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
