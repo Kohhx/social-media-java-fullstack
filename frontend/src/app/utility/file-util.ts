@@ -27,4 +27,15 @@ export class FileUtil {
     }
     return false;
   }
+
+  static isVideoOrImage(filename: string) {
+    if (filename === null || filename === undefined) {
+      return true
+    }
+    const ext = this.getExtension(filename);
+    if (ext) {
+      return this.isImage(filename) || this.isVideo(filename);
+    }
+    return false;
+  }
 }
