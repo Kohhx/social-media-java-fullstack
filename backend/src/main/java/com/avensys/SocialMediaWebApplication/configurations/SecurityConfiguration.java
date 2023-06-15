@@ -43,6 +43,7 @@ public class SecurityConfiguration {
                     auth
                             .requestMatchers("/api/signup").permitAll()
                             .requestMatchers("/api/login").permitAll()
+                            .requestMatchers("/api/users/email").permitAll()
                             .requestMatchers("/api/admin/**").hasRole("ADMIN")
                             .anyRequest().authenticated();
                 })

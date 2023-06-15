@@ -19,9 +19,15 @@ public class UserController {
         this.userService = userService;
     }
 
+    @GetMapping("users/email")
+    public ResponseEntity<Boolean> existUserByEmail(@RequestParam String email) {
+        Boolean isEmailExist = userService.existUserByEmail(email);
+        return new ResponseEntity<>(isEmailExist, HttpStatus.OK);
+    }
+
     @GetMapping("users")
     public ResponseEntity<List<User>> getAllUsers() {
-            List<User> users = userService.findAllUsers();
+        List<User> users = userService.findAllUsers();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
@@ -46,7 +52,7 @@ public class UserController {
     @DeleteMapping("users/{userId}")
     public ResponseEntity<CustomResponse> deleteUser(@PathVariable long userId) {
         userService.deleteUserById(userId);
-        return new ResponseEntity<>(new CustomResponse("User deleted successfully") , HttpStatus.OK);
+        return new ResponseEntity<>(new CustomResponse("User deleted successfully"), HttpStatus.OK);
     }
 
     // Admin Routes to manage users

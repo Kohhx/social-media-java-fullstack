@@ -89,6 +89,12 @@ public class UserService {
         userRepository.delete(user);
     }
 
+    public boolean existUserByEmail(String email) {
+        return userRepository.existsByEmail(email);
+    }
+
+
+
     private UserResponseDTO userToUserResponseDTO(User user) {
         return new UserResponseDTO(
                 user.getId(),
