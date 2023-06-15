@@ -9,7 +9,11 @@ import { UserModalComponent } from '../user-modal/user-modal.component';
 import { ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from 'src/app/service/authentication/authentication.service';
 import { UserService } from 'src/app/service/user/user.service';
-import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import { faPenToSquare} from '@fortawesome/free-solid-svg-icons';
+import { faUserGroup } from '@fortawesome/free-solid-svg-icons';
+import { faUsers } from '@fortawesome/free-solid-svg-icons';
+import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
+
 
 @Component({
   selector: 'app-profile',
@@ -20,6 +24,9 @@ export class ProfileComponent implements OnInit {
   loading = false;
   createPostForm!: FormGroup;
   faPenToSquare = faPenToSquare;
+  faUserGroup = faUserGroup;
+  faUserPlus = faUserPlus;
+  faUsers = faUsers;
   fileUtil = FileUtil;
   userId: number;
   items: any = [];

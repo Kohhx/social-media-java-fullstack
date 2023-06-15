@@ -1,135 +1,96 @@
-<div style="background: #eef2f5; padding: 30px 0px 10px 0px">
+<div style="background: #eaebef; padding: 30px 0px 10px 0px">
   <div class="container w-75">
-    <div
-      class="panel profile-cover"
-      style="position: relative; background-color: #3e8392; border-radius: 10px"
-    >
+    <div class="panel profile-cover"
+      style="position: relative; background: linear-gradient( #659ca8, #3e8392, #326975); border-radius: 15px; border: 2px solid #bdd8dc">
       <div style="display: flex; flex-direction: column">
         <div style="display: flex; align-items: center">
           <div style="margin: 25px">
-            <img
-              *ngIf="authService.getProfileAvatar() == null"
-              [src]="defaultProfileImage"
-              alt=""
-              width="150px"
-              height="150px"
-              style="background: black; border-radius: 50%"
-            />
-            <img
-              *ngIf="authService.getProfileAvatar() != null"
-              [src]="authService.getProfileAvatar()"
-              alt=""
-              width="150px"
-              height="150px"
-              style="background: black; border-radius: 50%"
-            />
+            <img *ngIf="authService.getProfileAvatar() == null" [src]="defaultProfileImage" alt="" width="150px"
+              height="150px" style="background: black; border-radius: 50%; object-fit: cover;" />
+            <img *ngIf="authService.getProfileAvatar() != null" [src]="authService.getProfileAvatar()" alt=""
+              width="150px" height="150px" style="background: black; border-radius: 50%; object-fit: cover;" />
 
-            <fa-icon
-              *ngIf="authService.getAuthenticatedUserId() == user.id"
-              (click)="openUserModal(userItem)"
-              [icon]="faPenToSquare"
-              class="icon fa-xl"
-              style="color: black; position: absolute; left: 145px; top: 135px"
-            ></fa-icon>
+            <fa-icon *ngIf="authService.getAuthenticatedUserId() == user.id" (click)="openUserModal(userItem)"
+              [icon]="faPenToSquare" class="icon fa-xl"
+              style="color: black; position: absolute; left: 145px; top: 135px"></fa-icon>
           </div>
           <div style="margin-left: 10px; text-align: left; color: #eee">
-            <h2>
-              {{ user.firstName | titlecase }} {{ user.LastName | titlecase }}
-            </h2>
-            <div>{{ user.gender }}</div>
-            <div>{{ user.email }}</div>
+            <div class="user-data">
+              <div class="name">{{ user.firstName | titlecase }} {{ user.LastName | titlecase }}</div>
+              <div class="details">
+                <div class="gender">Gender: {{ user.gender }}</div>
+                <div class="email">Email: {{ user.email }}</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
       <div class="modal-wrapper">
         <div class="modal-post-container" [class.open]="openPost">
-          <app-post-modal  (postedUpdated)="postUpdated($event)" (cancel)="closePostModal()" [item]="item"></app-post-modal>
+          <app-post-modal (postedUpdated)="postUpdated($event)" (cancel)="closePostModal()"
+            [item]="item"></app-post-modal>
         </div>
       </div>
       <div class="modal-wrapper">
         <div class="modal-container" [class.open]="openUser">
-          <app-user-modal (updatedUser)="userUpdated($event)" (cancel)="closeUserModal()" [item]="user"></app-user-modal>
+          <app-user-modal (updatedUser)="userUpdated($event)" (cancel)="closeUserModal()"
+            [item]="user"></app-user-modal>
         </div>
       </div>
-      <div
-        style="
+      <div style="
           position: absolute;
           bottom: 10px;
           right: 20px;
           display: flex;
           align-items: center;
-        "
-      >
-        <h6
-          style="
+        ">
+        <h6 style="
             margin-right: 20px;
             padding: 10px 20px 10px 0;
             border-right: 1px solid #eee;
             color: #eee;
-          "
-        >
-          10 Followers
+          ">
+          <fa-icon [icon]="faUserGroup" class="icon fa-sm" fontSize="12" style="color: #eee;"></fa-icon> 10 Followers
         </h6>
-        <h6
-          style="
+        <h6 style="
             margin-right: 20px;
             padding: 10px 20px 10px 0;
             border-right: 1px solid #eee;
             color: #eee;
-          "
-        >
-          10 Following
+          ">
+          <fa-icon [icon]="faUsers" class="icon fa-sm" fontSize="12" style="color: #eee;"></fa-icon> 10 Following
         </h6>
         <button class="btn" style="background: #eee; color: #3e8392">
-          Follow User
+          <fa-icon [icon]="faUserPlus" class="icon fa-sm" fontSize="12" style="color: #3e8392;"></fa-icon> Follow User
         </button>
       </div>
     </div>
-    <div
-      *ngIf="authService.getAuthenticatedUserId() === user.id"
-      class="panel" style="padding: 0px 20px"
-    >
-      <app-create-post-form
-        (postCreated)="reloadPage($event)"
-      ></app-create-post-form>
+    <div *ngIf="authService.getAuthenticatedUserId() === user.id" class="panel" style="padding: 0px 20px">
+      <app-create-post-form (postCreated)="reloadPage($event)"></app-create-post-form>
     </div>
     <div class="panel">
       <div *ngIf="items.length === 0" class="panel-title text-center mb-4 p-5">
         No posts
       </div>
       <ng-container *ngIf="items.length !== 0">
-        <div
-          class="panel-content"
-          style="padding-top: 20px; padding-bottom: 5px"
-        >
+        <div class="panel-content" style="padding-top: 20px; padding-bottom: 5px">
           <div class="panel-title">User Posts</div>
-          <div
-            *ngFor="let item of items"
-            style="border-top: 1px solid #eee; margin-top: 20px"
-          >
+          <div *ngFor="let item of items" style="border-top: 1px solid #eee; margin-top: 20px">
             <div style="display: flex; margin-top: 20px">
-              <img
-                *ngIf="!item['user'].avatarUrl"
-                [src]="defaultProfileImage"
-                alt=""
-                style="
+              <img *ngIf="!item['user'].avatarUrl" [src]="defaultProfileImage" alt="" style="
                   background: #3e8392;
                   height: 50px;
                   width: 50px;
                   border-radius: 50%;
-                "
-              />
-              <img
-                *ngIf="item['user'].avatarUrl"
-                [src]="item['user'].avatarUrl"
-                alt=""
-                style="
+                  object-fit: cover;
+                " />
+              <img *ngIf="item['user'].avatarUrl" [src]="item['user'].avatarUrl" alt="" style="
                   background: #3e8392;
                   height: 50px;
                   width: 50px;
                   border-radius: 50%;
-                "
-              />
+                  object-fit: cover;
+                " />
               <div style="margin-left: 10px">
                 <div>
                   {{ item["user"].firstName }} {{ item["user"].lastName }}
@@ -140,139 +101,75 @@
             <h4 style="margin-top: 20px;">{{ item.title }}</h4>
             <p style="margin-top: 10px">{{ item.caption }}</p>
             <div *ngIf="item.contentUrl != null">
-              <img
-              *ngIf="!fileUtil.isVideoOrImage(item.contentUrl)"
-              [src]="item.contentUrl"
-              alt="post image"
-              style="width: 100%; margin-top: 20px"
-            />
-              <img
-                *ngIf="fileUtil.isImage(item.contentUrl)"
-                [src]="item.contentUrl"
-                alt="post image"
-                style="width: 100%; margin-top: 20px"
-              />
-              <video
-                *ngIf="fileUtil.isVideo(item.contentUrl)"
-                [src]="item.contentUrl"
-                alt="post video"
-                controls
-                style="width: 100%; margin-top: 20px"
-              ></video>
+              <img *ngIf="!fileUtil.isVideoOrImage(item.contentUrl)" [src]="item.contentUrl" alt="post image"
+                style="width: 100%; margin-top: 20px" />
+              <img *ngIf="fileUtil.isImage(item.contentUrl)" [src]="item.contentUrl" alt="post image"
+                style="width: 100%; margin-top: 20px" />
+              <video *ngIf="fileUtil.isVideo(item.contentUrl)" [src]="item.contentUrl" alt="post video" controls
+                style="width: 100%; margin-top: 20px"></video>
             </div>
-            <div
-              class="activity__list__footer"
-              *ngIf="authService.getAuthenticatedUserId() === user.id"
-            >
-              <button
-                type="button"
-                class="btn-link"
-                style="
+            <div class="activity__list__footer" *ngIf="authService.getAuthenticatedUserId() === user.id">
+              <button type="button" class="btn-link" style="
                   margin-right: 10px;
                   display: flex;
                   justify-content: center;
                   align-items: center;
-                "
-              >
-                <img
-                  src="../../../assets/images/comment-icon.png"
-                  height="15px"
-                  style="margin: 0px 5px"
-                />
+                ">
+                <img src="../../../assets/images/comment-icon.png" height="15px" style="margin: 0px 5px" />
                 Comments
               </button>
-              <button
-                type="button"
-                class="btn-link"
-                (click)="openPostModal(item)"
-                style="
+              <button type="button" class="btn-link" (click)="openPostModal(item)" style="
                   margin-right: 10px;
                   display: flex;
                   justify-content: center;
                   align-items: center;
-                "
-              >
-                <img
-                  src="../../../assets/images/edit-list-icon.png"
-                  height="15px"
-                  style="margin: 0px 5px"
-                />
+                ">
+                <img src="../../../assets/images/edit-list-icon.png" height="15px" style="margin: 0px 5px" />
                 Update
               </button>
-              <button
-              (click)="openDeleteModal(item)"
-                type="button"
-                class="btn-link"
-                style="
+              <button (click)="openDeleteModal(item)" type="button" class="btn-link" style="
                   margin-right: 10px;
                   display: flex;
                   justify-content: center;
                   align-items: center;
-                "
-              >
-                <img
-                  src="../../../assets/images/recycle-bin-line-icon.png"
-                  height="15px"
-                  style="margin: 0px 5px"
-                />
+                ">
+                <img src="../../../assets/images/recycle-bin-line-icon.png" height="15px" style="margin: 0px 5px" />
                 Delete
               </button>
             </div>
-            <div
-              class="activity__list__footer text-center w-100 comment-container"
-              *ngIf="authService.getAuthenticatedUserId() !== user.id"
-            >
-              <button
-                type="button"
-                class="btn-link comment-btn"
-                style="
+            <div class="activity__list__footer text-center w-100 comment-container"
+              *ngIf="authService.getAuthenticatedUserId() !== user.id">
+              <button type="button" class="btn-link comment-btn" style="
                   margin-right: 10px;
                   display: flex;
                   justify-content: center;
                   align-items: center;
-                "
-              >
-                <img
-                  src="../../../assets/images/comment-icon.png"
-                  height="15px"
-                  style="margin: 0px 5px"
-                />
+                ">
+                <img src="../../../assets/images/comment-icon.png" height="15px" style="margin: 0px 5px" />
                 Comments
               </button>
             </div>
             <div style="display: flex; margin: 20px 0px">
-              <img
-                *ngIf="authService.getProfileAvatar() === null"
-                [src]="defaultProfileImage"
-                alt=""
-                style="
+              <img *ngIf="authService.getProfileAvatar() === null" [src]="defaultProfileImage" alt="" style="
                   background: #3e8392;
                   height: 40px;
                   width: 40px;
                   border-radius: 50%;
                   margin-right: 10px;
-                "
-              />
-              <img
-              *ngIf="authService.getProfileAvatar() !== null"
-                [src]="authService.getProfileAvatar()"
-                alt=""
-                style="
+                " />
+              <img *ngIf="authService.getProfileAvatar() !== null" [src]="authService.getProfileAvatar()" alt="" style="
                   background: #3e8392;
                   height: 40px;
                   width: 40px;
                   border-radius: 50%;
                   margin-right: 10px;
-                "
-              />
-              <input
-                class="form-control"
-                placeholder="Write a comment"
-                style="margin: auto; border-radius: 50px; background: #e5e6eb"
-              />
+                " />
+              <input class="form-control" placeholder="Write a comment"
+                style="margin: auto; border-radius: 50px; background: #e5e6eb" />
             </div>
-          </div></div
-      ></ng-container>
+          </div>
+        </div>
+      </ng-container>
     </div>
   </div>
 </div>

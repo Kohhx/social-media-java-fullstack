@@ -286,3 +286,26 @@ button.btn-link {
   border-radius: 10px;
   backdrop-filter: blur(10px);
 }
+
+.user-data {
+  font-family: 'Roboto', sans-serif;
+  padding: 20px 0px;
+}
+
+.name {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid;
+  color: #bdd8dc
+}
+
+.details {
+  margin-top: 10px;
+}
+
+.gender,
+.email {
+  margin-bottom: 5px;
+}

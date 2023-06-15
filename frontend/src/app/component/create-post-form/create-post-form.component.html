@@ -6,12 +6,14 @@
         [src]="defaultProfileImage"
         alt="profile avatar"
         class="avatar"
+        style="object-fit: cover;"
       />
       <img
         *ngIf="authService.getProfileAvatar()"
         [src]="authService.getProfileAvatar()"
         alt="default avatar"
         class="avatar"
+        style="object-fit: cover;"
       />
       <input
         class="form-control"
@@ -95,9 +97,9 @@
         <button
           [disabled]="caption.invalid"
           type="submit"
-          class="btn"
+          class="create-post"
           (click)="handleCreatePost()"
-          style="background: #3e8392; flex: 1; margin-left: 10px; color: #eee"
+          style=""
         >
           <mat-spinner
             *ngIf="loading"
