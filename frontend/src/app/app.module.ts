@@ -3,8 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-// import { FormsModule } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HttpInterceptorService } from './service/http/http-interceptor.service';
 
@@ -43,7 +42,7 @@ import { ModalComponent } from './shared/modal/modal.component';
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added
     HttpClientModule,
-    // FormsModule,
+    FormsModule,
     ReactiveFormsModule,
     FontAwesomeModule,
   ],
@@ -51,7 +50,7 @@ import { ModalComponent } from './shared/modal/modal.component';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpInterceptorService,
-      multi: true,
+      multi: true
     },
   ],
   bootstrap: [AppComponent],
