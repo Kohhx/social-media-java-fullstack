@@ -5,6 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import com.avensys.SocialMediaWebApplication.response.CustomResponse;
+
 import java.util.List;
 
 @RestController
@@ -36,9 +38,9 @@ public class UserController {
     }
 
     @DeleteMapping("users/{userId}")
-    public ResponseEntity<String> deleteUser(@PathVariable long userId) {
+    public ResponseEntity<CustomResponse> deleteUser(@PathVariable long userId) {
         userService.deleteUserById(userId);
-        return new ResponseEntity<>("User deleted successfully", HttpStatus.OK);
+        return new ResponseEntity<>(new CustomResponse("User deleted successfully") , HttpStatus.OK);
     }
 
     // Admin Routes to manage users
