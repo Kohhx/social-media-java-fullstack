@@ -21,6 +21,7 @@ import { ManageUsersComponent } from './component/manage-users/manage-users.comp
 import { CreatePostFormComponent } from './component/create-post-form/create-post-form.component';
 import { ModalComponent } from './shared/modal/modal.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     FormsModule,
     ReactiveFormsModule,
     FontAwesomeModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     {

@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class LoginComponent implements OnInit {
   loginFormGroup!: FormGroup;
+  loading = false;
 
   constructor(
     private fb: FormBuilder,
@@ -38,6 +39,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    this.loading = true;
     const email = this.email?.value;
     const password = this.password?.value;
 
@@ -45,9 +47,11 @@ export class LoginComponent implements OnInit {
       next: (data) => {
         console.log('Login successful');
         this.toastr.success('Login successful');
+        this.loading = false;
         this.router.navigate(['posts'])
       },
       error: (err) => {
+        this.loading = false;
         this.toastr.error('Invalid Credential. Please try again');
       }
     });

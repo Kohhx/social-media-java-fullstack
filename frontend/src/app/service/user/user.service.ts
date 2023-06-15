@@ -41,6 +41,10 @@ export class UserService {
     return this.http.delete(`${this.BASE_URL}/users/${id}`);
   }
 
+  existsByEmail(email: string): Observable<boolean> {
+      return this.http.get<boolean>(`${this.BASE_URL}/users/email?email=${email}`);
+  }
+
   private setSessionStorage(
     id: string,
     email: string,

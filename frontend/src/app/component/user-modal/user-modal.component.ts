@@ -20,6 +20,8 @@ import { Router } from '@angular/router';
 import { FormValidators } from 'src/app/validators/form-validators';
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 import { UserService } from 'src/app/service/user/user.service';
+import { ToastrService } from 'ngx-toastr';
+import { faUserPen } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-user-modal',
@@ -27,7 +29,9 @@ import { UserService } from 'src/app/service/user/user.service';
   styleUrls: ['./user-modal.component.css'],
 })
 export class UserModalComponent {
+  loading = false;
   faCirclePlus = faCirclePlus;
+  faUserPen = faUserPen
   updateFormGroup: FormGroup;
 
   defaultImage =
@@ -45,7 +49,8 @@ export class UserModalComponent {
 
   constructor(
     private formBuilder: FormBuilder,
-    private userService: UserService
+    private userService: UserService,
+    private toastr: ToastrService
   ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -132,6 +137,8 @@ export class UserModalComponent {
 
   closeModal(): void {
     this.updateFormGroup.get('user.avatarFile').setValue(null);
+    const body = document.getElementsByTagName('body')[0];
+    body.style.overflow = 'auto';
     this.cancel.emit();
   }
 
@@ -153,6 +160,7 @@ export class UserModalComponent {
   }
 
   handleUpdateUser() {
+    this.loading = true;
     const user = new FormData();
     user.append('id', this.item?.id);
     user.append('firstName', this.firstName?.value);
@@ -168,9 +176,15 @@ export class UserModalComponent {
     }
 
     this.userService.updateUser(this.item.id, user).subscribe(() => {
-      console.log('Post updated successfully.');
+      this.loading = false;
+      console.log('User updated successfully.');
       this.updatedUser.emit(true);
       this.closeModal();
+    },
+    (error) => {
+      this.loading = false;
+      console.log(error);
+      this.toastr.error("Error updating user");
     });
   }
 

@@ -44,7 +44,11 @@
                       [src]="avatarPreview"
                       alt="avatar"
                     />
-                    <fa-icon (click)="openFileBrowser()" [icon]="faCirclePlus" class="icon fa-xl"></fa-icon>
+                    <fa-icon
+                      (click)="openFileBrowser()"
+                      [icon]="faCirclePlus"
+                      class="icon fa-xl"
+                    ></fa-icon>
                   </div>
 
                   <div class="col-md-6 mb-3">
@@ -123,7 +127,7 @@
                 <!-- Gender Select -->
 
                 <div class="form-floating mb-4">
-                <!-- <div class="d-inline-flex"> -->
+                  <!-- <div class="d-inline-flex"> -->
                   <select
                     class="form-select mb-4 w-100"
                     style="width: 150px"
@@ -173,8 +177,18 @@
                     <div *ngIf="email.errors?.['pattern']">
                       Email must be in a valid format.
                     </div>
+                    <div *ngIf="email?.pending">Loading</div>
+
+                    <div
+                      *ngIf="email.errors?.['usernameAlreadyExists'] && !email?.pending"
+                    >
+                      Email already Exist
+                    </div>
+                    <div *ngIf="email?.pending">Loading...</div>
                   </div>
-                  <!-- Error validation end -->
+                  <div class="available" *ngIf="email.valid && !email?.pending">
+                    ✓ Email available
+                  </div>
                 </div>
 
                 <!-- Password input -->
@@ -261,15 +275,25 @@
                 <!-- Submit button -->
                 <button
                   type="submit"
-                  class="btn btn-primary mb-4"
+                  class="btn btn-secondary mb-4"
                   style="width: 100%"
+                  [disabled]="registerFormGroup.invalid || loading"
                 >
-                  Create an account
+                  <mat-spinner
+                    *ngIf="loading"
+                    class="spinner"
+                    color="accent"
+                    mode="indeterminate"
+                    diameter="25"
+                  ></mat-spinner>
+                  <span  *ngIf="!loading">Create an account</span>
                 </button>
 
                 <p class="fw-bold mb-0">
                   Already have an account?
-                  <a routerLink="/login" class="link-danger text-decoration-none ms-1"
+                  <a
+                    routerLink="/login"
+                    class="link-danger text-decoration-none ms-1"
                     >Login here</a
                   >
                 </p>
