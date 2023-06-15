@@ -50,7 +50,7 @@ import { ModalComponent } from './shared/modal/modal.component';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpInterceptorService,
-      multi: true,
+      multi: true
     },
   ],
   bootstrap: [AppComponent],

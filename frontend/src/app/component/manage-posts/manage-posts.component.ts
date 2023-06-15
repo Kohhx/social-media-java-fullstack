@@ -46,6 +46,10 @@ export class ManagePostsComponent implements OnInit {
     })
   }
 
+  onSubmit() {
+    console.log('Post updated successfully.')
+  }
+
   handleDeletePost(post: Post) {
     if (this.postsList.length == 1) {
       this.postsList = [];

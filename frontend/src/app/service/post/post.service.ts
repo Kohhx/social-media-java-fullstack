@@ -28,8 +28,18 @@ export class PostService {
     return this.http.get<Post[]>(`${this.BASE_URL}/users/${id}/posts`);
   }
 
-  updatePost(post: Post): Observable<Post> {
-    return this.http.put<Post>(`${this.BASE_URL}/posts/${post.id}`, post);
+  updatePost(post: Post): Observable<any> {
+
+    console.log('Service Post Data:', post);
+
+    const formData: FormData = new FormData();
+
+    formData.append('id', post.id.toString());
+    formData.append('title', post.title);
+    formData.append('caption', post.caption);
+    formData.append('contentUrl', post.contentUrl);
+
+    return this.http.patch(`${this.BASE_URL}/posts/${post.id}`, formData);
   }
 
   deletePost(id: number): Observable<any> {
