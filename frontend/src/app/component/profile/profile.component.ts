@@ -4,20 +4,20 @@ import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from 'express-serve-static-core';
 import { ToastrService } from 'ngx-toastr';
 import { PostService } from 'src/app/service/post/post.service';
-import  { FileUtil } from '../../utility/file-util';
+import { FileUtil } from '../../utility/file-util';
 import { UserModalComponent } from '../user-modal/user-modal.component';
 import { ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from 'src/app/service/authentication/authentication.service';
 import { UserService } from 'src/app/service/user/user.service';
-import { faPenToSquare} from '@fortawesome/free-solid-svg-icons';
+import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css'],
 })
-
 export class ProfileComponent implements OnInit {
+  loading = false;
   createPostForm!: FormGroup;
   faPenToSquare = faPenToSquare;
   fileUtil = FileUtil;
@@ -38,8 +38,8 @@ export class ProfileComponent implements OnInit {
   @ViewChild('imageInput') imageInput: any;
   @ViewChild('videoInput') videoInput: any;
 
-  imagePreviewUrl: any = "";
-  videoPreviewUrl: any = "";
+  imagePreviewUrl: any = '';
+  videoPreviewUrl: any = '';
 
   constructor(
     private fb: FormBuilder,
@@ -47,9 +47,9 @@ export class ProfileComponent implements OnInit {
     private http: HttpClient,
     private postService: PostService,
     public authService: AuthenticationService,
-    private activatedRoute:ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
     private userService: UserService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.createPostForm = this.fb.group({
@@ -61,8 +61,8 @@ export class ProfileComponent implements OnInit {
 
     this.link.valueChanges.subscribe((value) => {
       console.log(value);
-      this.imagePreviewUrl = value
-    })
+      this.imagePreviewUrl = value;
+    });
 
     this.activatedRoute.params.subscribe({
       next: (params) => {
@@ -72,8 +72,7 @@ export class ProfileComponent implements OnInit {
 
     this.getAllPostsByUser(this.userId);
 
-    this.getUserById(this.userId)
-
+    this.getUserById(this.userId);
   }
 
   get title() {
@@ -105,7 +104,7 @@ export class ProfileComponent implements OnInit {
     const fileReader = new FileReader();
     fileReader.onload = () => {
       if (this.videoPreviewUrl) {
-        this.videoPreviewUrl = "";
+        this.videoPreviewUrl = '';
       }
       this.imagePreviewUrl = fileReader.result;
     };
@@ -120,7 +119,7 @@ export class ProfileComponent implements OnInit {
     const fileReader = new FileReader();
     fileReader.onload = () => {
       if (this.imagePreviewUrl) {
-        this.imagePreviewUrl = "";
+        this.imagePreviewUrl = '';
       }
       this.videoPreviewUrl = fileReader.result;
     };
@@ -133,7 +132,7 @@ export class ProfileComponent implements OnInit {
       caption: '',
       link: '',
       file: null,
-    })
+    });
   }
 
   handleCreatePost() {
@@ -149,29 +148,28 @@ export class ProfileComponent implements OnInit {
 
     this.postService.createPost(post).subscribe({
       next: (data) => {
-        console.log(data)
+        console.log(data);
         this.postService.getAllPosts().subscribe({
-          next: (posts => {
+          next: (posts) => {
             this.items = this.sortPostsByUpdatedAt(posts);
-            this.resetPostForm()
-            this.imagePreviewUrl = "";
-            this.videoPreviewUrl = "";
-          }),
-          error: (error => {
-
-          })
-        })
+            this.resetPostForm();
+            this.imagePreviewUrl = '';
+            this.videoPreviewUrl = '';
+          },
+          error: (error) => {},
+        });
       },
       error: (error) => {
-        console.log(error)
-      }
-
-    })
+        console.log(error);
+      },
+    });
   }
 
   openUserModal(userItem) {
-    console.log(this.user)
+    console.log(this.user);
     this.openUser = true;
+    const body = document.getElementsByTagName('body')[0];
+    body.style.overflow = 'hidden';
   }
 
   closeUserModal(): void {
@@ -181,8 +179,10 @@ export class ProfileComponent implements OnInit {
   openPost: boolean = false;
 
   openPostModal(item) {
-    this.item = item
+    this.item = item;
     this.openPost = true;
+    const body = document.getElementsByTagName('body')[0];
+    body.style.overflow = 'hidden';
   }
 
   closePostModal(): void {
@@ -210,15 +210,21 @@ export class ProfileComponent implements OnInit {
   }
 
   deletePost() {
+    this.loading = true;
     console.log(this.clickedPost);
     this.postService.deletePost(this.clickedPost.id).subscribe({
       next: (res) => {
+        this.loading = false;
+        this.clickedPost = null;
+        this.toastr.success('Post deleted successfully');
+        this.closeDeleteModal();
         this.getAllPostsByUser(this.userId);
       },
-      error: (err) => {},
+      error: (err) => {
+        this.loading = false;
+        this.toastr.error('Error deleting post');
+      },
     });
-    this.clickedPost = null;
-    this.closeDeleteModal();
   }
 
   postUpdated(isPostUpdated: boolean) {
@@ -258,7 +264,7 @@ export class ProfileComponent implements OnInit {
       next: (user) => {
         console.log(user);
         this.user = user;
-      }
-    })
+      },
+    });
   }
 }

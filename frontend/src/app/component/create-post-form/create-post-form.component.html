@@ -93,13 +93,21 @@
           />
         </div>
         <button
-          [disabled]="title.invalid || caption.invalid"
+          [disabled]="caption.invalid"
           type="submit"
           class="btn"
           (click)="handleCreatePost()"
           style="background: #3e8392; flex: 1; margin-left: 10px; color: #eee"
         >
-          CREATE POST
+          <mat-spinner
+            *ngIf="loading"
+            class="spinner"
+            color="accent"
+            mode="indeterminate"
+            diameter="25"
+            style="text-align: center; display:inline-block"
+          ></mat-spinner>
+          <span *ngIf="!loading">CREATE POST</span>
         </button>
       </div>
     </div>

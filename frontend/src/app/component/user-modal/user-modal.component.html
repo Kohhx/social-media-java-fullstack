@@ -1,14 +1,14 @@
 <div class="center-section">
     <section class="text-center text-lg-start">
-      <div class="container mt-5">
+      <div class="container w-75 mt-3">
         <div class="row g-0">
-          <div class="mb-5 mb-lg-0 justify-content-center">
+          <div class="mb-2 mb-lg-0 justify-content-center">
             <div class="card cascading-right" style="
                 background: hsla(0, 0%, 100%, 0.55);
                 backdrop-filter: blur(30px);
                 ">
               <div class="card-body p-5 shadow-5">
-                <h2 class="fw-bold mb-4">Update Profile Details</h2>
+                <h2 class="fw-bold  text-center">Update Profile Details    <fa-icon [icon]="faUserPen" class="ml-3 icon fa-md"></fa-icon></h2>
                 <form [formGroup]="updateFormGroup" class="w-100">
                   <div formGroupName="user" class="form-area">
                   <div class="row" (ngSubmit)="handleUpdateUser()">
@@ -19,7 +19,7 @@
                           <input
                             hidden
                             type="file"
-                            class="form-control"
+                            class="form-control-sm"
                             id="media"
                             name="media"
                             accept="image/*"
@@ -30,7 +30,7 @@
                       </div>
                     </div>
 
-                    <div class="text-center mb-4 avatar-container d-flex gap-3 align-items-center justify-content-center">
+                    <div class="text-center mb-3 avatar-container d-flex gap-3 align-items-center justify-content-center">
                       <img
                         class="avatar"
                         *ngIf="avatarPreview"
@@ -43,8 +43,8 @@
                         [src]="defaultImage"
                         alt="avatar"
                       />
-                      <button (click)="openFileBrowser()" class="btn btn-success" type="button">Add Photo</button>
-                      <button (click)="resetLink()" class="btn btn-danger" type="button">Delete Photo</button>
+                      <button (click)="openFileBrowser()" class="btn btn-green" type="button">Add Photo</button>
+                      <button (click)="resetLink()" class="btn btn-secondary" type="button">Delete Photo</button>
                       <!-- <fa-icon (click)="openFileBrowser()" [icon]="faCirclePlus" class="icon fa-xl"></fa-icon> -->
                     </div>
 
@@ -101,14 +101,22 @@
                     <input formControlName="password" type="password" class="form-control" id="" placeholder="Password" />
                     <label for="">Password</label>
                   </div>
-                  <div class="form-group">
+                  <!-- <div class="form-group">
                     <div class="input-group">
                       <div class="input-group-append mb-4">
                       </div>
                     </div>
-                  </div>
-                  <button (click)="handleUpdateUser()" type="submit" class="btn btn-primary mb-4" style="width: 100%;">
-                    Update
+                  </div> -->
+                  <button (click)="handleUpdateUser()" type="submit" class="btn btn-green mb-4" style="width: 100%;">
+                    <mat-spinner
+                    *ngIf="loading"
+                    class="spinner"
+                    color="accent"
+                    mode="indeterminate"
+                    diameter="25"
+                    style="text-align: center; display:inline-block"
+                  ></mat-spinner>
+                  <span *ngIf="!loading">Update</span>
                   </button>
                   <button type="button" class="btn btn-secondary" style="width: 100%;" (click)="closeModal()">
                     Cancel

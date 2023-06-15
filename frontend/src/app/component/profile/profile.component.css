@@ -218,6 +218,7 @@ button.btn-link {
   right: 0;
   bottom: 0;
   z-index: 9999;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .modal-container.open {
@@ -236,6 +237,7 @@ button.btn-link {
   right: 0;
   bottom: 0;
   z-index: 9999;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .modal-wrapper {
@@ -280,6 +282,7 @@ button.btn-link {
 
 .delete-card {
   padding:2rem;
-  background-color: white;
+  background-color: rgba(255,255,255, 0.8);
   border-radius: 10px;
+  backdrop-filter: blur(10px);
 }
