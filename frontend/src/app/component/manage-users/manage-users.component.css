@@ -1,4 +1,21 @@
-.testimonial-card .card-up {
+.modal-container .open {
+  display: block;
+  z-index: 1000;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.modal-container {
+  display: none;
+}
+
+.center-section {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* .testimonial-card .card-up {
   height: 120px;
   overflow: hidden;
   border-top-left-radius: .25rem;
@@ -15,4 +32,4 @@
   overflow: hidden;
   border: 5px solid #fff;
   border-radius: 50%;
-}
+} */

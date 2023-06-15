@@ -34,7 +34,6 @@ export class ManageUsersComponent implements OnInit {
     this.openModal(user);
   }
 
-
   deleteUser(user: User) {
     this.userService.deleteUser(user.id).subscribe({
       next:(response: any) => {
@@ -59,7 +58,7 @@ export class ManageUsersComponent implements OnInit {
     this.openUser = true;
   }
 
-  closePostModal() {
+  closeUserModal() {
     this.openUser = false;
   }
 

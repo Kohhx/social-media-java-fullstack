@@ -1,21 +1,96 @@
-<div class="container d-flex">
-  <section class="mx-2 my-5" style="max-width: 23rem;" *ngFor="let user of usersList">
-    <div class="card testimonial-card mt-2 mb-3">
-      <div class="card-up aqua-gradient"></div>
-      <div class="avatar mx-auto white">
-        <img src="{{user.avatarUrl}}" class="rounded-circle img-fluid" alt="user avatar">
+<div class="container-fluid mt-4">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Avatar URL</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Created At</th>
+        <th>Updated At</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of usersList">
+        <td>{{ user.id }}</td>
+        <td>{{ user.avatarUrl }}</td>
+        <td>{{ user.firstName }}</td>
+        <td>{{ user.lastName }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.createdAt | date }}</td>
+        <td>{{ user.updatedAt | date }}</td>
+        <td>
+          <button class="btn btn-primary btn-sm mx-2" (click)="updateUser(user)">Update</button>
+          <button class="btn btn-danger btn-sm" (click)="deleteUser(user)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <app-user-modal [item]="selectedUser" class="center-section" *ngIf="openUser" (cancel)="closeUserModal()"></app-user-modal>
+</div>
+
+<!-- <div class="container-xl">
+  <div class="table-responsive">
+    <div class="table-wrapper">
+      <div class="table-title">
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="show-entries">
+              <span>Show</span>
+              <select>
+                <option>5</option>
+                <option>10</option>
+                <option>15</option>
+                <option>20</option>
+              </select>
+              <span>entries</span>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <h2 class="text-center">Customer <b>Details</b></h2>
+          </div>
+          <div class="col-sm-4">
+            <div class="search-box">
+              <div class="input-group" style="width: 200px;">
+                <span class="input-group-addon"><i class="material-icons"></i></span>
+                <input type="text" class="form-control" placeholder="Search…">
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="card-body text-center">
-        <h4 class="card-title font-weight-bold">{{user.firstName}} {{user.lastName}}</h4>
-        <hr>
-        <p><i class="fas fa-envelope"></i> {{user.email}}</p>
-        <p><i class="fas fa-calendar-alt"></i> Created At: {{user.createdAt | date:'short'}}</p>
-        <p><i class="fas fa-calendar-alt"></i> Updated At: {{user.updatedAt | date:'short'}}</p>
-      </div>
-      <div class="card-footer text-center">
-        <button class="btn btn-primary" (click)="updateUser(user)"><i class="fas fa-edit"></i> Update</button>
-        <button class="btn btn-danger" (click)="deleteUser(user)"><i class="fas fa-trash"></i> Delete</button>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name <i class="fa fa-sort"></i></th>
+            <th>Address</th>
+            <th>City <i class="fa fa-sort"></i></th>
+            <th>Pin Code</th>
+            <th>Country <i class="fa fa-sort"></i></th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+          </tr>
+        </tbody>
+      </table>
+      <div class="clearfix">
+        <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
+        <ul class="pagination">
+          <li class="page-item disabled"><a href="#">Previous</a></li>
+          <li class="page-item"><a href="#" class="page-link">1</a></li>
+          <li class="page-item"><a href="#" class="page-link">2</a></li>
+          <li class="page-item active"><a href="#" class="page-link">3</a></li>
+          <li class="page-item"><a href="#" class="page-link">4</a></li>
+          <li class="page-item"><a href="#" class="page-link">5</a></li>
+          <li class="page-item"><a href="#" class="page-link">Next</a></li>
+        </ul>
       </div>
     </div>
-  </section>
-</div>
+  </div>
+</div> -->
