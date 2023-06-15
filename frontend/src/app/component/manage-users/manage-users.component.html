@@ -28,9 +28,10 @@
       </tr>
     </tbody>
   </table>
+  <app-user-modal [item]="selectedUser" class="center-section" *ngIf="openUser" (cancel)="closeUserModal()"></app-user-modal>
 </div>
 
-<div class="modal" tabindex="-1">
+<!-- <div class="modal" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -46,4 +47,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->

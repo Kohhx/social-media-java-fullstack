@@ -13,6 +13,8 @@ export class ManageUsersComponent implements OnInit {
   selectedUser: User;
   storage: Storage = sessionStorage;
 
+  openUser: boolean = false;
+
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
@@ -29,11 +31,8 @@ export class ManageUsersComponent implements OnInit {
   }
 
   updateUser(user: User) {
-    this.userService.getUserById(user.id).subscribe(
-      (response: User) => {
-        this.selectedUser = response;
-      }
-    )
+    this.selectedUser = user;
+    this.openModal(user)
   }
 
   deleteUser(user: User) {
@@ -45,6 +44,14 @@ export class ManageUsersComponent implements OnInit {
         this.handleGetAllUsers();
       }
     );
+  }
+
+  openModal(user: User) {
+    this.openUser = true;
+  }
+
+  closeUserModal() {
+    this.openUser = false;
   }
 
 }

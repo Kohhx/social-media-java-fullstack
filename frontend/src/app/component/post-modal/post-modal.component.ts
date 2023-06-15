@@ -30,11 +30,11 @@ export class PostModalComponent implements OnChanges, OnInit {
   ) { }
 
   ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes)
     if (changes['item']) {
       const updatedItem = changes['item'].currentValue;
+      this.updateFormGroup.get('user').patchValue(updatedItem);
       if (updatedItem && updatedItem.title) {
-        this.updateFormGroup.get('user.title').setValue(updatedItem.title);
-        this.updateFormGroup.get('user.caption').setValue(updatedItem.caption);
         this.updateFormGroup.get('user.link').setValue(updatedItem.contentUrl);
       }
     }

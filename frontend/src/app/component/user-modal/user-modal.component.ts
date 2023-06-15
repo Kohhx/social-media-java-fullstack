@@ -10,12 +10,12 @@ import { UserService } from 'src/app/service/user/user.service';
   templateUrl: './user-modal.component.html',
   styleUrls: ['./user-modal.component.css']
 })
-export class UserModalComponent implements OnChanges, OnInit {
+export class UserModalComponent {
   faCirclePlus = faCirclePlus;
   updateFormGroup: FormGroup;
 
   avatarPreview: any =
-  'https://w7.pngwing.com/pngs/754/2/png-transparent-samsung-galaxy-a8-a8-user-login-telephone-avatar-pawn-blue-angle-sphere-thumbnail.png';
+    'https://w7.pngwing.com/pngs/754/2/png-transparent-samsung-galaxy-a8-a8-user-login-telephone-avatar-pawn-blue-angle-sphere-thumbnail.png';
 
   @ViewChild('avatar') avatar: any;
 
@@ -33,13 +33,14 @@ export class UserModalComponent implements OnChanges, OnInit {
   ) { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes)
     if (changes['item']) {
       const updatedItem = changes['item'].currentValue;
-      if (updatedItem && updatedItem.title) {
+      this.updateFormGroup.get('user').patchValue(updatedItem);
+      if (updatedItem) {
         this.updateFormGroup.get('user.firstName').setValue(updatedItem.firstName);
         this.updateFormGroup.get('user.lastName').setValue(updatedItem.lastName);
         this.updateFormGroup.get('user.email').setValue(updatedItem.email);
+        
       }
     }
   }
@@ -55,7 +56,7 @@ export class UserModalComponent implements OnChanges, OnInit {
         avatarFile: new FormControl(''),
       }),
     });
-    
+
   }
 
   matchPasswordValidator(): ValidatorFn {
@@ -74,10 +75,6 @@ export class UserModalComponent implements OnChanges, OnInit {
   get password() { return this.updateFormGroup.get('user.password'); }
   get confirmPassword() { return this.updateFormGroup.get('user.confirmPassword'); }
   get avatarFile() { return this.updateFormGroup.get('user.avatarFile'); }
-
-  onSubmit() {
-    console.log("Handling registration form submit button.")
-  }
 
   @Output() cancel: EventEmitter<void> = new EventEmitter<void>();
 
@@ -105,6 +102,7 @@ export class UserModalComponent implements OnChanges, OnInit {
 
   handleUpdateUser() {
     const user = new FormData();
+    user.append('id', this.item?.id);
     user.append('firstName', this.firstName?.value);
     user.append('lastName', this.lastName?.value);
     user.append('gender', this.gender?.value);
@@ -113,23 +111,10 @@ export class UserModalComponent implements OnChanges, OnInit {
     if (this.avatarFile?.value) {
       user.append('avatarFile', this.avatarFile?.value);
     }
+    user.append('avatarUrl', '');
 
-    this.userService.updateUser(this.item.id, user).subscribe({
-      next: (data) => {
-        console.log(data);
-        this.userService.getAllUsers().subscribe({
-          next: (users) => {
-            this.items = users;
-            location.reload();
-          },
-          error: (error) => {
-            
-          }
-        });
-      },
-      error: (err) => {
-        console.log(err);
-      }
+    this.userService.updateUser(this.item.id, user).subscribe(() => {
+      console.log('Post updated successfully.')
     });
   }
 }
