@@ -1,4 +1,16 @@
 <div class="container-fluid mt-4">
+
+  <div class="form-outline my-4">
+    <input
+      [(ngModel)]="searchTerm"
+      type="search"
+      class="form-control fw-bold"
+      (keyup)="filterUsers()"
+      placeholder="Search users by id, name or email..."
+      aria-label="Search"
+    />
+  </div>
+
   <table class="table table-striped">
     <thead>
       <tr>
@@ -13,7 +25,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let user of usersList">
+      <tr *ngFor="let user of filteredUsersList">
         <td>{{ user.id }}</td>
         <td>{{ user.avatarUrl }}</td>
         <td>{{ user.firstName }}</td>
