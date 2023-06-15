@@ -1,79 +1,107 @@
 <section class="vh-100">
   <div class="container-fluid h-custom">
     <div class="row d-flex justify-content-center align-items-center h-100">
-
       <div class="col-lg-6 col-xl-5 mx-5 pt-3 login-left">
         <h3 class="text-end text-white mx-5 mt-2 mb-0">AvenBook</h3>
-        <h5 class="text-end text-white mx-5">Create your posts and connect with your pals!</h5>
+        <h5 class="text-end text-white mx-5">
+          Create your posts and connect with your pals!
+        </h5>
       </div>
       <div class="col-md-8 col-lg-6 col-xl-4 pb-4">
+
         <form (ngSubmit)="login()" [formGroup]="loginFormGroup">
           <!-- Email input -->
           <div class="form-outline fw-bold mt-3 mb-4">
             <label class="form-label">Email address</label>
-            <input type="email" class="form-control form-control-md"
-              placeholder="Enter a valid email address" formControlName="email"
+            <input
+              type="email"
+              class="form-control form-control-md"
+              placeholder="Enter a valid email address"
+              formControlName="email"
               [ngClass]="{
-                'is-invalid':
-                email.invalid &&
-                  (email.dirty || email.touched)
-              }"/>
-              <div *ngIf="email.invalid && (email.touched || email.dirty)" class="invalid-feedback">
-                  <div *ngIf="email.errors['required']">
-                    Email address is required
-                  </div>
-                  <div *ngIf="email.errors['email']">
-                    Email address is invalid
-                  </div>
+                'is-invalid': email.invalid && (email.dirty || email.touched)
+              }"
+            />
+            <div
+              *ngIf="email.invalid && (email.touched || email.dirty)"
+              class="invalid-feedback"
+            >
+              <div *ngIf="email.errors['required']">
+                Email address is required
               </div>
+              <div *ngIf="email.errors['email']">Email address is invalid</div>
+            </div>
           </div>
 
           <!-- Password input -->
           <div class="form-outline fw-bold mb-3">
             <label class="form-label">Password</label>
-            <input type="password" class="form-control form-control-md"
-              placeholder="Enter password" formControlName="password"
+            <input
+              type="password"
+              class="form-control form-control-md"
+              placeholder="Enter password"
+              formControlName="password"
               [ngClass]="{
                 'is-invalid':
-                password.invalid &&
-                  (password.dirty || password.touched)
-              }"/>
-              <div *ngIf="password.invalid && (password.touched || password.dirty)" class="invalid-feedback">
-                <div *ngIf="password.errors['required']">
-                  Password is required
-                </div>
+                  password.invalid && (password.dirty || password.touched)
+              }"
+            />
+            <div
+              *ngIf="password.invalid && (password.touched || password.dirty)"
+              class="invalid-feedback"
+            >
+              <div *ngIf="password.errors['required']">
+                Password is required
+              </div>
             </div>
           </div>
 
           <div class="d-flex justify-content-between align-items-center">
             <!-- Checkbox -->
             <div class="form-check mb-0">
-              <input class="form-check-input me-2" type="checkbox" value="" [required]="true"/>
-              <label class="form-check-label">
-                Remember me
-              </label>
+              <input
+                class="form-check-input me-2"
+                type="checkbox"
+                value=""
+                [required]="true"
+              />
+              <label class="form-check-label"> Remember me </label>
             </div>
-            <a href="#" class="text-body text-decoration-none">Forgot password?</a>
+            <a href="#" class="text-body text-decoration-none"
+              >Forgot password?</a
+            >
           </div>
 
           <div class="text-center text-lg-start mt-3 pt-2 account-check">
-            <button type="submit" class="btn btn-primary login-button">Login</button>
+            <button type="submit" class="btn btn-secondary login-button">
+              <mat-spinner
+                *ngIf="loading"
+                class="spinner"
+                color="accent"
+                mode="indeterminate"
+                diameter="25"
+              ></mat-spinner>
+              <span *ngIf="!loading">Login</span>
+            </button>
             <p class="fw-bold mt-3 pt-1 mb-0">
               Don't have an account?
-              <a routerLink="/signup"
-                class="link-danger text-decoration-none ms-1">
+              <a
+                routerLink="/signup"
+                class="link-danger text-decoration-none ms-1"
+              >
                 Register
               </a>
             </p>
           </div>
-
         </form>
       </div>
     </div>
   </div>
 
   <div class="mt-3 copyright">
-    <div class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5">
+    <div
+      class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5"
+    >
       <!-- Copyright -->
       <div class="text-white mb-3 mb-md-0">
         Copyright © 2023. All rights reserved.

@@ -11,6 +11,7 @@ import { AuthenticationService } from 'src/app/service/authentication/authentica
 import { FormValidators } from 'src/app/validators/form-validators';
 import { ToastrService } from 'ngx-toastr';
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
+import { UserService } from 'src/app/service/user/user.service';
 
 
 @Component({
@@ -21,6 +22,7 @@ import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 export class RegisterComponent implements OnInit {
   faCirclePlus = faCirclePlus;
   registerFormGroup: FormGroup;
+  loading = false;
 
   avatarPreview: any =
     'https://w7.pngwing.com/pngs/754/2/png-transparent-samsung-galaxy-a8-a8-user-login-telephone-avatar-pawn-blue-angle-sphere-thumbnail.png';
@@ -29,16 +31,17 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    // private registerFormService: RegisterFormService,
     private router: Router,
     private authenticationService: AuthenticationService,
     private toastr: ToastrService,
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {
     // Initialize the form group
     this.registerFormGroup = this.formBuilder.group({
       user: this.formBuilder.group({
+        avatarFile: new FormControl(''),
         firstName: new FormControl('', [
           Validators.required,
           Validators.minLength(2),
@@ -56,7 +59,7 @@ export class RegisterComponent implements OnInit {
         email: new FormControl('', [
           Validators.required,
           Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
-        ]),
+        ],[FormValidators.emailExistCheckWithDatabase(this.userService)]),
         password: new FormControl('', [
           Validators.required,
           Validators.minLength(7),
@@ -64,11 +67,9 @@ export class RegisterComponent implements OnInit {
         confirmPassword: new FormControl('', [
           Validators.required,
           Validators.minLength(7),
-          this.matchPasswordValidator(),
         ]),
-        // avatar: new FormControl(''),
-        avatarFile: new FormControl(''),
-      }),
+        terms: new FormControl(false, Validators.requiredTrue)
+      }, { validator: this.matchPasswordValidator() }),
     });
   }
 
@@ -89,8 +90,8 @@ export class RegisterComponent implements OnInit {
   // Custom validator function to match password and confirmPassword
   matchPasswordValidator(): ValidatorFn {
     return (control: FormControl): { [key: string]: any } | null => {
-      const password = this.registerFormGroup?.get('user.password')?.value;
-      const confirmPassword = control.value;
+      const password = control.get('password')?.value;
+      const confirmPassword = control.get('confirmPassword')?.value;
       return password === confirmPassword ? null : { passwordMismatch: true };
     };
   }
@@ -119,6 +120,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
+    this.loading= true;
     const user = new FormData();
     user.append('firstName', this.firstName?.value);
     user.append('lastName', this.lastName?.value);
@@ -133,9 +135,13 @@ export class RegisterComponent implements OnInit {
     this.authenticationService.signup(user).subscribe({
       next: () => {
         this.toastr.success(`Your account has been created successfully`);
+        this.loading =false
         this.router.navigateByUrl('/feed');
       },
-      error: () => {},
+      error: () => {
+        this.toastr.error(`Error occured while creating your account`);
+        this.loading =false
+      },
     });
   }
 

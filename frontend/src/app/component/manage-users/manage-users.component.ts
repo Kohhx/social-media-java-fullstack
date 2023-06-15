@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/common/user';
 import { UserService } from 'src/app/service/user/user.service';
 
@@ -22,7 +23,10 @@ export class ManageUsersComponent implements OnInit {
   page: number = 1;
   usersPerPage: number = 10;
 
-  constructor(private userService: UserService) { }
+  constructor(
+    private userService: UserService,
+    private toastr: ToastrService
+  ) { }
 
   ngOnInit(): void {
     this.handleGetAllUsers();
@@ -60,7 +64,7 @@ export class ManageUsersComponent implements OnInit {
       const index = this.usersList.indexOf(user);
       this.usersList.splice(index, 1);
     }
-    alert('User deleted successfully!')
+    this.toastr.success('User deleted successfully!')
   }
 
   openModal(user: User) {

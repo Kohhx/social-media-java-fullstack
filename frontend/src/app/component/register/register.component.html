@@ -1,7 +1,7 @@
 <!-- Section: Design Block -->
 <section class="text-center text-lg-start">
   <!-- Jumbotron -->
-  <div class="container mt-5">
+  <div class="container my-2">
     <div class="row g-0 align-items-center">
       <div class="col-lg-6 mb-5 mb-lg-0">
         <div
@@ -12,7 +12,7 @@
           "
         >
           <div class="card-body p-5 shadow-5">
-            <h2 class="fw-bold mb-4">Create an Account</h2>
+            <h2 class="fw-bold m-1 text-center">Registration</h2>
 
             <form [formGroup]="registerFormGroup" (ngSubmit)="onSubmit()">
               <!-- User Form Group -->
@@ -44,7 +44,11 @@
                       [src]="avatarPreview"
                       alt="avatar"
                     />
-                    <fa-icon (click)="openFileBrowser()" [icon]="faCirclePlus" class="icon fa-xl"></fa-icon>
+                    <fa-icon
+                      (click)="openFileBrowser()"
+                      [icon]="faCirclePlus"
+                      class="icon fa-xl"
+                    ></fa-icon>
                   </div>
 
                   <div class="col-md-6 mb-3">
@@ -123,9 +127,9 @@
                 <!-- Gender Select -->
 
                 <div class="form-floating mb-4">
-                <!-- <div class="d-inline-flex"> -->
+                  <!-- <div class="d-inline-flex"> -->
                   <select
-                    class="form-select mb-4 w-100"
+                    class="form-select mb-1 w-100"
                     style="width: 150px"
                     formControlName="gender"
                     [ngClass]="{
@@ -142,7 +146,7 @@
                     *ngIf="gender.invalid && (gender.dirty || gender.touched)"
                     class="invalid-feedback"
                   >
-                    <div class="mx-2 mt-1" *ngIf="gender.errors?.['gender']">
+                    <div *ngIf="gender.errors?.['gender']">
                       Please select either male or female gender
                     </div>
                   </div>
@@ -173,8 +177,18 @@
                     <div *ngIf="email.errors?.['pattern']">
                       Email must be in a valid format.
                     </div>
+                    <div *ngIf="email?.pending">Loading</div>
+
+                    <div
+                      *ngIf="email.errors?.['usernameAlreadyExists'] && !email?.pending"
+                    >
+                      Email already Exist
+                    </div>
+                    <div *ngIf="email?.pending">Loading...</div>
                   </div>
-                  <!-- Error validation end -->
+                  <div class="available" *ngIf="email.valid && !email?.pending">
+                    ✓ Email available
+                  </div>
                 </div>
 
                 <!-- Password input -->
@@ -237,39 +251,59 @@
                       Password confirmation is required.
                     </div>
                     <div
-                      *ngIf="confirmPassword.errors?.['matchPasswordValidator']"
+                      *ngIf="registerFormGroup.get('user').errors?.['passwordMismatch']"
                     >
-                      Must be the same as what you entered earlier.
+                      Password confirmation must match password.
                     </div>
                   </div>
                   <!-- Error validation end -->
                 </div>
 
                 <!-- Checkbox -->
-                <div class="form-check d-flex mt-2 mb-4">
+                <div class="form-check d-flex mt-4 mb-4">
                   <input
+                    formControlName="terms"
                     class="form-check-input me-2"
                     type="checkbox"
                     value=""
-                    [required]="true"
                   />
                   <label class="form-check-label">
                     I accept the Terms and Conditions
                   </label>
+
+                  <!-- Error validation for checkbox: required -->
+                  <div *ngIf="
+                    registerFormGroup?.get('terms')?.touched &&
+                    registerFormGroup?.get('terms')?.invalid"
+                    class="invalid-feedback d-block"
+                  >
+                    Please accept the terms and conditions.
+                  </div>
+                  <!-- Error validation end -->
                 </div>
 
                 <!-- Submit button -->
                 <button
                   type="submit"
-                  class="btn btn-primary mb-4"
+                  class="btn btn-secondary mb-4"
                   style="width: 100%"
+                  [disabled]="registerFormGroup.invalid || loading"
                 >
-                  Create an account
+                  <mat-spinner
+                    *ngIf="loading"
+                    class="spinner"
+                    color="accent"
+                    mode="indeterminate"
+                    diameter="25"
+                  ></mat-spinner>
+                  <span  *ngIf="!loading">Create an account</span>
                 </button>
 
                 <p class="fw-bold mb-0">
                   Already have an account?
-                  <a routerLink="/login" class="link-danger text-decoration-none ms-1"
+                  <a
+                    routerLink="/login"
+                    class="link-danger text-decoration-none ms-1"
                     >Login here</a
                   >
                 </p>

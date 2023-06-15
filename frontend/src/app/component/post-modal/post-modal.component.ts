@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, Input, AfterContentInit, OnChanges, SimpleChanges, ViewChild, OnInit } from '@angular/core';
+import { Component, Output, EventEmitter, Input, AfterContentInit, OnChanges, SimpleChanges, ViewChild, OnInit, ElementRef } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { PostService, Post } from 'src/app/service/post/post.service';
 import { FormValidators } from 'src/app/validators/form-validators';
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-post-modal',
@@ -13,6 +14,7 @@ import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./post-modal.component.css']
 })
 export class PostModalComponent implements OnChanges, OnInit {
+  loading = false;
   faCircleXmark = faCircleXmark
   @Output() postedUpdated = new EventEmitter<any>();
 
@@ -30,7 +32,8 @@ export class PostModalComponent implements OnChanges, OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private postService: PostService
+    private postService: PostService,
+    private toastr: ToastrService,
   ) { }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -119,6 +122,7 @@ export class PostModalComponent implements OnChanges, OnInit {
   }
 
   handleUpdatePost() {
+    this.loading= true;
     const post = new FormData();
     post.append('id', this.item.id)
     post.append('title', this.title?.value);
@@ -134,13 +138,17 @@ export class PostModalComponent implements OnChanges, OnInit {
 
     this.postService.updatePost(this.item.id, post).subscribe({
       next: (data) => {
+        this.loading= false;
         console.log(data);
         console.log("Updated")
+        this.toastr.success('Post updated successfully', 'Success');
         this.postedUpdated.emit(true)
         this.closeModal();
       },
       error: (err) => {
+        this.loading= false;
         console.log(err);
+        this.toastr.error('Error updating post');
       }
     });
   }
@@ -148,9 +156,13 @@ export class PostModalComponent implements OnChanges, OnInit {
   @Output() cancel: EventEmitter<void> = new EventEmitter<void>();
 
   closeModal(): void {
+    const body = document.getElementsByTagName('body')[0];
+    body.style.overflow = 'auto';
     this.updateFormGroup.get('user.file').setValue(null);
     this.cancel.emit();
   }
+
+
 
   resetLink() {
     this.updateFormGroup.get('user.link').setValue("");

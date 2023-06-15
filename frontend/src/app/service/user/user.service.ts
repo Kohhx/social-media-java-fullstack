@@ -29,9 +29,13 @@ export class UserService {
     return this.http.patch<any>(`${this.BASE_URL}/users/${id}`, user).pipe(
       map((data) => {
         console.log(data);
-        this.removeSessionStorage();
-        let token = this.TOKEN_PREFIX + data.token;
-        this.setSessionStorage(data.id, data.email, token, data.avatarUrl, data.roles);
+        let currentUserId = sessionStorage.getItem('useId');
+        // If the user updates his/her own profile, update the session storage:
+        if (currentUserId == id.toString()) {
+          this.removeSessionStorage();
+          let token = this.TOKEN_PREFIX + data.token;
+          this.setSessionStorage(data.id, data.email, token, data.avatarUrl, data.roles);
+        }
         return data;
       })
     );
@@ -39,6 +43,10 @@ export class UserService {
 
   deleteUser(id: number): Observable<any> {
     return this.http.delete(`${this.BASE_URL}/users/${id}`);
+  }
+
+  existsByEmail(email: string): Observable<boolean> {
+      return this.http.get<boolean>(`${this.BASE_URL}/users/email?email=${email}`);
   }
 
   private setSessionStorage(
