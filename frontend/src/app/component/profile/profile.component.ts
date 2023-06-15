@@ -23,7 +23,12 @@ export class ProfileComponent implements OnInit {
   fileUtil = FileUtil;
   userId: number;
   items: any = [];
+  item: any;
   user: any = {};
+  userItem: any = {};
+
+  openUser: boolean = false;
+
   defaultProfileImage =
     'https://w7.pngwing.com/pngs/754/2/png-transparent-samsung-galaxy-a8-a8-user-login-telephone-avatar-pawn-blue-angle-sphere-thumbnail.png';
 
@@ -57,17 +62,6 @@ export class ProfileComponent implements OnInit {
     this.link.valueChanges.subscribe((value) => {
       console.log(value);
       this.imagePreviewUrl = value
-    })
-
-    this.postService.getAllPosts().subscribe({
-      next: (posts => {
-        console.log(posts)
-        console.log(posts[0]['user'].avatarUrl)
-        this.items = this.sortPostsByUpdatedAt(posts);
-      }),
-      error: (err => {
-        console.log(err)
-      })
     })
 
     this.activatedRoute.params.subscribe({
@@ -180,11 +174,6 @@ export class ProfileComponent implements OnInit {
     })
   }
 
-  item: any = {};
-  userItem: any = {};
-
-  openUser: boolean = false;
-
   openUserModal(userItem) {
     console.log(userItem)
     this.userItem = userItem
@@ -231,7 +220,6 @@ export class ProfileComponent implements OnInit {
     this.postService.deletePost(this.clickedPost.id).subscribe({
       next: (res) => {
         this.getAllPostsByUser(this.userId);
-        location.reload()
       },
       error: (err) => {},
     });

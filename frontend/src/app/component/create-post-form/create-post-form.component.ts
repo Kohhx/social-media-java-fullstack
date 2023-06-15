@@ -139,7 +139,6 @@ export class CreatePostFormComponent {
         this.resetPostForm();
         this.imagePreviewUrl = '';
         this.videoPreviewUrl = '';
-        location.reload()
       },
       error: (error) => {
         console.log(error);
