@@ -1,20 +1,109 @@
-.nav-item:hover {
-  font: green;
-  font-weight: bold;
-}
-
-.nav-item .active {
-  font: green;
-  font-weight: bold;
-}
-
-.avatar-small{
-  width: 50px;
-  height: 50px;
-  border-radius:50%;
-  margin-left: 20px;
-}
-
 .active{
   color: var(--bs-nav-link-hover-color);
 }
+
+.form-inline {
+	display: inline-block;
+}
+.navbar-header.col {
+	padding: 0 !important;
+}
+.navbar {		
+	background: #fff;
+	padding-left: 16px;
+	padding-right: 16px;
+	border-bottom: 1px solid #d6d6d6;
+	box-shadow: 0 0 4px rgba(0,0,0,.1);
+}
+.nav-link img {
+	border-radius: 50%;
+	width: 36px;
+	height: 36px;
+	margin: -8px 0;
+	float: left;
+	margin-right: 10px;
+}
+.navbar .navbar-brand {
+	color: #555;
+	padding-left: 0;
+	padding-right: 50px;
+	font-family: 'Merienda One', sans-serif;
+}
+.navbar .navbar-brand i {
+	font-size: 20px;
+	margin-right: 5px;
+}
+.search-box {
+	position: relative;
+}	
+.search-box input {
+	box-shadow: none;
+	padding-right: 35px;
+	border-radius: 3px !important;
+}
+.search-box .input-group-addon {
+	border: none;
+	background: transparent;
+	position: absolute;
+	right: 10px;
+	height: 100%;
+}
+.input-group-addon.align-middle {
+	display: flex;
+	align-items: center;
+  }
+.search-box i {
+	color: #a0a5b1;
+	font-size: 19px;
+}
+.navbar .nav-item i {
+	font-size: 18px;
+}
+	
+.navbar .active a, .navbar .active a:hover, .navbar .active a:focus {
+	background: transparent !important;
+}
+@media (min-width: 1200px){
+	.form-inline .input-group {
+		width: 300px;
+		margin-left: 30px;
+	}
+}
+@media (max-width: 1199px){
+	.form-inline {
+		display: block;
+		margin-bottom: 10px;
+	}
+	.input-group {
+		width: 100%;
+	}
+}
+
+.dropdown {
+	position: relative;
+	display: inline-block;
+  }
+  
+  .dropdown-toggle {
+	background: transparent;
+	padding: 0px;
+	border: 0px;
+	cursor: pointer;
+	color: #eee
+  }
+  
+  .dropdown-menu {
+	position: absolute;
+	top: 150%;
+	right: -10px;
+	display: none;
+	list-style-type: none;
+	background-color: #fff;
+	border: 1px solid #ccc;
+	text-align: center;
+  }
+  
+  .dropdown-menu.show {
+	display: block;
+	cursor: pointer;
+  }

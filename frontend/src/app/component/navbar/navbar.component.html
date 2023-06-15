@@ -1,44 +1,23 @@
-<nav class="navbar bg-success-subtle navbar-expand-lg bg-body-tertiary">
+<!-- <nav class="navbar navbar-expand-lg" style="background: #3e8392;">
   <div class="container-fluid">
     <a class="navbar-brand" href="#"><img src="" alt="logo" /></a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" routerLinkActive="active" routerLink="/posts"
-            >View Posts</a
-          >
+          <a class="nav-link" routerLinkActive="active" routerLink="/posts">View Posts</a>
         </li>
         <li class="nav-item">
-          <a
-            class="nav-link"
-            routerLinkActive="active"
-            [routerLink]="getOwnProfileLink()"
-            >My Post</a
-          >
+          <a class="nav-link" routerLinkActive="active" [routerLink]="getOwnProfileLink()">My Post</a>
         </li>
         <li *ngIf="authenticationService.isAdmin()" class="nav-item">
-          <a
-            class="nav-link"
-            routerLinkActive="active"
-            routerLink="/admin/posts"
-            >Manage All Posts</a
-          >
+          <a class="nav-link" routerLinkActive="active" routerLink="/admin/posts">Manage All Posts</a>
         </li>
         <li *ngIf="authenticationService.isAdmin()" class="nav-item">
-          <a class="nav-link" routerLinkActive="active" routerLink="admin/users"
-            >Manage All Users</a
-          >
+          <a class="nav-link" routerLinkActive="active" routerLink="admin/users">Manage All Users</a>
         </li>
         <li class="nav-item">
           {{ id }}
@@ -48,30 +27,68 @@
         Logout
       </button>
       <form class="d-flex" role="search">
-        <input
-          class="form-control me-2"
-          type="search"
-          placeholder="Search for posts..."
-          aria-label="Search"
-        />
+        <input class="form-control me-2" type="search" placeholder="Search for posts..." aria-label="Search" />
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
 
       <div>
-        <img
-          class="avatar-small"
-          *ngIf="isProfileImagePresent(); else defaultProfile"
-          [src]="authenticationService.getProfileAvatar()"
-          alt="profile avatar"
-        />
+        <img class="avatar-small" *ngIf="isProfileImagePresent(); else defaultProfile"
+          [src]="authenticationService.getProfileAvatar()" alt="profile avatar"/>
         <ng-template #defaultProfile>
-          <img
-            class="avatar-small"
-            [src]="defaultProfileImage"
-            alt="default profile"
-          />
+          <img class="avatar-small" [src]="defaultProfileImage" alt="default profile" />
         </ng-template>
       </div>
+    </div>
+  </div>
+</nav> -->
+<nav class="navbar navbar-expand-lg navbar-dark" style="background: linear-gradient(to bottom, #3e8392, #336b7d);">
+  <a href="#"><img src="../../../assets/images/feedid.png" style="height: 50px; margin-right: 20px" /></a>
+  <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link active" style="margin: 0px 10px" routerLinkActive="active" routerLink="/posts">View
+        Posts</a>
+      <a class="nav-item nav-link active" style="margin: 0px 10px" routerLinkActive="active"
+        [routerLink]="getOwnProfileLink()">My Post</a>
+      <li *ngIf="authenticationService.isAdmin()" class="nav-item" style="margin: 0px 10px">
+        <a class="nav-link" routerLinkActive="active" routerLink="/admin/posts">Manage All Posts</a>
+      </li>
+      <li *ngIf="authenticationService.isAdmin()" class="nav-item" style="margin: 0px 10px">
+        <a class="nav-link" routerLinkActive="active" routerLink="admin/users">Manage All Users</a>
+      </li>
+    </div>
+  </div>
+  <div class="navbar-nav ml-auto">
+    <form class="navbar-form form-inline">
+      <div class="input-group search-box">
+        <input type="text" id="search" class="form-control" style="background: #eee;" placeholder="Search Users">
+        <span class="input-group-addon align-middle">
+          <i class="material-icons">&#xE8B6;</i>
+        </span>
+      </div>
+    </form>
+    <div class="nav-item">
+      <div class="nav-link" style="margin-left: 10px; position: relative;">
+        <img class="avatar" *ngIf="isProfileImagePresent(); else defaultProfile"
+          [src]="authenticationService.getProfileAvatar()" alt="profile avatar" 
+          (click)="toggleDropdown()"/>
+          <div style="display: flex; justify-content: center; align-items: center; border-radius: 100%; width: 20px; height: 20px; position: absolute; top: 20px; right: 20px; background: gray;">
+            {{ id }}
+          </div>
+        <div class="dropdown">
+          <button class="dropdown-toggle" (click)="toggleDropdown()">
+          </button>
+          <ul class="dropdown-menu" [class.show]="showDropdown">
+            <li [routerLink]="getOwnProfileLink()">Profile</li>
+            <li (click)="logout()" style="border-top: 1px solid #eee">Logout</li>
+          </ul>
+        </div>
+      </div>
+      <ng-template #defaultProfile>
+        <img class="avatar" [src]="defaultProfileImage" alt="default profile" />
+      </ng-template>
     </div>
   </div>
 </nav>

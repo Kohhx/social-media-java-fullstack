@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/service/authentication/authentication.service';
 import { ToastrService } from 'ngx-toastr';
@@ -14,11 +14,17 @@ export class NavbarComponent implements OnInit {
   defaultProfileImage =
     'https://w7.pngwing.com/pngs/754/2/png-transparent-samsung-galaxy-a8-a8-user-login-telephone-avatar-pawn-blue-angle-sphere-thumbnail.png';
 
+  showDropdown: boolean = false;
+
+  toggleDropdown() {
+    this.showDropdown = !this.showDropdown;
+  }
+
   constructor(
     public authenticationService: AuthenticationService,
     private router: Router,
     private toast: ToastrService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.id = this.authenticationService.getAuthenticatedUserId();
