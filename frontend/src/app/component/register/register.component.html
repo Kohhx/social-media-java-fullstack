@@ -1,7 +1,7 @@
 <!-- Section: Design Block -->
 <section class="text-center text-lg-start">
   <!-- Jumbotron -->
-  <div class="container mt-5">
+  <div class="container my-2">
     <div class="row g-0 align-items-center">
       <div class="col-lg-6 mb-5 mb-lg-0">
         <div
@@ -12,7 +12,7 @@
           "
         >
           <div class="card-body p-5 shadow-5">
-            <h2 class="fw-bold mb-4">Create an Account</h2>
+            <h2 class="fw-bold m-1 text-center">Registration</h2>
 
             <form [formGroup]="registerFormGroup" (ngSubmit)="onSubmit()">
               <!-- User Form Group -->
@@ -129,7 +129,7 @@
                 <div class="form-floating mb-4">
                   <!-- <div class="d-inline-flex"> -->
                   <select
-                    class="form-select mb-4 w-100"
+                    class="form-select mb-1 w-100"
                     style="width: 150px"
                     formControlName="gender"
                     [ngClass]="{
@@ -146,7 +146,7 @@
                     *ngIf="gender.invalid && (gender.dirty || gender.touched)"
                     class="invalid-feedback"
                   >
-                    <div class="mx-2 mt-1" *ngIf="gender.errors?.['gender']">
+                    <div *ngIf="gender.errors?.['gender']">
                       Please select either male or female gender
                     </div>
                   </div>
@@ -251,25 +251,35 @@
                       Password confirmation is required.
                     </div>
                     <div
-                      *ngIf="confirmPassword.errors?.['matchPasswordValidator']"
+                      *ngIf="registerFormGroup.get('user').errors?.['passwordMismatch']"
                     >
-                      Must be the same as what you entered earlier.
+                      Password confirmation must match password.
                     </div>
                   </div>
                   <!-- Error validation end -->
                 </div>
 
                 <!-- Checkbox -->
-                <div class="form-check d-flex mt-2 mb-4">
+                <div class="form-check d-flex mt-4 mb-4">
                   <input
+                    formControlName="terms"
                     class="form-check-input me-2"
                     type="checkbox"
                     value=""
-                    [required]="true"
                   />
                   <label class="form-check-label">
                     I accept the Terms and Conditions
                   </label>
+
+                  <!-- Error validation for checkbox: required -->
+                  <div *ngIf="
+                    registerFormGroup?.get('terms')?.touched &&
+                    registerFormGroup?.get('terms')?.invalid"
+                    class="invalid-feedback d-block"
+                  >
+                    Please accept the terms and conditions.
+                  </div>
+                  <!-- Error validation end -->
                 </div>
 
                 <!-- Submit button -->

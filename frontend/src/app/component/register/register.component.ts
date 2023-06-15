@@ -31,7 +31,6 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    // private registerFormService: RegisterFormService,
     private router: Router,
     private authenticationService: AuthenticationService,
     private toastr: ToastrService,
@@ -42,6 +41,7 @@ export class RegisterComponent implements OnInit {
     // Initialize the form group
     this.registerFormGroup = this.formBuilder.group({
       user: this.formBuilder.group({
+        avatarFile: new FormControl(''),
         firstName: new FormControl('', [
           Validators.required,
           Validators.minLength(2),
@@ -67,11 +67,9 @@ export class RegisterComponent implements OnInit {
         confirmPassword: new FormControl('', [
           Validators.required,
           Validators.minLength(7),
-          this.matchPasswordValidator(),
         ]),
-        // avatar: new FormControl(''),
-        avatarFile: new FormControl(''),
-      }),
+        terms: new FormControl(false, Validators.requiredTrue)
+      }, { validator: this.matchPasswordValidator() }),
     });
   }
 
@@ -92,8 +90,8 @@ export class RegisterComponent implements OnInit {
   // Custom validator function to match password and confirmPassword
   matchPasswordValidator(): ValidatorFn {
     return (control: FormControl): { [key: string]: any } | null => {
-      const password = this.registerFormGroup?.get('user.password')?.value;
-      const confirmPassword = control.value;
+      const password = control.get('password')?.value;
+      const confirmPassword = control.get('confirmPassword')?.value;
       return password === confirmPassword ? null : { passwordMismatch: true };
     };
   }
