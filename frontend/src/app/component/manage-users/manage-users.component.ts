@@ -14,6 +14,10 @@ export class ManageUsersComponent implements OnInit {
   storage: Storage = sessionStorage;
   openUser: boolean = false;
 
+  // For searchbar in manage users page:
+  private _searchTerm: string = '';
+  filteredUsersList: User[] = [];
+
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
@@ -25,6 +29,7 @@ export class ManageUsersComponent implements OnInit {
       (data: any) => {
         console.log(data)
         this.usersList = data;
+        this.filteredUsersList = data;
       },
     );
   }
@@ -60,6 +65,26 @@ export class ManageUsersComponent implements OnInit {
 
   closeUserModal() {
     this.openUser = false;
+  }
+
+  // For searchbar in manage users page:
+  filterUsers() {
+    this.filteredUsersList = this.usersList.filter((user: User) => {
+    // Add filers for id / name / email:
+      return user.id.toString().includes(this.searchTerm) ||
+      (user.firstName ? user.firstName.toLowerCase().includes(this.searchTerm.toLowerCase()) : false) ||
+      (user.lastName ? user.lastName.toLowerCase().includes(this.searchTerm.toLowerCase()) : false) ||
+      (user.email ? user.email.toLowerCase().includes(this.searchTerm.toLowerCase()) : false)
+    });
+  }
+
+  get searchTerm(): string {
+    return this._searchTerm;
+  }
+
+  set searchTerm(value: string) {
+    this._searchTerm = value;
+    this.filterUsers();
   }
 
 }

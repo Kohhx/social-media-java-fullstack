@@ -1,5 +1,16 @@
 <div class="container-fluid mt-4 manage-post">
 
+  <div class="form-outline my-4">
+    <input
+      [(ngModel)]="searchTerm"
+      type="search"
+      class="form-control fw-bold"
+      (keyup)="filterPosts()"
+      placeholder="Search posts by id, title, caption or username..."
+      aria-label="Search"
+    />
+  </div>
+
   <table class="table table-striped">
     <thead>
       <tr>
@@ -14,7 +25,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let post of postsList">
+      <tr *ngFor="let post of filteredPostsList">
         <td>{{ post.id }}</td>
         <td>{{ post.title }}</td>
         <td>{{ post.caption }}</td>
