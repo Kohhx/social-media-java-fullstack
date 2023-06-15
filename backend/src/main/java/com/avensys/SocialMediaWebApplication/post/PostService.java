@@ -1,6 +1,7 @@
 package com.avensys.SocialMediaWebApplication.post;
 
 import com.avensys.SocialMediaWebApplication.cloudinary.CloudinaryHelper;
+import com.avensys.SocialMediaWebApplication.exceptions.ResourceAccessDeniedException;
 import com.avensys.SocialMediaWebApplication.exceptions.ResourceNotFoundException;
 import com.avensys.SocialMediaWebApplication.user.User;
 import com.avensys.SocialMediaWebApplication.user.UserRepository;
@@ -77,6 +78,12 @@ public class PostService {
 
     public PostResponseDTO updatePost(long id, PostUpdateRequestDTO postUpdateRequest) {
         Post post = findPostById(id);
+
+        // Check if user is admin or post belong to user before user is allowed to update a post
+        if (!checkIsAdmin()){
+            checkPostBelongToUser(post);
+        }
+
         post.setTitle(postUpdateRequest.title());
         post.setCaption(postUpdateRequest.caption());
 
@@ -106,6 +113,12 @@ public class PostService {
 
     public void deletePostById(long id) {
         Post post = findPostById(id);
+
+        // Check if user is admin or post belong to user before user is allowed to delete a post
+        if (!checkIsAdmin()){
+            checkPostBelongToUser(post);
+        }
+
         if (post.getContentId() != null && !post.getContentId().isEmpty()) {
             try {
                 Map deleteResult = cloudinaryHelper.delete(post.getContentId(), post.getContentUrl());
@@ -174,6 +187,19 @@ public class PostService {
                 postUserInfo
         );
         return postResponse;
+    }
+
+    private void checkPostBelongToUser(Post post) {
+        Principal principal = SecurityContextHolder.getContext().getAuthentication();
+        Optional<User> user = userRepository.findByEmail(principal.getName());
+        if (post.getUser().getId() != user.get().getId()) {
+            throw new ResourceAccessDeniedException("Access denied to resource");
+        }
+    }
+
+    private boolean checkIsAdmin(){
+        return SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream()
+                .anyMatch(role -> role.getAuthority().equals("ROLE_ADMIN"));
     }
 
 

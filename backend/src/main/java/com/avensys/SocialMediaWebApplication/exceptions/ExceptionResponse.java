@@ -10,6 +10,8 @@ public class ExceptionResponse {
     private HttpStatus httpStatus;
     private LocalDate timestamp;
 
+    public ExceptionResponse() {
+    }
     public ExceptionResponse(String message, HttpStatus httpStatus, LocalDate timestamp) {
         this(message, null, httpStatus, timestamp);
     }
