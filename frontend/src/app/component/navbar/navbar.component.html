@@ -74,17 +74,17 @@
         <img class="avatar" *ngIf="isProfileImagePresent(); else defaultProfile"
           [src]="authenticationService.getProfileAvatar()" alt="profile avatar" 
           (click)="toggleDropdown()"/>
-          <div style="display: flex; justify-content: center; align-items: center; border-radius: 100%; width: 20px; height: 20px; position: absolute; top: 20px; right: 20px; background: gray;">
-            {{ id }}
+          <div class="id-badge">
+            <b>{{ id }}</b>
           </div>
-        <div class="dropdown">
-          <button class="dropdown-toggle" (click)="toggleDropdown()">
-          </button>
-          <ul class="dropdown-menu" [class.show]="showDropdown">
-            <li [routerLink]="getOwnProfileLink()">Profile</li>
-            <li (click)="logout()" style="border-top: 1px solid #eee">Logout</li>
-          </ul>
-        </div>
+          <div class="dropdown">
+            <button class="dropdown-toggle" (click)="toggleDropdown()"></button>
+            <ul class="dropdown-menu" [class.show]="showDropdown">
+              <li [routerLink]="getOwnProfileLink()" (click)="selectOption()" class="dropdown-item">Profile</li>
+              <li routerLink="/posts" (click)="selectOption()" class="dropdown-item" style="border-top: 1px solid gray">Home</li>
+              <li (click)="logout()" class="dropdown-item" style="border-top: 1px solid gray">Logout</li>
+            </ul>
+          </div>
       </div>
       <ng-template #defaultProfile>
         <img class="avatar" [src]="defaultProfileImage" alt="default profile" />

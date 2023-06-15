@@ -98,12 +98,39 @@
 	right: -10px;
 	display: none;
 	list-style-type: none;
-	background-color: #fff;
-	border: 1px solid #ccc;
+	background: linear-gradient(#616067, #5e5f69);
+	border: 1px solid #74747b;
 	text-align: center;
+	padding: 10px
+  }
+
+  .dropdown-item {
+	cursor: pointer;
+	border-radius: 5px;
+	color: #dcdcdc;
+  }
+  
+  .dropdown-item:hover {
+	background-color: #3e8392;
+  }
+
+  .dropdown-item:focus {
+	outline: none; /* Remove the default focus outline */
+	background-color: #3e8392; /* Apply the desired background color on focus */
   }
   
   .dropdown-menu.show {
 	display: block;
 	cursor: pointer;
+  }
+
+  .id-badge {
+	display: flex; 
+	justify-content: center; 
+	align-items: center; 
+	border-radius: 100%; 
+	width: 20px; height: 20px; 
+	position: absolute; 
+	top: 20px; right: 20px; 
+	background: linear-gradient(135deg, #f5476b, #f76c87);
   }
