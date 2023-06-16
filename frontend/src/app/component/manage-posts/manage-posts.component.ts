@@ -28,7 +28,6 @@ export class ManagePostsComponent implements OnInit {
   faPenToSquare = faPenToSquare;
   faTrash = faTrash;
 
-
   @Output() cancel: EventEmitter<void> = new EventEmitter<void>();
 
   constructor(
