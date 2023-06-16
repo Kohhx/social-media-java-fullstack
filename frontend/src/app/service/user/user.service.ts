@@ -28,10 +28,9 @@ export class UserService {
   updateUser(id: number, user: any): Observable<any> {
     return this.http.patch<any>(`${this.BASE_URL}/users/${id}`, user).pipe(
       map((data) => {
-        console.log(data);
-        let currentUserId = sessionStorage.getItem('useId');
+        let currentUserId = sessionStorage.getItem('id');
         // If the user updates his/her own profile, update the session storage:
-        if (currentUserId == id.toString()) {
+        if (currentUserId == data.id.toString()) {
           this.removeSessionStorage();
           let token = this.TOKEN_PREFIX + data.token;
           this.setSessionStorage(data.id, data.email, token, data.avatarUrl, data.roles);

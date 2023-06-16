@@ -99,6 +99,13 @@
             <artifactId>tika-parsers</artifactId>
             <version>1.17</version>
         </dependency>
+
+        <!--		// Java Faker-->
+        <dependency>
+            <groupId>com.github.javafaker</groupId>
+            <artifactId>javafaker</artifactId>
+            <version>1.0.2</version>
+        </dependency>
     </dependencies>
 
     <build>
