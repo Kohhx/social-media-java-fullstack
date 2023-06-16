@@ -1,7 +1,7 @@
 <!-- Section: Design Block -->
 <section class="text-center text-lg-start">
   <!-- Jumbotron -->
-  <div class="container my-2">
+  <div class="container my-2 jumbo">
     <div class="row g-0 align-items-center">
       <div class="col-lg-6 mb-5 mb-lg-0">
         <div
@@ -11,6 +11,7 @@
             backdrop-filter: blur(30px);
           "
         >
+        <div class="form-container">
           <div class="card-body p-5 shadow-5">
             <h2 class="fw-bold m-1 text-center">Registration</h2>
 
@@ -251,7 +252,7 @@
                       Password confirmation is required.
                     </div>
                     <div
-                      *ngIf="registerFormGroup.get('user').errors?.['passwordMismatch']"
+                      *ngIf="confirmPassword.errors?.['passwordMismatch']"
                     >
                       Password confirmation must match password.
                     </div>
@@ -271,15 +272,6 @@
                     I accept the Terms and Conditions
                   </label>
 
-                  <!-- Error validation for checkbox: required -->
-                  <div *ngIf="
-                    registerFormGroup?.get('terms')?.touched &&
-                    registerFormGroup?.get('terms')?.invalid"
-                    class="invalid-feedback d-block"
-                  >
-                    Please accept the terms and conditions.
-                  </div>
-                  <!-- Error validation end -->
                 </div>
 
                 <!-- Submit button -->
@@ -309,6 +301,7 @@
                 </p>
               </div>
             </form>
+          </div>
           </div>
         </div>
       </div>
