@@ -1,17 +1,5 @@
 <div style="background: #eaebef; padding: 30px 0px 10px 0px">
   <div class="container w-75">
-
-    <div class="panel profile-cover"
-      style="position: relative; background: linear-gradient( #659ca8, #3e8392, #326975); border-radius: 15px; border: 2px solid #bdd8dc">
-      <div style="display: flex; flex-direction: column">
-        <div style="display: flex; align-items: center">
-          <div style="margin: 25px">
-            <img *ngIf="user.avatarUrl == null" [src]="defaultProfileImage" alt="" width="150px"
-              height="150px" style="background: black; border-radius: 50%; object-fit: cover;" />
-            <img *ngIf="user.avatarUrl != null" [src]="user.avatarUrl" alt=""
-              width="150px" height="150px" style="background: black; border-radius: 50%; object-fit: cover;" />
-
-
     <div class="modal-wrapper">
       <div class="modal-post-container" [class.open]="openPost">
         <app-post-modal (postedUpdated)="postUpdated($event)" (cancel)="closePostModal()"
@@ -26,10 +14,10 @@
     <div class="panel panel-default">
       <div class="userprofile social" style="display: flex; flex-direction: column; align-items: center;">
         <div>
-          <img *ngIf="authService.getProfileAvatar() == null" [src]="defaultProfileImage" alt="" width="150px"
-            height="150px" style="background: black; border-radius: 50%; object-fit: cover;" />
-          <img *ngIf="authService.getProfileAvatar() != null" [src]="authService.getProfileAvatar()" alt=""
-            width="150px" height="150px" style="background: black; border-radius: 50%; object-fit: cover;" />
+          <img *ngIf="user.avatarUrl == null" [src]="defaultProfileImage" alt="" width="150px" height="150px"
+            style="background: black; border-radius: 50%; object-fit: cover;" />
+          <img *ngIf="user.avatarUrl != null" [src]="user.avatarUrl" alt="" width="150px" height="150px"
+            style="background: black; border-radius: 50%; object-fit: cover;" />
         </div>
         <div style="margin-top: 20px; text-align: center; color: #eee">
           <div class="name">
@@ -118,8 +106,7 @@
                   <button type="button" class="btn btn-default btn-xs postbtn">
                     <fa-icon [icon]="faShare" class="icon fa-sm" fontSize="12" style="color: #eee;"></fa-icon>
                     Share</button>
-                  <button type="button" class="btn btn-default btn-xs postbtn"
-                    style="margin-left: 10px;">
+                  <button type="button" class="btn btn-default btn-xs postbtn" style="margin-left: 10px;">
                     <fa-icon [icon]="faThumbsUp" class="icon fa-sm" fontSize="12" style="color: #eee;"></fa-icon>
                     Like</button>
                 </div>
