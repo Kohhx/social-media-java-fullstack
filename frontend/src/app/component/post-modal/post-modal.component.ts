@@ -49,7 +49,7 @@ export class PostModalComponent implements OnChanges, OnInit {
     console.log("Changes")
     if (changes['item']) {
       const updatedItem = changes['item'].currentValue;
-      if (updatedItem && updatedItem.title) {
+      if (updatedItem) {
         this.updateFormGroup.get('user').patchValue({
           title: updatedItem.title,
           caption: updatedItem.caption,
