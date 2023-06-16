@@ -46,8 +46,18 @@
         <td>{{ post.createdAt | date }}</td>
         <td>{{ post.updatedAt | date }}</td>
         <td>
-          <button class="btn btn-primary btn-sm mx-2" (click)="updatePost(post)">Update</button>
-          <button class="btn btn-danger btn-sm" (click)="deletePost(post)">Delete</button>
+          <button
+            class="btn btn-sm update-icon"
+            (click)="updatePost(post)"
+          >
+            <fa-icon [icon]="faPenToSquare"></fa-icon>
+          </button>
+          <button
+            class="btn btn-sm delete-icon"
+            (click)="deletePost(post)"
+          >
+            <fa-icon [icon]="faTrash"></fa-icon>
+          </button>
         </td>
       </tr>
     </tbody>

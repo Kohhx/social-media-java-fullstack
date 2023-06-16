@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output, ViewEncapsulation } from '@ang
 import { Post } from 'src/app/common/post';
 import { PostService } from 'src/app/service/post/post.service';
 import { ToastrService } from 'ngx-toastr';
+import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-manage-posts',
@@ -22,6 +23,11 @@ export class ManagePostsComponent implements OnInit {
   // For pagination:
   page: number = 1;
   postsPerPage: number = 10;
+
+  // Fontsawesome icons for update and delete buttons:
+  faPenToSquare = faPenToSquare;
+  faTrash = faTrash;
+
 
   @Output() cancel: EventEmitter<void> = new EventEmitter<void>();
 

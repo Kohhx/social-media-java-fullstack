@@ -8,5 +8,6 @@ export interface User {
   lastName: string;
   createdAt: Date;
   updatedAt: Date;
-
+  rolesList: string[];
+  
 }
