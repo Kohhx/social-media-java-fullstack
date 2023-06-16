@@ -43,8 +43,9 @@ public class PostController {
         return new ResponseEntity<>(postUpdateResponse, HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('ROLE_USER')")
+
     @DeleteMapping("posts/{postId}")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<CustomResponse> deletePost(@PathVariable long postId) {
         postService.deletePostById(postId);
         return new ResponseEntity<>(new CustomResponse("Post deleted successfully"), HttpStatus.OK);

@@ -5,6 +5,8 @@ import com.avensys.SocialMediaWebApplication.exceptions.ResourceAccessDeniedExce
 import com.avensys.SocialMediaWebApplication.exceptions.ResourceNotFoundException;
 import com.avensys.SocialMediaWebApplication.user.User;
 import com.avensys.SocialMediaWebApplication.user.UserRepository;
+import jakarta.transaction.Transactional;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -80,9 +82,9 @@ public class PostService {
         Post post = findPostById(id);
 
         // Check if user is admin or post belong to user before user is allowed to update a post
-        if (!checkIsAdmin()) {
-            checkPostBelongToUser(post);
-        }
+//        if (!checkIsAdmin()) {
+//            checkPostBelongToUser(post);
+//        }
 
         post.setTitle(postUpdateRequest.title());
         post.setCaption(postUpdateRequest.caption());
@@ -127,13 +129,19 @@ public class PostService {
         return postUpdateResponse;
     }
 
+    @Transactional
+    @Modifying
     public void deletePostById(long id) {
         Post post = findPostById(id);
 
         // Check if user is admin or post belong to user before user is allowed to delete a post
-        if (!checkIsAdmin()) {
-            checkPostBelongToUser(post);
-        }
+//        if (!checkIsAdmin()) {
+//            checkPostBelongToUser(post);
+//            Principal principal = SecurityContextHolder.getContext().getAuthentication();
+//            if (!principal.getName().equals(post.getUser().getEmail())) {
+//                throw new UnauthorizedException("User not authorized to delete post");
+//            }
+//        }
 
         if (post.getContentId() != null && !post.getContentId().isEmpty()) {
             try {
@@ -143,7 +151,9 @@ public class PostService {
             }
         }
         System.out.println("Deleting post.....");
-        postRepository.delete(post);
+//        postRepository.delete(post);
+        postRepository.deleteById(id);
+        System.out.println("Post deleted.....");
     }
 
     public List<PostResponseDTO> getPostsByUserId(long id) {
@@ -205,9 +215,13 @@ public class PostService {
         return postResponse;
     }
 
-    private void checkPostBelongToUser(Post post) {
+
+    public void checkPostBelongToUser(Post post) {
         Principal principal = SecurityContextHolder.getContext().getAuthentication();
         Optional<User> user = userRepository.findByEmail(principal.getName());
+        System.out.println("USER1: " + user.get().getId());
+        System.out.println("USER2: " + post.getUser().getId());
+        System.out.println(user.get().getId() == post.getUser().getId());
         if (post.getUser().getId() != user.get().getId()) {
             throw new ResourceAccessDeniedException("Access denied to resource");
         }

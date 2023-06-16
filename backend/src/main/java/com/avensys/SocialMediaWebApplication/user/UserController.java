@@ -44,12 +44,14 @@ public class UserController {
     }
 
     @PatchMapping("users/{userId}")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<UserUpdateResponseDTO> UpdateUser(@PathVariable long userId, @ModelAttribute UserUpdateRequestDTO userUpdateRequest) {
         UserUpdateResponseDTO userResponse = userService.updateUserById(userId, userUpdateRequest);
         return new ResponseEntity<>(userResponse, HttpStatus.OK);
     }
 
     @DeleteMapping("users/{userId}")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<CustomResponse> deleteUser(@PathVariable long userId) {
         userService.deleteUserById(userId);
         return new ResponseEntity<>(new CustomResponse("User deleted successfully"), HttpStatus.OK);
