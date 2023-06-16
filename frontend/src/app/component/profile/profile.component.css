@@ -98,7 +98,7 @@ body {
 }
 
 .panel-heading .dropdown .dropdown-toggle:after,
-.toolbar__nav > li > a > span {
+.toolbar__nav>li>a>span {
   display: none;
 }
 
@@ -271,7 +271,7 @@ button.btn-link {
 
 .modal-custom {
   background-color: rgba(0, 0, 0, 0.5);
-  position:fixed;
+  position: fixed;
   inset: 0 0 0 0;
   z-index: 9999;
   display: flex;
@@ -281,8 +281,8 @@ button.btn-link {
 }
 
 .delete-card {
-  padding:2rem;
-  background-color: rgba(255,255,255, 0.8);
+  padding: 2rem;
+  background-color: rgba(255, 255, 255, 0.8);
   border-radius: 10px;
   backdrop-filter: blur(10px);
 }
@@ -310,57 +310,62 @@ button.btn-link {
 }
 
 .countlist h3 {
-margin: 0;
-font-weight: 400;
-line-height: 28px;
+  margin: 0;
+  font-weight: 400;
+  line-height: 28px;
 }
+
 .countlist {
-text-transform: uppercase
+  text-transform: uppercase
 }
+
 .countlist li {
-padding: 15px 30px 15px 0;
-font-size: 14px;
-text-align: left;
+  padding: 15px 30px 15px 0;
+  font-size: 14px;
+  text-align: left;
 }
+
 .countlist li small {
-font-size: 12px;
-margin: 0
+  font-size: 12px;
+  margin: 0
 }
 
 .followbtn {
-float: right;
-margin: 22px;
-background: #3e8392;
-color: #eee;
-border: 0
+  float: right;
+  margin: 22px;
+  background: #3e8392;
+  color: #eee;
+  border: 0
 }
 
 .followbtn:hover {
   background: #5b9da8;
-  }
+}
 
-  .postbtn {
-    background: #3e8392;
-    color: #eee
-  }
+.postbtn {
+  background: #3e8392;
+  color: #eee
+}
 
-  .postbtn:hover {
-    background: #5b9da8;
-  }
+.postbtn:hover {
+  background: #5b9da8;
+}
 
 .userprofile.social {
-background: url(https://img.freepik.com/free-vector/minimal-geometric-stripe-shape-background_1409-1014.jpg?w=1380&t=st=1686894912~exp=1686895512~hmac=9e51bab67ad0d939c5004b56eda0c74d48b1b22f0e0cccf2f0650d50ef0d9604) no-repeat top center;
-background-size: 100%;
-padding: 50px 0;
-margin: 0;
-border-top-left-radius: 5px;
-border-top-right-radius: 5px;
-filter: hue-rotate(320deg)
+  background: url(https://img.freepik.com/free-vector/minimal-geometric-stripe-shape-background_1409-1014.jpg?w=1380&t=st=1686894912~exp=1686895512~hmac=9e51bab67ad0d939c5004b56eda0c74d48b1b22f0e0cccf2f0650d50ef0d9604) no-repeat top center;
+  background-size: 100%;
+  padding: 50px 0;
+  margin: 0;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  filter: hue-rotate(320deg)
 }
+
 .userprofile.social .username {
-color: #ffffff
+  color: #ffffff
 }
+
 .userprofile.social .username+p {
-color: #ffffff;
-opacity: 0.8
+  color: #ffffff;
+  opacity: 0.8
 }

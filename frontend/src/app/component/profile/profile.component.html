@@ -89,7 +89,7 @@
                   <div>{{ item.updatedAt | date : "medium" }}</div>
                 </div>
               </div>
-              <div style="margin: 20px 0px 0px 10px">{{ item.caption }}</div>
+              <div style="margin-top: 15px">{{ item.caption }}</div>
               <div *ngIf="item.contentUrl != null">
                 <img *ngIf="!fileUtil.isVideoOrImage(item.contentUrl)" [src]="item.contentUrl" alt="post image"
                   style="width: 100%; margin-top: 20px" />
