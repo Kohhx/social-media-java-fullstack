@@ -51,26 +51,7 @@ export class UserModalComponent {
     private formBuilder: FormBuilder,
     private userService: UserService,
     private toastr: ToastrService
-  ) {}
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['item']) {
-      const updatedItem = changes['item'].currentValue;
-
-      if (updatedItem) {
-        this.avatarPreview = updatedItem.avatarUrl;
-        this.updateFormGroup.get('user').patchValue({
-          firstName: updatedItem.firstName,
-          lastName: updatedItem.lastName,
-          email: updatedItem.email,
-          avatarUrl: updatedItem.avatarUrl,
-          gender: updatedItem.gender,
-        });
-      }
-    }
-  }
-
-  ngOnInit(): void {
+  ) {
     this.updateFormGroup = this.formBuilder.group({
       user: this.formBuilder.group({
         firstName: new FormControl('', [
@@ -99,6 +80,27 @@ export class UserModalComponent {
         avatarFile: new FormControl(''),
       }),
     });
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['item']) {
+      const updatedItem = changes['item'].currentValue;
+
+      if (updatedItem) {
+        this.avatarPreview = updatedItem.avatarUrl;
+        this.updateFormGroup.get('user').patchValue({
+          firstName: updatedItem.firstName,
+          lastName: updatedItem.lastName,
+          email: updatedItem.email,
+          avatarUrl: updatedItem.avatarUrl,
+          gender: updatedItem.gender,
+        });
+      }
+    }
+  }
+
+  ngOnInit(): void {
+
   }
 
   matchPasswordValidator(): ValidatorFn {

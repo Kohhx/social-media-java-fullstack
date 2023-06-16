@@ -45,7 +45,7 @@ export class ManagePostsComponent implements OnInit {
 
   updatePost(post: Post) {
     this.selectedPost = post;
-    this.openModal(post)
+    this.openPost = true;
   }
 
   deletePost(post: Post) {
@@ -55,7 +55,7 @@ export class ManagePostsComponent implements OnInit {
         console.log(response)
         console.log(post)
 
-        // Get update list of posts:
+        // Get updated list of posts:
         this.handleGetAllPosts();
       }
     })
@@ -68,10 +68,6 @@ export class ManagePostsComponent implements OnInit {
       this.toastr.success('Post deleted successfully!')
     }
   };
-
-  openModal(post: Post) {
-    this.openPost = true;
-  }
 
   closePostModal() {
     this.openPost = false;
