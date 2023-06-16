@@ -102,9 +102,9 @@
 	display: block;
 	cursor: pointer;
   }
-  
-  .id-badge { 
-	border-radius: 30px; 
+
+  .id-badge {
+	border-radius: 30px;
 	font-size: 14px;
 	padding: 0px 5px;
 	margin-left: 5px;
@@ -114,12 +114,12 @@
 
   .btn-group-toggle {
 	background: #27515d;
-    color: #eee; 
+    color: #eee;
 	border: 0
   }
 
   .btn-group-toggle .btn-secondary.active {
 	background: #162e35;
-    color: #eee; 
+    color: #eee;
 	border: 0
   }
