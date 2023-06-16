@@ -252,7 +252,7 @@
                       Password confirmation is required.
                     </div>
                     <div
-                      *ngIf="registerFormGroup.get('user').errors?.['passwordMismatch']"
+                      *ngIf="confirmPassword.errors?.['passwordMismatch']"
                     >
                       Password confirmation must match password.
                     </div>
@@ -272,15 +272,6 @@
                     I accept the Terms and Conditions
                   </label>
 
-                  <!-- Error validation for checkbox: required -->
-                  <div *ngIf="
-                    registerFormGroup?.get('terms')?.touched &&
-                    registerFormGroup?.get('terms')?.invalid"
-                    class="invalid-feedback d-block"
-                  >
-                    Please accept the terms and conditions.
-                  </div>
-                  <!-- Error validation end -->
                 </div>
 
                 <!-- Submit button -->
