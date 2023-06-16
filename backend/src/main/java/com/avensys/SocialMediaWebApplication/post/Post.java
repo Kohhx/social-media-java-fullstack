@@ -117,4 +117,6 @@ public class Post {
     public void setContentId(String contentId) {
         this.contentId = contentId;
     }
+
+
 }

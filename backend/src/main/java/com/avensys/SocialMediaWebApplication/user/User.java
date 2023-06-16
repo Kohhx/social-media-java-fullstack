@@ -182,4 +182,8 @@ public class User {
         post.setUser(this);
         this.posts.add(post);
     }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
+    }
 }
