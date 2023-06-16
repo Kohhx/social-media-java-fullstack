@@ -69,11 +69,10 @@ export class RegisterComponent implements OnInit {
         ]),
         confirmPassword: new FormControl('', [
           Validators.required,
-          Validators.minLength(7),
           this.matchPasswordValidator(),
         ]),
-        // avatar: new FormControl(''),
         avatarFile: new FormControl(''),
+        terms: new FormControl(false, Validators.requiredTrue)
       }),
     });
   }
