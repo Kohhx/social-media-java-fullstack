@@ -13,7 +13,8 @@ import { faPenToSquare} from '@fortawesome/free-solid-svg-icons';
 import { faUserGroup } from '@fortawesome/free-solid-svg-icons';
 import { faUsers } from '@fortawesome/free-solid-svg-icons';
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
-
+import { faShare } from '@fortawesome/free-solid-svg-icons';
+import { faThumbsUp } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-profile',
@@ -27,6 +28,8 @@ export class ProfileComponent implements OnInit {
   faUserGroup = faUserGroup;
   faUserPlus = faUserPlus;
   faUsers = faUsers;
+  faShare = faShare;
+  faThumbsUp = faThumbsUp;
   fileUtil = FileUtil;
   userId: number;
   items: any = [];

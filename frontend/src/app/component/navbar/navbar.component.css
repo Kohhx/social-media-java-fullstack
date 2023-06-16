@@ -102,6 +102,7 @@
 	cursor: pointer;
   }
 
+<<<<<<< HEAD
   .id-badge {
 	display: flex;
 	justify-content: center;
@@ -111,4 +112,25 @@
 	position: absolute;
 	top: 20px; right: 20px;
 	background: linear-gradient(135deg, #f5476b, #f76c87);
+=======
+  .id-badge { 
+	border-radius: 30px; 
+	font-size: 14px;
+	padding: 0px 5px;
+	margin-left: 5px;
+	height: 20px;
+	background: linear-gradient(135deg, #3e8392, #336b7d);
+  }
+
+  .btn-group-toggle {
+	background: #27515d;
+    color: #eee; 
+	border: 0
+  }
+
+  .btn-group-toggle .btn-secondary.active {
+	background: #162e35;
+    color: #eee; 
+	border: 0
+>>>>>>> master
   }
