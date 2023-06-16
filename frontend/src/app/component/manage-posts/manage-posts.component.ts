@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { Post } from 'src/app/common/post';
 import { PostService } from 'src/app/service/post/post.service';
 import { ToastrService } from 'ngx-toastr';
@@ -6,7 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-manage-posts',
   templateUrl: './manage-posts.component.html',
-  styleUrls: ['./manage-posts.component.css']
+  styleUrls: ['./manage-posts.component.css'],
 })
 export class ManagePostsComponent implements OnInit {
 

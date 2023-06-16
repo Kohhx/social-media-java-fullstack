@@ -1,3 +1,11 @@
+section {
+  background-color: #bff2fd;
+}
+
+.login {
+  width: 80%;
+}
+
 .divider:after,
 .divider:before {
   content: "";
@@ -12,6 +20,7 @@
 
 .login-left {
   background-image: url('../../../assets/images/landingpage.png');
+  height: 100%;
   background-size: cover;
   background-position: center;
   border-radius: 15px;
@@ -42,6 +51,7 @@
     border-radius: 0;
   }
 }
+
 @media (min-width: 1200px) {
   .login-left {
     height: 75vh;

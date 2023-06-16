@@ -5,7 +5,7 @@
     <input
       [(ngModel)]="searchTerm"
       type="search"
-      class="form-control fw-bold"
+      class="form-control fw-bold rounded-5"
       (keyup)="filterPosts()"
       placeholder="Search posts by id, title, caption or username..."
       aria-label="Search"
@@ -23,7 +23,7 @@
     </select>
   </div>
 
-  <table class="table table-striped">
+  <table class="table table-striped mt-3 custom-table">
     <thead>
       <tr>
         <th>ID</th>
