@@ -101,18 +101,7 @@
 	display: block;
 	cursor: pointer;
   }
-
-<<<<<<< HEAD
-  .id-badge {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	border-radius: 100%;
-	width: 20px; height: 20px;
-	position: absolute;
-	top: 20px; right: 20px;
-	background: linear-gradient(135deg, #f5476b, #f76c87);
-=======
+  
   .id-badge { 
 	border-radius: 30px; 
 	font-size: 14px;
@@ -132,5 +121,4 @@
 	background: #162e35;
     color: #eee; 
 	border: 0
->>>>>>> master
   }
