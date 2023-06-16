@@ -23,6 +23,7 @@ import { UserService } from 'src/app/service/user/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { faUserPen } from '@fortawesome/free-solid-svg-icons';
 
+
 @Component({
   selector: 'app-user-modal',
   templateUrl: './user-modal.component.html',
@@ -182,6 +183,7 @@ export class UserModalComponent {
       console.log('User updated successfully.');
       this.updatedUser.emit(true);
       this.closeModal();
+      this.toastr.success("User updated successfully");
     },
     (error) => {
       this.loading = false;

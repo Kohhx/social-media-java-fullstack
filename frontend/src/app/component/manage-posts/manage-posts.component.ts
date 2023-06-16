@@ -95,4 +95,10 @@ export class ManagePostsComponent implements OnInit {
     this.filterPosts();
   }
 
-}
+  postUpdated(isUpdated: boolean) {
+    if (isUpdated) {
+      this.handleGetAllPosts();
+    }
+  }
+
+  }
