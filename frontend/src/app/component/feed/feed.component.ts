@@ -5,6 +5,7 @@ import { Router } from 'express-serve-static-core';
 import { ToastrService } from 'ngx-toastr';
 import { PostService } from 'src/app/service/post/post.service';
 import  { FileUtil } from '../../utility/file-util';
+import { AuthenticationService } from 'src/app/service/authentication/authentication.service';
 
 @Component({
   selector: 'app-feed',
@@ -23,6 +24,7 @@ export class FeedComponent implements OnInit {
     private toastr: ToastrService,
     private http: HttpClient,
     private postService: PostService,
+    public authService: AuthenticationService,
   ) {}
 
   ngOnInit(): void {
