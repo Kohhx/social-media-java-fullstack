@@ -6,6 +6,8 @@ import { ToastrService } from 'ngx-toastr';
 import { PostService } from 'src/app/service/post/post.service';
 import  { FileUtil } from '../../utility/file-util';
 import { AuthenticationService } from 'src/app/service/authentication/authentication.service';
+import { faShare } from '@fortawesome/free-solid-svg-icons';
+import { faThumbsUp } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-feed',
@@ -14,6 +16,8 @@ import { AuthenticationService } from 'src/app/service/authentication/authentica
 })
 export class FeedComponent implements OnInit {
   fileUtil = FileUtil;
+  faShare = faShare;
+  faThumbsUp = faThumbsUp;
 
   defaultProfileImage = "https://w7.pngwing.com/pngs/754/2/png-transparent-samsung-galaxy-a8-a8-user-login-telephone-avatar-pawn-blue-angle-sphere-thumbnail.png";
 
