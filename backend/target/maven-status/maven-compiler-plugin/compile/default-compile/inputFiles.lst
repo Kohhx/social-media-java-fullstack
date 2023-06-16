@@ -1,6 +1,7 @@
 /Users/kohhx/code/Kohhx/social-media-java-fullstack/backend/src/main/java/com/avensys/SocialMediaWebApplication/post/Post.java
 /Users/kohhx/code/Kohhx/social-media-java-fullstack/backend/src/main/java/com/avensys/SocialMediaWebApplication/post/PostResponseDTO.java
 /Users/kohhx/code/Kohhx/social-media-java-fullstack/backend/src/main/java/com/avensys/SocialMediaWebApplication/post/PostController.java
+/Users/kohhx/code/Kohhx/social-media-java-fullstack/backend/src/main/java/com/avensys/SocialMediaWebApplication/bootstrap/SocialMediaAppCommandLineRunner.java
 /Users/kohhx/code/Kohhx/social-media-java-fullstack/backend/src/main/java/com/avensys/SocialMediaWebApplication/exceptions/GlobalException.java
 /Users/kohhx/code/Kohhx/social-media-java-fullstack/backend/src/main/java/com/avensys/SocialMediaWebApplication/configurations/ApplicationConfiguration.java
 /Users/kohhx/code/Kohhx/social-media-java-fullstack/backend/src/main/java/com/avensys/SocialMediaWebApplication/post/PostRepository.java
