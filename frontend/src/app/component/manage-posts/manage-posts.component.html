@@ -63,7 +63,5 @@
     </pagination-controls>
   </div>
 
-  <app-post-modal [item]="selectedPost" class="center-section" *ngIf="openPost" (cancel)="closePostModal()"></app-post-modal>
+  <app-post-modal (postedUpdated)="postUpdated($event)" [item]="selectedPost" class="center-section" *ngIf="openPost" (cancel)="closePostModal()"></app-post-modal>
 </div>
-
-
