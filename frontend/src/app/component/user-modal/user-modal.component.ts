@@ -189,6 +189,7 @@ export class UserModalComponent {
       this.loading = false;
       console.log(error);
       this.toastr.error("Error updating user");
+      console.log("done")
     });
   }
 
