@@ -93,8 +93,10 @@ public class PostService {
 
         if (!isPostLinkEmpty(postUpdateRequest) && !postUpdateRequest.link().equals(post.getContentUrl())) {
             System.out.println("------------->>>> 1");
-            deleteFile(post);
-            post.setContentId(null);
+            if (post.getContentId() != null && !post.getContentId().isEmpty()) {
+                deleteFile(post);
+                post.setContentId(null);
+            }
             post.setContentUrl(postUpdateRequest.link());
         } else if (isPostLinkEmpty(postUpdateRequest) && !isPostFileEmpty(postUpdateRequest)) {
             System.out.println("------------->>>> 2");

@@ -65,13 +65,16 @@ public class UserService {
         userUpdate.setGender(userUpdateRequest.gender());
 
         if (userUpdateRequest.avatarFile() != null && !userUpdateRequest.avatarFile().isEmpty()) {
+            System.out.println("------------> 1");
             if (userUpdate.getAvatarPublicId() != null && !userUpdate.getAvatarPublicId().isEmpty()) {
                 deleteFile(userUpdate);
             }
             Map uploadResult = addFile(userUpdateRequest);
             userUpdate.setAvatarUrl(uploadResult.get("url").toString());
             userUpdate.setAvatarPublicId(uploadResult.get("public_id").toString());
+            System.out.println(userUpdate.getAvatarUrl());
         }  else if (userUpdateRequest.avatarUrl() == null ) {
+            System.out.println("------------> 2");
             if (userUpdate.getAvatarPublicId() != null && !userUpdate.getAvatarPublicId().isEmpty()) {
                 deleteFile(userUpdate);
             }
