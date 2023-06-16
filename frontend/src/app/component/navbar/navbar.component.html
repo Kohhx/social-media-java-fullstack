@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark"
-  style="background: linear-gradient(to bottom, #3e8392, #336b7d); display: flex; justify-content: space-between;">
-  <div style="width: 22vw; display: flex; justify-content: center; align-items: center;">
+  style="background: linear-gradient(to bottom, #3e8392, #336b7d); display: flex; justify-content: center;">
+  <div style="width: 22vw; display: flex; justify-content: center; align-items: center; position: absolute; left: 0px">
     <a routerLink="/"><img src="../../../assets/images/feedid.png" style="height: 50px; margin-right: 20px" /></a>
     <div class="navbar-nav">
       <li *ngIf="authenticationService.isAdmin()" class="nav-item" style="margin: 0px 10px">
@@ -31,10 +31,15 @@
     </label>
   </div>
 
-  <div class="navbar-nav ml-auto" style="width: 22vw;">
+<<<<<<< HEAD
+  <div class="navbar-nav ml-auto" style="width: 30vw;">
+    <!-- <div style="margin-left: 40px"> -->
+=======
+  <div class="navbar-nav ml-auto" style="position: absolute; right: 0px">
     <div style="margin-left: 40px">
+>>>>>>> 4a9df56e0fe94a45f31ab5df48a1a421fdf41969
       <app-main-searchbar></app-main-searchbar>
-    </div>
+    <!-- </div> -->
 
     <div class="nav-item">
       <div class="nav-link" style="margin-left: 10px; position: relative;">
