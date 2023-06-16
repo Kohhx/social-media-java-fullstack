@@ -13,6 +13,7 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -57,7 +58,7 @@ public class UserService {
 //        if (!checkIsAdmin()){
 //            checkUserToUpdateBelongsToUser(userUpdate);
 //        }
-        
+
         userUpdate.setPassword(passwordEncoder.encode(userUpdateRequest.password()));
         userUpdate.setEmail(userUpdateRequest.email());
         userUpdate.setFirstName(userUpdateRequest.firstName());
@@ -73,7 +74,7 @@ public class UserService {
             userUpdate.setAvatarUrl(uploadResult.get("url").toString());
             userUpdate.setAvatarPublicId(uploadResult.get("public_id").toString());
             System.out.println(userUpdate.getAvatarUrl());
-        }  else if (userUpdateRequest.avatarUrl() == null ) {
+        } else if (userUpdateRequest.avatarUrl() == null) {
             System.out.println("------------> 2");
             if (userUpdate.getAvatarPublicId() != null && !userUpdate.getAvatarPublicId().isEmpty()) {
                 deleteFile(userUpdate);
@@ -85,7 +86,7 @@ public class UserService {
         User updatedUser = userRepository.save(userUpdate);
         String token = jwtService.generateToken(updatedUser.getEmail());
 
-        return userToUserUpdateResponseDTO(userUpdate,token);
+        return userToUserUpdateResponseDTO(userUpdate, token);
     }
 
     public void deleteUserById(long id) {
@@ -97,6 +98,14 @@ public class UserService {
         return userRepository.existsByEmail(email);
     }
 
+    public List<UserResponseDTO> searchUser(String keyword) {
+        List<User> users = userRepository.findByUserByFirstNameOrLastNameOrEmail(keyword);
+        List<UserResponseDTO> userResponseDTOs = users.stream()
+                .map(user -> userToUserResponseDTO(user))
+                .collect(Collectors.toList());
+//        users.stream().map(this::userToUserResponseDTO).toList();
+        return userResponseDTOs;
+    }
 
 
     private UserResponseDTO userToUserResponseDTO(User user) {
@@ -135,7 +144,7 @@ public class UserService {
         }
     }
 
-    private boolean checkIsAdmin(){
+    private boolean checkIsAdmin() {
         return SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream()
                 .anyMatch(role -> role.getAuthority().equals("ROLE_ADMIN"));
     }
