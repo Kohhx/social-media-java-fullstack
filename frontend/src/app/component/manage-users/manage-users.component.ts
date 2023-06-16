@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/common/user';
 import { UserService } from 'src/app/service/user/user.service';
@@ -22,9 +24,17 @@ export class ManageUsersComponent implements OnInit {
   page: number = 1;
   usersPerPage: number = 10;
 
+  // Fontsawesome icons for update and delete buttons:
+  faPenToSquare = faPenToSquare;
+  faTrash = faTrash;
+
+  // Finding user role from session storage:
+  userRole = sessionStorage.getItem('role')?.split(',');
+
   constructor(
     private userService: UserService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -40,8 +50,16 @@ export class ManageUsersComponent implements OnInit {
   }
 
   updateUser(user: User) {
+    console.log(user);
     this.selectedUser = user;
     this.openUser = true;
+  }
+
+  updatedUser(isUpdated: boolean) {
+    if (isUpdated) {
+      console.log("Change liao")
+      this.handleGetAllUsers();
+    }
   }
 
   deleteUser(user: User) {
@@ -97,10 +115,8 @@ export class ManageUsersComponent implements OnInit {
     this.filterUsers();
   }
 
-  updatedUser(isUpdated: boolean) {
-    if (isUpdated) {
-      console.log("Change liao")
-      this.handleGetAllUsers();
-    }
+  goToUserProfile(userId: number) {
+    this.router.navigate([`/users/${userId}/posts`]);
   }
+
 }
