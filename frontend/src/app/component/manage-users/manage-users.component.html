@@ -63,5 +63,5 @@
     </pagination-controls>
   </div>
 
-  <app-user-modal [item]="selectedUser" class="center-section" *ngIf="openUser" (cancel)="closeUserModal()"></app-user-modal>
+  <app-user-modal (updatedUser)="updatedUser($event)"    [item]="selectedUser" class="center-section" *ngIf="openUser" (cancel)="closeUserModal()"></app-user-modal>
 </div>

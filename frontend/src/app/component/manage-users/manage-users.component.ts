@@ -6,10 +6,9 @@ import { UserService } from 'src/app/service/user/user.service';
 @Component({
   selector: 'app-manage-users',
   templateUrl: './manage-users.component.html',
-  styleUrls: ['./manage-users.component.css']
+  styleUrls: ['./manage-users.component.css'],
 })
 export class ManageUsersComponent implements OnInit {
-
   usersList: User[] = [];
   selectedUser: User;
   storage: Storage = sessionStorage;
@@ -26,20 +25,18 @@ export class ManageUsersComponent implements OnInit {
   constructor(
     private userService: UserService,
     private toastr: ToastrService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.handleGetAllUsers();
   }
 
   handleGetAllUsers() {
-    this.userService.getAllUsers().subscribe(
-      (data: any) => {
-        console.log(data)
-        this.usersList = data;
-        this.filteredUsersList = data;
-      },
-    );
+    this.userService.getAllUsers().subscribe((data: any) => {
+      console.log(data);
+      this.usersList = data;
+      this.filteredUsersList = data;
+    });
   }
 
   updateUser(user: User) {
@@ -49,14 +46,14 @@ export class ManageUsersComponent implements OnInit {
 
   deleteUser(user: User) {
     this.userService.deleteUser(user.id).subscribe({
-      next:(response: any) => {
+      next: (response: any) => {
         this.handleDeleteUser(user);
-        console.log(response)
-        console.log(user)
+        console.log(response);
+        console.log(user);
 
         // Get updated list of users:
         this.handleGetAllUsers();
-      }
+      },
     });
   }
 
@@ -64,9 +61,9 @@ export class ManageUsersComponent implements OnInit {
     const index = this.usersList.indexOf(user);
     if (index > -1) {
       this.usersList.splice(index, 1);
-      this.toastr.success('User deleted successfully!')
+      this.toastr.success('User deleted successfully!');
     }
-  };
+  }
 
   closeUserModal() {
     this.openUser = false;
@@ -75,11 +72,19 @@ export class ManageUsersComponent implements OnInit {
   // For searchbar in manage users page:
   filterUsers() {
     this.filteredUsersList = this.usersList.filter((user: User) => {
-    // Add filers for id / name / email:
-      return user.id.toString().includes(this.searchTerm) ||
-      (user.firstName ? user.firstName.toLowerCase().includes(this.searchTerm.toLowerCase()) : false) ||
-      (user.lastName ? user.lastName.toLowerCase().includes(this.searchTerm.toLowerCase()) : false) ||
-      (user.email ? user.email.toLowerCase().includes(this.searchTerm.toLowerCase()) : false)
+      // Add filers for id / name / email:
+      return (
+        user.id.toString().includes(this.searchTerm) ||
+        (user.firstName
+          ? user.firstName.toLowerCase().includes(this.searchTerm.toLowerCase())
+          : false) ||
+        (user.lastName
+          ? user.lastName.toLowerCase().includes(this.searchTerm.toLowerCase())
+          : false) ||
+        (user.email
+          ? user.email.toLowerCase().includes(this.searchTerm.toLowerCase())
+          : false)
+      );
     });
   }
 
@@ -92,4 +97,10 @@ export class ManageUsersComponent implements OnInit {
     this.filterUsers();
   }
 
+  updatedUser(isUpdated: boolean) {
+    if (isUpdated) {
+      console.log("Change liao")
+      this.handleGetAllUsers();
+    }
+  }
 }
