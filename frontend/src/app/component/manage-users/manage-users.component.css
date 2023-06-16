@@ -21,6 +21,12 @@
   transform: translate(-50%, -50%);
 }
 
+.table-container {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
 .custom-table {
   border: 1px solid #dee2e6 !important;
 }
@@ -42,6 +48,11 @@
   vertical-align: middle !important;
   padding-left: 15px;
   padding-right: 15px;
+}
+
+.custom-table th:nth-child(7),
+.custom-table th:nth-child(8) {
+  text-align: center;
 }
 
 .custom-table th:nth-child(1),
@@ -67,6 +78,21 @@
 .custom-table th:nth-child(5),
 .custom-table td:nth-child(5) {
   width: 20%;
+  padding-right: 4%;
+}
+
+.custom-table th:nth-child(6),
+.custom-table td:nth-child(6) {
+  width: 15%;
+  padding-left: 2%;
+  padding-right: 2%;
+}
+
+.custom-table th:nth-child(7),
+.custom-table td:nth-child(7),
+.custom-table th:nth-child(8),
+.custom-table td:nth-child(8) {
+  width: 10%;
   padding-right: 4%;
 }
 
