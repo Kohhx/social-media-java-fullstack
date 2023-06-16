@@ -22,6 +22,7 @@ import { CreatePostFormComponent } from './component/create-post-form/create-pos
 import { ModalComponent } from './shared/modal/modal.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MainSearchbarComponent } from './component/main-searchbar/main-searchbar.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     ManagePostsComponent,
     ManageUsersComponent,
     CreatePostFormComponent,
-    ModalComponent
+    ModalComponent,
+    MainSearchbarComponent
   ],
   imports: [
     BrowserModule,

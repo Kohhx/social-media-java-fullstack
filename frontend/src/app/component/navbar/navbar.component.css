@@ -8,7 +8,7 @@
 .navbar-header.col {
 	padding: 0 !important;
 }
-.navbar {		
+.navbar {
 	background: #fff;
 	padding-left: 16px;
 	padding-right: 16px;
@@ -33,33 +33,11 @@
 	font-size: 20px;
 	margin-right: 5px;
 }
-.search-box {
-	position: relative;
-}	
-.search-box input {
-	box-shadow: none;
-	padding-right: 35px;
-	border-radius: 3px !important;
-}
-.search-box .input-group-addon {
-	border: none;
-	background: transparent;
-	position: absolute;
-	right: 10px;
-	height: 100%;
-}
-.input-group-addon.align-middle {
-	display: flex;
-	align-items: center;
-  }
-.search-box i {
-	color: #a0a5b1;
-	font-size: 19px;
-}
+
 .navbar .nav-item i {
 	font-size: 18px;
 }
-	
+
 .navbar .active a, .navbar .active a:hover, .navbar .active a:focus {
 	background: transparent !important;
 }
@@ -83,7 +61,7 @@
 	position: relative;
 	display: inline-block;
   }
-  
+
   .dropdown-toggle {
 	background: transparent;
 	padding: 0px;
@@ -91,7 +69,7 @@
 	cursor: pointer;
 	color: #eee
   }
-  
+
   .dropdown-menu {
 	position: absolute;
 	top: 150%;
@@ -109,7 +87,7 @@
 	border-radius: 5px;
 	color: #dcdcdc;
   }
-  
+
   .dropdown-item:hover {
 	background-color: #3e8392;
   }
@@ -118,12 +96,23 @@
 	outline: none; /* Remove the default focus outline */
 	background-color: #3e8392; /* Apply the desired background color on focus */
   }
-  
+
   .dropdown-menu.show {
 	display: block;
 	cursor: pointer;
   }
 
+<<<<<<< HEAD
+  .id-badge {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 100%;
+	width: 20px; height: 20px;
+	position: absolute;
+	top: 20px; right: 20px;
+	background: linear-gradient(135deg, #f5476b, #f76c87);
+=======
   .id-badge { 
 	border-radius: 30px; 
 	font-size: 14px;
@@ -143,4 +132,5 @@
 	background: #162e35;
     color: #eee; 
 	border: 0
+>>>>>>> master
   }

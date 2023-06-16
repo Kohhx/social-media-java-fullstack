@@ -40,6 +40,10 @@ export class UserService {
     );
   }
 
+  findUsersByParams(keyword: string): Observable<User[]> {
+    return this.http.get<any>(`${this.BASE_URL}/users/search?keyword=${keyword}`);
+  }
+
   deleteUser(id: number): Observable<any> {
     return this.http.delete(`${this.BASE_URL}/users/${id}`);
   }

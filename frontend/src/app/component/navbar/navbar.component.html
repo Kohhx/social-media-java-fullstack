@@ -12,6 +12,18 @@
     </div>
   </div>
 
+  <!-- <div class="navbar-nav ml-auto"> -->
+  <app-main-searchbar></app-main-searchbar>
+  <!-- <form class="navbar-form form-inline">
+    <div class="input-group search-box">
+      <input type="text" id="search" class="form-control" style="background: #eee;" placeholder="Search Users">
+      <span class="input-group-addon align-middle">
+        <i class="material-icons">&#xE8B6;</i>
+      </span>
+    </div>
+  </form> -->
+
+
   <div class="btn-group btn-group-toggle" data-toggle="buttons">
     <label class="btn btn-secondary btn-group-toggle" [class.active]="button1Active">
       <input type="radio" name="options" autocomplete="off" class="d-none" (click)="toggleButton1()"
@@ -40,6 +52,7 @@
         </span>
       </div>
     </form>
+
     <div class="nav-item">
       <div class="nav-link" style="margin-left: 10px; position: relative;">
         <img class="avatar" *ngIf="isProfileImagePresent(); else defaultProfile"

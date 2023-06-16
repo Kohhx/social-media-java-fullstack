@@ -1,0 +1,52 @@
+<form class="navbar-form form-inline" [formGroup]="searchBarForm">
+  <div class="input-group search-box">
+    <input
+      type="text"
+      id="search"
+      class="form-control input-custom"
+      style="background: #eee"
+      placeholder="Search Users"
+      formControlName="search"
+    />
+    <span class="input-group-addon align-middle">
+      <i class="material-icons">&#xE8B6;</i>
+    </span>
+
+    <div *ngIf="searchResults.length > 0" class="search-results">
+      <ng-container *ngFor="let result of searchResults">
+        <a (click)="resetField()" [routerLink]="getUserLink(result.id)">
+          <div class="search-result">
+            <img
+              *ngIf="!result.avatarUrl"
+              class="search-avatar"
+              [src]="defaultProfileImage"
+              alt=""
+            />
+            <img
+              *ngIf="result.avatarUrl"
+              class="search-avatar"
+              [src]="result.avatarUrl"
+              alt=""
+            />
+            <div class="d-flex flex-column seach-info">
+              <p class="name">{{ result.firstName }} {{ result.lastName }}</p>
+              <p class="email">{{ result.email }}</p>
+            </div>
+          </div></a
+        >
+      </ng-container>
+
+      <!-- <a routerLink=""> <div class="search-result">
+        <img
+          class="search-avatar"
+          src="https://sm.ign.com/ign_ap/feature/t/the-top-25/the-top-25-greatest-anime-characters-of-all-time_ge1p.jpg"
+          alt=""
+        />
+        <div class="d-flex flex-column seach-info">
+          <p class="name">He Xiang Koh</p>
+          <p class="email">k@gmail.com</p>
+        </div>
+      </div></a> -->
+    </div>
+  </div>
+</form>

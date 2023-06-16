@@ -57,6 +57,15 @@ public class UserController {
         return new ResponseEntity<>(new CustomResponse("User deleted successfully"), HttpStatus.OK);
     }
 
+    @GetMapping("users/search")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public ResponseEntity<List<UserResponseDTO>> searchUser(@RequestParam String keyword) {
+        List<UserResponseDTO> users = userService.searchUser(keyword);
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+
+
     // Admin Routes to manage users
 
     @GetMapping("admin/users")
