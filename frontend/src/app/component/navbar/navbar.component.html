@@ -42,11 +42,11 @@
             <li *ngIf="authenticationService.isAdmin()" class="dropdown-item" routerLinkActive="active" routerLink="/admin/posts" (click)="selectOption()" >
               Manage All Posts
             </li>
-            <hr style="color: #eee; margin: 0">
+            <hr *ngIf="authenticationService.isAdmin()" style="color: #eee; margin: 0">
             <li *ngIf="authenticationService.isAdmin()" class="dropdown-item" routerLinkActive="active" routerLink="/admin/users" (click)="selectOption()" >
               Manage All Users
             </li>
-            <hr style="color: #eee; margin: 0">
+            <hr *ngIf="authenticationService.isAdmin()" style="color: #eee; margin: 0">
             <li (click)="logout()" class="dropdown-item">Logout</li>
           </ul>
         </div>
