@@ -34,7 +34,16 @@ export class PostModalComponent implements OnChanges, OnInit {
     private formBuilder: FormBuilder,
     private postService: PostService,
     private toastr: ToastrService,
-  ) { }
+  ) {
+    this.updateFormGroup = this.formBuilder.group({
+      user: this.formBuilder.group({
+        title: ['', [Validators.required, Validators.maxLength(50)]],
+        caption: ['', [Validators.required]],
+        link: [''],
+        file: [null],
+      })
+    });
+   }
 
   ngOnChanges(changes: SimpleChanges): void {
     console.log("Changes")
@@ -51,14 +60,7 @@ export class PostModalComponent implements OnChanges, OnInit {
   }
 
   ngOnInit() {
-    this.updateFormGroup = this.formBuilder.group({
-      user: this.formBuilder.group({
-        title: ['', [Validators.required, Validators.maxLength(50)]],
-        caption: ['', [Validators.required]],
-        link: [''],
-        file: [null],
-      })
-    });
+
   }
 
   get id() {
