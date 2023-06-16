@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/common/user';
 import { UserService } from 'src/app/service/user/user.service';
@@ -22,6 +23,10 @@ export class ManageUsersComponent implements OnInit {
   // For pagination:
   page: number = 1;
   usersPerPage: number = 10;
+
+  // Fontsawesome icons for update and delete buttons:
+  faPenToSquare = faPenToSquare;
+  faTrash = faTrash;
 
   // Finding user role from session storage:
   userRole = sessionStorage.getItem('role')?.split(',');

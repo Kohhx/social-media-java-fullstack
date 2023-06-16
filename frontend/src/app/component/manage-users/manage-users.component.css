@@ -40,6 +40,46 @@
 
 .custom-table td, .custom-table th {
   vertical-align: middle !important;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.custom-table th:nth-child(1),
+.custom-table td:nth-child(1),
+.custom-table th:nth-child(2),
+.custom-table td:nth-child(2) {
+  width: 3%;
+  text-align: center;
+}
+
+.custom-table th:nth-child(3),
+.custom-table td:nth-child(3) {
+  padding-left: 3%;
+}
+
+.custom-table th:nth-child(3),
+.custom-table td:nth-child(3),
+.custom-table th:nth-child(4),
+.custom-table td:nth-child(4) {
+  width: 13%;
+}
+
+.custom-table th:nth-child(5),
+.custom-table td:nth-child(5) {
+  width: 20%;
+  padding-right: 4%;
+}
+
+/* .custom-table tbody button:hover {
+  background-color: #6acadf !important;
+} */
+
+.update-icon:hover {
+  background-color: #1ab6d9 !important;
+}
+
+.delete-icon:hover {
+  background-color: rgb(235, 3, 3) !important;
 }
 
 .circle-thumbnail {

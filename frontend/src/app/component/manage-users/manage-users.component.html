@@ -48,8 +48,19 @@
         <td>{{ user.createdAt | date }}</td>
         <td>{{ user.updatedAt | date }}</td>
         <td>
-          <button class="btn btn-primary btn-sm mx-2" (click)="updateUser(user); $event.stopPropagation()">Update</button>
-          <button class="btn btn-danger btn-sm" (click)="deleteUser(user); $event.stopPropagation()">Delete</button>
+          <button class="btn btn-sm update-icon"
+            (click)="updateUser(user);
+            $event.stopPropagation()"
+          >
+            <fa-icon [icon]="faPenToSquare"></fa-icon>
+          </button>
+          <button
+            class="btn btn-sm delete-icon"
+            (click)="deleteUser(user);
+            $event.stopPropagation()"
+          >
+            <fa-icon [icon]="faTrash"></fa-icon>
+          </button>
         </td>
       </tr>
     </tbody>
