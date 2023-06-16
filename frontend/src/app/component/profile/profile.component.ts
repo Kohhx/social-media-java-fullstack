@@ -74,12 +74,10 @@ export class ProfileComponent implements OnInit {
     this.activatedRoute.params.subscribe({
       next: (params) => {
         this.userId = +params['id'];
+        this.getUserById(this.userId);
+        this.getAllPostsByUser(this.userId);
       },
     });
-
-    this.getAllPostsByUser(this.userId);
-
-    this.getUserById(this.userId);
   }
 
   get title() {

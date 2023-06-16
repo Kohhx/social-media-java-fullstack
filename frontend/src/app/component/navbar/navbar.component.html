@@ -61,14 +61,15 @@
     </div>
   </div>
   <div class="navbar-nav ml-auto">
-    <form class="navbar-form form-inline">
-      <div class="input-group search-box">
-        <input type="text" id="search" class="form-control" style="background: #eee;" placeholder="Search Users">
-        <span class="input-group-addon align-middle">
-          <i class="material-icons">&#xE8B6;</i>
-        </span>
-      </div>
-    </form>
+  <app-main-searchbar></app-main-searchbar>
+  <!-- <form class="navbar-form form-inline">
+    <div class="input-group search-box">
+      <input type="text" id="search" class="form-control" style="background: #eee;" placeholder="Search Users">
+      <span class="input-group-addon align-middle">
+        <i class="material-icons">&#xE8B6;</i>
+      </span>
+    </div>
+  </form> -->
     <div class="nav-item">
       <div class="nav-link" style="margin-left: 10px; position: relative;">
         <img class="avatar" *ngIf="isProfileImagePresent(); else defaultProfile"

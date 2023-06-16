@@ -5,9 +5,9 @@
       <div style="display: flex; flex-direction: column">
         <div style="display: flex; align-items: center">
           <div style="margin: 25px">
-            <img *ngIf="authService.getProfileAvatar() == null" [src]="defaultProfileImage" alt="" width="150px"
+            <img *ngIf="user.avatarUrl == null" [src]="defaultProfileImage" alt="" width="150px"
               height="150px" style="background: black; border-radius: 50%; object-fit: cover;" />
-            <img *ngIf="authService.getProfileAvatar() != null" [src]="authService.getProfileAvatar()" alt=""
+            <img *ngIf="user.avatarUrl != null" [src]="user.avatarUrl" alt=""
               width="150px" height="150px" style="background: black; border-radius: 50%; object-fit: cover;" />
 
             <fa-icon *ngIf="authService.getAuthenticatedUserId() == user.id" (click)="openUserModal(userItem)"
