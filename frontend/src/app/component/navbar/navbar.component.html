@@ -73,7 +73,7 @@
       <div class="nav-link" style="margin-left: 10px; position: relative;">
         <img class="avatar" *ngIf="isProfileImagePresent(); else defaultProfile"
           [src]="authenticationService.getProfileAvatar()" alt="profile avatar"
-          (click)="toggleDropdown()"/>
+          style="object-fit: cover;"/>
           <div class="id-badge">
             <b>{{ id }}</b>
           </div>

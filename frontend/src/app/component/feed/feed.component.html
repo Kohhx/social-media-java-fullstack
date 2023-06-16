@@ -42,6 +42,7 @@
                   <div>{{ item.updatedAt | date : "medium" }}</div>
                 </div>
               </div>
+              <h4 style="margin-top: 20px;">{{ item.title }}</h4>
               <p style="margin-top: 20px">{{ item.caption }}</p>
               <div *ngIf="item.contentUrl != null">
                 <img *ngIf="!fileUtil.isVideoOrImage(item.contentUrl)" [src]="item.contentUrl" alt="post image"
