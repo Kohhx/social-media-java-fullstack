@@ -5,9 +5,11 @@
 .form-inline {
 	display: inline-block;
 }
+
 .navbar-header.col {
 	padding: 0 !important;
 }
+
 .navbar {
 	background: #fff;
 	padding-left: 16px;
@@ -15,6 +17,7 @@
 	border-bottom: 1px solid #d6d6d6;
 	box-shadow: 0 0 4px rgba(0,0,0,.1);
 }
+
 .nav-link img {
 	border-radius: 50%;
 	width: 36px;
@@ -23,12 +26,14 @@
 	float: left;
 	margin-right: 10px;
 }
+
 .navbar .navbar-brand {
 	color: #555;
 	padding-left: 0;
 	padding-right: 50px;
 	font-family: 'Merienda One', sans-serif;
 }
+
 .navbar .navbar-brand i {
 	font-size: 20px;
 	margin-right: 5px;
@@ -41,17 +46,23 @@
 .navbar .active a, .navbar .active a:hover, .navbar .active a:focus {
 	background: transparent !important;
 }
-@media (min-width: 1200px){
+
+@media (min-width: 1200px) {
+
 	.form-inline .input-group {
 		width: 300px;
 		margin-left: 30px;
 	}
+  
 }
+
 @media (max-width: 1199px){
+
 	.form-inline {
 		display: block;
 		margin-bottom: 10px;
 	}
+
 	.input-group {
 		width: 100%;
 	}
@@ -60,17 +71,17 @@
 .dropdown {
 	position: relative;
 	display: inline-block;
-  }
+}
 
-  .dropdown-toggle {
+.dropdown-toggle {
 	background: transparent;
 	padding: 0px;
 	border: 0px;
 	cursor: pointer;
 	color: #eee
-  }
+}
 
-  .dropdown-menu {
+.dropdown-menu {
 	position: absolute;
 	top: 150%;
 	right: -10px;
@@ -80,46 +91,46 @@
 	border: 1px solid #74747b;
 	text-align: center;
 	padding: 10px
-  }
+}
 
-  .dropdown-item {
+.dropdown-item {
 	cursor: pointer;
 	border-radius: 5px;
 	background: transparent;
 	color: #dcdcdc;
-  }
+}
 
-  .dropdown-item:hover {
+.dropdown-item:hover {
 	background-color: #3e8392;
-  }
+}
 
-  .dropdown-item:focus {
-	outline: none; 
-	background-color: #3e8392; 
-  }
+.dropdown-item:focus {
+	outline: none;
+	background-color: #3e8392;
+}
 
-  .dropdown-menu.show {
+.dropdown-menu.show {
 	display: block;
 	cursor: pointer;
-  }
+}
 
-  .id-badge {
+.id-badge {
 	border-radius: 30px;
 	font-size: 14px;
 	padding: 0px 5px;
 	margin-left: 5px;
 	height: 20px;
 	background: linear-gradient(135deg, #3e8392, #336b7d);
-  }
+}
 
-  .btn-group-toggle {
+.btn-group-toggle {
 	background: #27515d;
-    color: #eee;
+  color: #eee;
 	border: 0
-  }
+}
 
-  .btn-group-toggle .btn-secondary.active {
+.btn-group-toggle .btn-secondary.active {
 	background: #162e35;
-    color: #eee;
+  color: #eee;
 	border: 0
-  }
+}

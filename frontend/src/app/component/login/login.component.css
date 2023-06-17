@@ -6,6 +6,13 @@ section {
   width: 80%;
 }
 
+.center-section {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .divider:after,
 .divider:before {
   content: "";
@@ -23,7 +30,6 @@ section {
   height: 100%;
   background-size: cover;
   background-position: center;
-  border-radius: 15px;
 }
 
 .login-button {
@@ -41,14 +47,31 @@ section {
   }
 }
 
+@media (max-width: 1025px) {
+  .login-left {
+    display: none;
+  }
+
+  .login-right {
+    width: 100%;
+    padding: 2rem;
+  }
+
+  .login-container {
+    /* display: flex !important;
+    justify-content: center !important; */
+    min-width: 300px;
+  }
+}
+
 @media (max-width: 1200px) {
   .copyright {
     display: none;
   }
 
   .login-left {
-    height: 500px;
-    border-radius: 0;
+    height: 70vh;
+    width: 50%;
   }
 }
 

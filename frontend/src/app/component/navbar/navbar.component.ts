@@ -12,12 +12,15 @@ import { faHome } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
+
   id: number;
   defaultProfileImage =
     'https://w7.pngwing.com/pngs/754/2/png-transparent-samsung-galaxy-a8-a8-user-login-telephone-avatar-pawn-blue-angle-sphere-thumbnail.png';
 
   button1Active: boolean = true;
   button2Active: boolean = false;
+  isNavbarExpanded = false;
+
   faUser = faUser;
   faHome = faHome;
 
@@ -29,6 +32,10 @@ export class NavbarComponent implements OnInit {
   toggleButton2() {
     this.button1Active = false;
     this.button2Active = true;
+  }
+
+  toggleNavbar() {
+    this.isNavbarExpanded = !this.isNavbarExpanded;
   }
 
   showDropdown = false;
