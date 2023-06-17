@@ -119,9 +119,9 @@ public class PostService {
             System.out.println("------------->>>> 3");
             if (post.getContentId() != null && !post.getContentId().isEmpty()) {
                 deleteFile(post);
-                post.setContentId(null);
-                post.setContentUrl(null);
             }
+            post.setContentId(null);
+            post.setContentUrl(null);
         }
 
         System.out.println("=============================================");
