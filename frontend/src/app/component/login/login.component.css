@@ -57,3 +57,21 @@ section {
     height: 75vh;
   }
 }
+
+.logo {
+  width: 120px;
+  height: 100px;
+  margin-bottom: 20px;
+  animation: zoomIn 0.5s ease-in-out forwards;
+  opacity: 0;
+}
+
+@keyframes zoomIn {
+  from {
+      transform: scale(0.3);
+  }
+  to {
+      transform: scale(1);
+      opacity: 1;
+  }
+}

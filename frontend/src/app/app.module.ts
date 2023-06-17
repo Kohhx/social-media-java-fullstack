@@ -23,6 +23,8 @@ import { ModalComponent } from './shared/modal/modal.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { MainSearchbarComponent } from './component/main-searchbar/main-searchbar.component';
+import { LoginHeadingComponent } from './component/login-heading/login-heading.component';
+
 
 @NgModule({
   declarations: [
@@ -38,7 +40,8 @@ import { MainSearchbarComponent } from './component/main-searchbar/main-searchba
     ManageUsersComponent,
     CreatePostFormComponent,
     ModalComponent,
-    MainSearchbarComponent
+    MainSearchbarComponent,
+    LoginHeadingComponent,
   ],
   imports: [
     BrowserModule,
