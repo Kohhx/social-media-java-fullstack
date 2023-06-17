@@ -1,15 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark"
-  style="background: linear-gradient(to bottom, #3e8392, #336b7d); display: flex; justify-content: center;">
-  <div style="width: 22vw; display: flex; justify-content: center; align-items: center; position: absolute; left: 0px">
-    <a routerLink="/"><img src="../../../assets/images/feedid.png" style="height: 50px; margin-right: 20px" /></a>
-    <div class="navbar-nav">
-      <li *ngIf="authenticationService.isAdmin()" class="nav-item" style="margin: 0px 10px">
-        <a class="nav-link" routerLinkActive="active" routerLink="/admin/posts">Manage All Posts</a>
-      </li>
-      <li *ngIf="authenticationService.isAdmin()" class="nav-item" style="margin: 0px 10px">
-        <a class="nav-link" routerLinkActive="active" routerLink="admin/users">Manage All Users</a>
-      </li>
-    </div>
+  style="background: linear-gradient(to bottom, #3e8392, #336b7d); display: flex; justify-content: center; padding: 15px">
+  <div style="display: flex; justify-content: center; align-items: center; position: absolute; left: 20px">
+    <a routerLink="/"><img src="../../../assets/images/feedid.png" style="height: 45px; margin-right: 20px" /></a>
   </div>
 
   <div class="btn-group btn-group-toggle" data-toggle="buttons">
@@ -31,8 +23,7 @@
     </label>
   </div>
 
-
-  <div class="navbar-nav ml-auto" style="position: absolute; right: 0px">
+  <div class="navbar-nav ml-auto" style="position: absolute; right: 20px">
     <div style="margin-left: 40px">
       <app-main-searchbar></app-main-searchbar>
     </div>
@@ -45,9 +36,18 @@
           <button class="dropdown-toggle" (click)="toggleDropdown()"></button>
           <ul class="dropdown-menu" [class.show]="showDropdown">
             <li [routerLink]="getOwnProfileLink()" (click)="selectOption()" class="dropdown-item">Profile</li>
-            <li routerLink="/posts" (click)="selectOption()" class="dropdown-item" style="border-top: 1px solid gray">
-              Home</li>
-            <li (click)="logout()" class="dropdown-item" style="border-top: 1px solid gray">Logout</li>
+            <hr style="color: #eee; margin: 0">
+            <li routerLink="/posts" (click)="selectOption()" class="dropdown-item" >Home</li>
+            <hr style="color: #eee; margin: 0">
+            <li *ngIf="authenticationService.isAdmin()" class="dropdown-item" routerLinkActive="active" routerLink="/admin/posts" (click)="selectOption()" >
+              Manage All Posts
+            </li>
+            <hr *ngIf="authenticationService.isAdmin()" style="color: #eee; margin: 0">
+            <li *ngIf="authenticationService.isAdmin()" class="dropdown-item" routerLinkActive="active" routerLink="/admin/users" (click)="selectOption()" >
+              Manage All Users
+            </li>
+            <hr *ngIf="authenticationService.isAdmin()" style="color: #eee; margin: 0">
+            <li (click)="logout()" class="dropdown-item">Logout</li>
           </ul>
         </div>
       </div>

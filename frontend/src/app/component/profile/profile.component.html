@@ -95,9 +95,9 @@
                 <img *ngIf="!fileUtil.isVideoOrImage(item.contentUrl)" [src]="item.contentUrl" alt="post image"
                   style="width: 100%; margin-top: 20px" />
                 <img *ngIf="fileUtil.isImage(item.contentUrl)" [src]="item.contentUrl" alt="post image"
-                  style="width: 100%; margin-top: 20px" />
+                  style="width: 100%; margin-top: 20px;" />
                 <video *ngIf="fileUtil.isVideo(item.contentUrl)" [src]="item.contentUrl" alt="post video" controls
-                  style="width: 100%; margin-top: 20px"></video>
+                  style="width: 100%; margin-top: 20px;"></video>
               </div>
 
               <div
