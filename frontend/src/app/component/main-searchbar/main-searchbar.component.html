@@ -14,8 +14,7 @@
 
     <div *ngIf="searchResults.length > 0" class="search-results">
       <ng-container *ngFor="let result of searchResults">
-        <a (click)="resetField()" [routerLink]="getUserLink(result.id)">
-          <div class="search-result">
+          <div class="search-result" (click)="goToProfile(result.id)">
             <img
               *ngIf="!result.avatarUrl"
               class="search-avatar"
@@ -32,21 +31,8 @@
               <p class="name">{{ result.firstName }} {{ result.lastName }}</p>
               <p class="email">{{ result.email }}</p>
             </div>
-          </div></a
-        >
+          </div>
       </ng-container>
-
-      <!-- <a routerLink=""> <div class="search-result">
-        <img
-          class="search-avatar"
-          src="https://sm.ign.com/ign_ap/feature/t/the-top-25/the-top-25-greatest-anime-characters-of-all-time_ge1p.jpg"
-          alt=""
-        />
-        <div class="d-flex flex-column seach-info">
-          <p class="name">He Xiang Koh</p>
-          <p class="email">k@gmail.com</p>
-        </div>
-      </div></a> -->
     </div>
   </div>
 </form>
