@@ -1,9 +1,27 @@
-section {
-  background-color: #bff2fd;
+.wavy-section {
+  background: linear-gradient(to right,#a8efff, #53e2ff);
+  position: relative;
+  animation: wave 5s linear infinite;
+}
+
+@keyframes wave {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
 }
 
 .login {
   width: 80%;
+}
+
+.center-section {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .divider:after,
@@ -18,12 +36,16 @@ section {
   height: calc(100% - 73px);
 }
 
+.login-container {
+  min-height: 375px;
+}
+
 .login-left {
   background-image: url('../../../assets/images/landingpage.png');
   height: 100%;
+  min-height: 500px;
   background-size: cover;
   background-position: center;
-  border-radius: 15px;
 }
 
 .login-button {
@@ -35,32 +57,10 @@ section {
   background-color: #3e8492;
 }
 
-@media (max-width: 450px) {
-  .h-custom {
-  height: 100%;
-  }
-}
-
-@media (max-width: 1200px) {
-  .copyright {
-    display: none;
-  }
-
-  .login-left {
-    height: 500px;
-    border-radius: 0;
-  }
-}
-
-@media (min-width: 1200px) {
-  .login-left {
-    height: 75vh;
-  }
-}
-
 .logo {
   width: 120px;
   height: 100px;
+  margin-top: 30px;
   margin-bottom: 20px;
   animation: zoomIn 0.5s ease-in-out forwards;
   opacity: 0;
@@ -73,5 +73,57 @@ section {
   to {
       transform: scale(1);
       opacity: 1;
+  }
+}
+
+@media (max-width: 450px) {
+  .h-custom {
+    height: 100%;
+  }
+}
+
+@media (min-width: 451px) {
+  .account-check {
+    text-align: center;
+  }
+}
+
+@media (max-width: 1025px) {
+  .login-left {
+    display: none;
+  }
+
+  .login-right {
+    width: 100%;
+    padding: 2rem;
+  }
+
+  .login-container {
+    min-width: 300px;
+  }
+
+  .account-check {
+    text-align: center;
+  }
+}
+
+@media (max-width: 1200px) {
+  .copyright {
+    display: none;
+  }
+
+  /* .login-container {
+    min-height: 625px;
+  } */
+
+  .login-left {
+    height: 75vh;
+    width: 50%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .login-left {
+    height: 80vh;
   }
 }
