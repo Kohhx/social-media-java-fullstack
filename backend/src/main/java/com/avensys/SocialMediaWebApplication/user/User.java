@@ -191,7 +191,7 @@ public class User {
         return roles;
     }
 
-    public List<Post> getPosts() {
-        return posts;
-    }
+//    public List<Post> getPosts() {
+//        return posts;
+//    }
 }
