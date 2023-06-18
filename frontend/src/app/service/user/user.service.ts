@@ -68,25 +68,4 @@ export class UserService {
       return this.http.get<boolean>(`${this.BASE_URL}/users/email?email=${email}`);
   }
 
-  // private setSessionStorage(
-  //   id: string,
-  //   email: string,
-  //   token: string,
-  //   avatarUrl: string,
-  //   roles: string
-  // ) {
-  //   sessionStorage.setItem(this.AUTH_ID_KEY, id);
-  //   sessionStorage.setItem(this.AUTH_USER_KEY, email);
-  //   sessionStorage.setItem(this.TOKEN_KEY, token);
-  //   sessionStorage.setItem(this.ROLE_KEY, roles);
-  //   sessionStorage.setItem(this.AVATAR_KEY, avatarUrl);
-  // }
-
-  // private removeSessionStorage() {
-  //   sessionStorage.removeItem(this.AUTH_USER_KEY);
-  //   sessionStorage.removeItem(this.TOKEN_KEY);
-  //   sessionStorage.removeItem(this.ROLE_KEY);
-  //   sessionStorage.removeItem(this.AVATAR_KEY);
-
-  // }
 }

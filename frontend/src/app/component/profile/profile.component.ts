@@ -244,6 +244,7 @@ export class ProfileComponent implements OnInit {
   userUpdated(isUserUpdated: boolean) {
     if (isUserUpdated) {
       this.getUserById(this.userId);
+      this.getAllPostsByUser(this.userId);
     }
   }
 
