@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('Handling the login button.');
+    console.log('Handling the login button here.');
   }
 
   get email() {
