@@ -1,62 +1,86 @@
-<nav class="navbar navbar-expand-lg navbar-dark"
-  style="background: linear-gradient(to bottom, #3e8392, #336b7d); display: flex; justify-content: center; padding: 15px">
+<nav 
+  class="navbar navbar-expand-lg navbar-dark"
+  style="background: linear-gradient(to bottom, #3e8392, #336b7d); display: flex; justify-content: center; padding: 15px"
+>
+
+  <div class="reduced-menu">
   <div style="display: flex; justify-content: center; align-items: center; position: absolute; left: 20px">
+    <!-- Logo -->
     <a routerLink="/"><img src="../../../assets/images/feedid.png" style="height: 45px; margin-right: 20px" /></a>
+    <!-- Welcome message -->
     <app-login-heading [id]="'heading1'"></app-login-heading>
   </div>
 
-  <div class="btn-group btn-group-toggle" data-toggle="buttons">
-    <label class="btn btn-secondary btn-group-toggle" [class.active]="button1Active">
-      <input type="radio" name="options" autocomplete="off" class="d-none" (click)="toggleButton1()"
-        routerLinkActive="active" routerLink="/posts">
-      <fa-icon [icon]="faHome" class="icon fa-sm" fontSize="12" style="color: #eee;"
-        style="margin-right: 5px"></fa-icon>
-      Home
-    </label>
-    <label class="btn btn-secondary btn-group-toggle" [class.active]="button2Active">
-      <input type="radio" name="options" autocomplete="off" class="d-none" (click)="toggleButton2()"
-        routerLinkActive="active" [routerLink]="getOwnProfileLink()">
-      <div style="display: flex; align-items: center;">
-        <fa-icon [icon]="faUser" class="icon fa-sm" fontSize="12" style="color: #eee;"
-          style="margin-right: 5px"></fa-icon>
-        Profile <div class="id-badge"><b>{{ id }}</b></div>
-      </div>
-    </label>
-  </div>
+  <!-- Button that toggles the navbar for smaller screen sizes -->
+  <!-- (click)="toggleNavbar()" -->
+  <!-- <button
+    class="navbar-toggler"
+    type="button"
+    data-bs-toggle="collapse"
+    data-bs-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+    style="position: absolute; right: 20px"
+  >
+    <span class="navbar-toggler-icon"></span>    
+  </button> -->
 
-  <div class="navbar-nav ml-auto" style="position: absolute; right: 20px">
-    <div style="margin-left: 40px">
-      <app-main-searchbar></app-main-searchbar>
+  <div class="collapse navbar-collapse d-flex justify-content-center" id="navbarSupportedContent">
+    <!-- Home and Profile Links -->
+    <div class="middle-links">
+      <div class="btn-group btn-group-toggle" data-toggle="buttons">
+        <label class="btn btn-secondary btn-group-toggle" [class.active]="button1Active">
+          <input type="radio" name="options" autocomplete="off" class="d-none" (click)="toggleButton1()" routerLinkActive="active" routerLink="/posts">
+          <fa-icon [icon]="faHome" class="icon fa-sm" fontSize="12" style="color: #eee;"></fa-icon>
+          Home
+        </label>
+        <label class="btn btn-secondary btn-group-toggle d-flex align-items-center" [class.active]="button2Active">
+          <input type="radio" name="options" autocomplete="off" class="d-none" (click)="toggleButton2()" [routerLink]="getOwnProfileLink()">
+          <fa-icon [icon]="faUser" class="icon fa-sm me-1" fontSize="12" style="color: #eee;"></fa-icon>
+          Profile <div class="id-badge"><b>{{ id }}</b></div>
+        </label>
+      </div>
     </div>
 
-    <div class="nav-item">
-      <div class="nav-link" style="margin-left: 10px; position: relative;">
-        <img class="avatar" *ngIf="isProfileImagePresent(); else defaultProfile"
-          [src]="authenticationService.getProfileAvatar()" alt="profile avatar" style="object-fit: cover;" />
-        <div class="dropdown">
-          <button class="dropdown-toggle" (click)="toggleDropdown()"></button>
-          <ul class="dropdown-menu" [class.show]="showDropdown">
-            <li [routerLink]="getOwnProfileLink()" (click)="selectOption()" class="dropdown-item">Profile</li>
-            <hr style="color: #eee; margin: 0">
-            <li routerLink="/posts" (click)="selectOption()" class="dropdown-item" >Home</li>
-            <hr style="color: #eee; margin: 0">
-            <li *ngIf="authenticationService.isAdmin()" class="dropdown-item" routerLinkActive="active" routerLink="/admin/posts" (click)="selectOption()" >
-              Manage All Posts
-            </li>
-            <hr *ngIf="authenticationService.isAdmin()" style="color: #eee; margin: 0">
-            <li *ngIf="authenticationService.isAdmin()" class="dropdown-item" routerLinkActive="active" routerLink="/admin/users" (click)="selectOption()" >
-              Manage All Users
-            </li>
-            <hr *ngIf="authenticationService.isAdmin()" style="color: #eee; margin: 0">
-            <li (click)="logout()" class="dropdown-item">Logout</li>
-          </ul>
+    <div class="navbar-nav me-auto mb-2 mb-lg-0" style="position: absolute; right: 20px">
+      <!-- Search Bar -->
+      <div class="nav-item">
+        <div class="nav-link search-bar">
+          <app-main-searchbar></app-main-searchbar>
         </div>
       </div>
 
-      <ng-template #defaultProfile>
-        <img class="avatar" [src]="defaultProfileImage" alt="default profile" />
-      </ng-template>
+      <!-- Profile Icon -->
+      <div class="nav-item profile-icon">
+        <div class="nav-link mt-2" style="position: relative;">
+          <img class="avatar" *ngIf="isProfileImagePresent(); else defaultProfile" [src]="authenticationService.getProfileAvatar()"
+            alt="profile avatar" style="object-fit: cover;" />
+          <div class="dropdown">
+            <button class="dropdown-toggle" (click)="toggleDropdown()"></button>
+            <ul class="dropdown-menu" [class.show]="showDropdown">
+              <li [routerLink]="getOwnProfileLink()" (click)="selectOption()" class="dropdown-item">Profile</li>
+              <hr style="color: #eee; margin: 0">
+              <li routerLink="/posts" (click)="selectOption()" class="dropdown-item">Home</li>
+              <hr style="color: #eee; margin: 0">
+              <li *ngIf="authenticationService.isAdmin()" class="dropdown-item" routerLinkActive="active" routerLink="/admin/posts"
+                (click)="selectOption()">Manage All Posts</li>
+              <hr *ngIf="authenticationService.isAdmin()" style="color: #eee; margin: 0">
+              <li *ngIf="authenticationService.isAdmin()" class="dropdown-item" routerLinkActive="active" routerLink="/admin/users"
+                (click)="selectOption()">Manage All Users</li>
+              <hr *ngIf="authenticationService.isAdmin()" style="color: #eee; margin: 0">
+              <li (click)="logout()" class="dropdown-item">Logout</li>
+            </ul>
+          </div>
+        </div>
+
+        <ng-template #defaultProfile>
+          <img class="avatar" [src]="defaultProfileImage" alt="default profile" />
+        </ng-template>
+
+      </div>
     </div>
+  </div>
   </div>
 </nav>
 

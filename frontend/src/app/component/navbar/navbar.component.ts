@@ -19,10 +19,16 @@ export class NavbarComponent implements OnInit {
 
   button1Active: boolean = true;
   button2Active: boolean = false;
-  isNavbarExpanded = false;
 
   faUser = faUser;
   faHome = faHome;
+
+  // isNavbarCollapsed = true;
+
+  // toggleNavbar() {
+  //   this.isNavbarCollapsed = !this.isNavbarCollapsed;
+  //   console.log('Toggling navbar. isNavbarCollapsed is now:', this.isNavbarCollapsed);
+  // }
 
   toggleButton1() {
     this.button1Active = true;
@@ -32,10 +38,6 @@ export class NavbarComponent implements OnInit {
   toggleButton2() {
     this.button1Active = false;
     this.button2Active = true;
-  }
-
-  toggleNavbar() {
-    this.isNavbarExpanded = !this.isNavbarExpanded;
   }
 
   showDropdown = false;
@@ -81,6 +83,9 @@ export class NavbarComponent implements OnInit {
   }
 
   getOwnProfileLink() {
+    // console.log(
+    //   `/users/${this.authenticationService.getAuthenticatedUserId()}/posts`
+    // );
     return `/users/${this.authenticationService.getAuthenticatedUserId()}/posts`;
   }
 }

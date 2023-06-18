@@ -47,13 +47,19 @@
 	background: transparent !important;
 }
 
+.middle-links {
+  display: flex !important;
+  justify-content: center !important;
+  width: 500px !important;
+}
+
 @media (min-width: 1200px) {
 
 	.form-inline .input-group {
 		width: 300px;
 		margin-left: 30px;
 	}
-  
+
 }
 
 @media (max-width: 1199px){
@@ -133,4 +139,28 @@
 	background: #162e35;
   color: #eee;
 	border: 0
+}
+
+@media (max-width: 992px) {
+  .navbar {
+    height: 100px;
+  }
+
+  .reduced-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .middle-links {
+    display: none !important;
+  }
+
+  .search-bar, .profile-icon {
+    display: block;
+  }
+
 }
