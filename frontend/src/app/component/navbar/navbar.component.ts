@@ -12,14 +12,23 @@ import { faHome } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
+
   id: number;
   defaultProfileImage =
     'https://w7.pngwing.com/pngs/754/2/png-transparent-samsung-galaxy-a8-a8-user-login-telephone-avatar-pawn-blue-angle-sphere-thumbnail.png';
 
   button1Active: boolean = true;
   button2Active: boolean = false;
+
   faUser = faUser;
   faHome = faHome;
+
+  // isNavbarCollapsed = true;
+
+  // toggleNavbar() {
+  //   this.isNavbarCollapsed = !this.isNavbarCollapsed;
+  //   console.log('Toggling navbar. isNavbarCollapsed is now:', this.isNavbarCollapsed);
+  // }
 
   toggleButton1() {
     this.button1Active = true;
@@ -74,6 +83,9 @@ export class NavbarComponent implements OnInit {
   }
 
   getOwnProfileLink() {
+    // console.log(
+    //   `/users/${this.authenticationService.getAuthenticatedUserId()}/posts`
+    // );
     return `/users/${this.authenticationService.getAuthenticatedUserId()}/posts`;
   }
 }
