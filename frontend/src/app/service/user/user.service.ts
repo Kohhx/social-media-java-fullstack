@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { User } from 'src/app/common/user';
+import { AuthenticationService } from '../authentication/authentication.service';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +16,7 @@ export class UserService {
   private AVATAR_KEY = 'avatar';
   private AUTH_ID_KEY = 'id';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private authService:AuthenticationService) {}
 
   getAllUsers(): Observable<User[]> {
     return this.http.get<User[]>(`${this.BASE_URL}/users`);
@@ -31,9 +32,24 @@ export class UserService {
         let currentUserId = sessionStorage.getItem('id');
         // If the user updates his/her own profile, update the session storage:
         if (currentUserId == data.id.toString()) {
-          this.removeSessionStorage();
           let token = this.TOKEN_PREFIX + data.token;
-          this.setSessionStorage(data.id, data.email, token, data.avatarUrl, data.roles);
+          this.authService.removeSessionStorage();
+          this.authService.setSessionStorage(data.id, data.email, token, data.avatarUrl, data.roles);
+        }
+        return data;
+      })
+    );
+  }
+
+  updateUserWithRoles(id: number, user: any): Observable<any> {
+    return this.http.patch<any>(`${this.BASE_URL}/admin/users/${id}`, user).pipe(
+      map((data) => {
+        let currentUserId = sessionStorage.getItem('id');
+        // If the user updates his/her own profile, update the session storage:
+        if (currentUserId == data.id.toString()) {
+          let token = this.TOKEN_PREFIX + data.token;
+          this.authService.removeSessionStorage();
+          this.authService.setSessionStorage(data.id, data.email, token, data.avatarUrl, data.roles);
         }
         return data;
       })
@@ -52,25 +68,25 @@ export class UserService {
       return this.http.get<boolean>(`${this.BASE_URL}/users/email?email=${email}`);
   }
 
-  private setSessionStorage(
-    id: string,
-    email: string,
-    token: string,
-    avatarUrl: string,
-    roles: string
-  ) {
-    sessionStorage.setItem(this.AUTH_ID_KEY, id);
-    sessionStorage.setItem(this.AUTH_USER_KEY, email);
-    sessionStorage.setItem(this.TOKEN_KEY, token);
-    sessionStorage.setItem(this.ROLE_KEY, roles);
-    sessionStorage.setItem(this.AVATAR_KEY, avatarUrl);
-  }
+  // private setSessionStorage(
+  //   id: string,
+  //   email: string,
+  //   token: string,
+  //   avatarUrl: string,
+  //   roles: string
+  // ) {
+  //   sessionStorage.setItem(this.AUTH_ID_KEY, id);
+  //   sessionStorage.setItem(this.AUTH_USER_KEY, email);
+  //   sessionStorage.setItem(this.TOKEN_KEY, token);
+  //   sessionStorage.setItem(this.ROLE_KEY, roles);
+  //   sessionStorage.setItem(this.AVATAR_KEY, avatarUrl);
+  // }
 
-  private removeSessionStorage() {
-    sessionStorage.removeItem(this.AUTH_USER_KEY);
-    sessionStorage.removeItem(this.TOKEN_KEY);
-    sessionStorage.removeItem(this.ROLE_KEY);
-    sessionStorage.removeItem(this.AVATAR_KEY);
+  // private removeSessionStorage() {
+  //   sessionStorage.removeItem(this.AUTH_USER_KEY);
+  //   sessionStorage.removeItem(this.TOKEN_KEY);
+  //   sessionStorage.removeItem(this.ROLE_KEY);
+  //   sessionStorage.removeItem(this.AVATAR_KEY);
 
-  }
+  // }
 }

@@ -250,8 +250,6 @@ export class ProfileComponent implements OnInit {
   private getAllPostsByUser(id: number) {
     this.postService.getPostsByUserId(id).subscribe({
       next: (posts) => {
-        // console.log(posts);
-        // console.log(posts[0]['user'].avatarUrl);
         this.items = this.sortPostsByUpdatedAt(posts);
       },
       error: (err) => {

@@ -25,6 +25,16 @@ export class FormValidators {
     }
   }
 
+  static checkRole(control: FormControl): ValidationErrors {
+    // Check if value is either "user" or "admin"
+    if (control.value !== 'user' && control.value !== 'admin') {
+      return { role: true };
+    } else {
+      // valid - return empty object
+      return {};
+    }
+  }
+
   // Mock Aysnc to test (Observable)
   // static emailExistCheckWithDatabase = function (
   //   control: AbstractControl

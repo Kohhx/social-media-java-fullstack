@@ -1,18 +1,23 @@
 <div class="center-section">
-    <section class="text-center text-lg-start">
-      <div class="container w-75 mt-3">
-        <div class="row g-0">
-          <div class="mb-2 mb-lg-0 justify-content-center">
-            <div class="card cascading-right" style="
-                background: hsla(0, 0%, 100%, 0.55);
-                backdrop-filter: blur(30px);
-                ">
-              <div class="card-body p-5 shadow-5">
-                <h2 class="fw-bold  text-center">Update Profile Details    <fa-icon [icon]="faUserPen" class="ml-3 icon fa-md"></fa-icon></h2>
-                <form [formGroup]="updateFormGroup" class="w-100">
-                  <div formGroupName="user" class="form-area">
+  <section class="text-center text-lg-start">
+    <div class="container w-75 mt-3">
+      <div class="row g-0">
+        <div class="mb-2 mb-lg-0 justify-content-center">
+          <div
+            class="card cascading-right"
+            style="
+              background: hsla(0, 0%, 100%, 0.55);
+              backdrop-filter: blur(30px);
+            "
+          >
+            <div class="card-body p-5 shadow-5">
+              <h2 class="fw-bold text-center">
+                Update Profile Details
+                <fa-icon [icon]="faUserPen" class="ml-3 icon fa-md"></fa-icon>
+              </h2>
+              <form [formGroup]="updateFormGroup" class="w-100">
+                <div formGroupName="user" class="form-area">
                   <div class="row" (ngSubmit)="handleUpdateUser()">
-
                     <div class="form-group">
                       <div class="input-group">
                         <div class="input-group-append mb-4">
@@ -30,7 +35,9 @@
                       </div>
                     </div>
 
-                    <div class="text-center mb-3 avatar-container d-flex gap-3 align-items-center justify-content-center">
+                    <div
+                      class="text-center mb-3 avatar-container d-flex gap-3 align-items-center justify-content-center"
+                    >
                       <img
                         class="avatar"
                         *ngIf="avatarPreview"
@@ -43,45 +50,70 @@
                         [src]="defaultImage"
                         alt="avatar"
                       />
-                      <button (click)="openFileBrowser()" class="btn btn-green" type="button">Add Photo</button>
-                      <button (click)="resetLink()" class="btn btn-secondary" type="button">Delete Photo</button>
+                      <button
+                        (click)="openFileBrowser()"
+                        class="btn btn-green"
+                        type="button"
+                      >
+                        Add Photo
+                      </button>
+                      <button
+                        (click)="resetLink()"
+                        class="btn btn-secondary"
+                        type="button"
+                      >
+                        Delete Photo
+                      </button>
                       <!-- <fa-icon (click)="openFileBrowser()" [icon]="faCirclePlus" class="icon fa-xl"></fa-icon> -->
                     </div>
 
-                    <input hidden type="text" formControlName="avatarUrl">
+                    <input hidden type="text" formControlName="avatarUrl" />
 
                     <div class="col-md-6 mb-3">
                       <div class="form-floating mb-1">
-                        <input formControlName="firstName" type="text" class="form-control" id="" placeholder="First Name" />
+                        <input
+                          formControlName="firstName"
+                          type="text"
+                          class="form-control"
+                          id=""
+                          placeholder="First Name"
+                        />
                         <label for="">First Name</label>
                       </div>
                     </div>
 
                     <div class="col-md-6 mb-3">
                       <div class="form-floating mb-1">
-                        <input formControlName="lastName" type="text" class="form-control" id="" placeholder="Last Name" />
+                        <input
+                          formControlName="lastName"
+                          type="text"
+                          class="form-control"
+                          id=""
+                          placeholder="Last Name"
+                        />
                         <label for="">Last Name</label>
                       </div>
                     </div>
                   </div>
 
-                  <div class="form-floating mb-4">
-                    <!-- <div class="d-inline-flex"> -->
-                      <select
-                        class="form-select mb-4 w-100"
-                        style="width: 150px"
-                        formControlName="gender"
-                        [ngClass]="{
-                          'is-invalid':
-                            gender.invalid && (gender.dirty || gender.touched)
-                        }"
-                      >
-                        <option disabled>Select Gender</option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                      </select>
-                      <label for="">Gender</label>
-                      <!-- <div
+                  <div *ngIf="checkifAdmin()" class="form-flex">
+                    <div class="col-md-6 mb-3">
+                      <div class="form-floating mb-4">
+                        <!-- <div class="d-inline-flex"> -->
+                        <select
+                          class="form-select mb-4"
+                          formControlName="gender"
+                          [ngClass]="{
+                            'is-invalid':
+                              gender.invalid && (gender.dirty || gender.touched)
+                          }"
+                        >
+                          <option disabled>Select Gender</option>
+                          <option value="male">Male</option>
+                          <option value="female">Female</option>
+                        </select>
+                        <label for="">Gender</label>
+                        <!-- <div
                         *ngIf="gender.invalid && (gender.dirty || gender.touched)"
                         class="invalid-feedback"
                       >
@@ -89,36 +121,150 @@
                           Please select either male or female gender
                         </div>
                       </div> -->
-                    </div>
-
-
-                  <div class="form-floating mb-4">
-                    <input formControlName="email" type="email" class="form-control" id="" placeholder="name@example.com" />
-                    <label for="">Email address</label>
-                  </div>
-
-                  <div class="form-floating mb-4">
-                    <input formControlName="password" type="password" class="form-control" id="" placeholder="Password" />
-                    <label for="">Password</label>
-                  </div>
-                  <!-- <div class="form-group">
-                    <div class="input-group">
-                      <div class="input-group-append mb-4">
                       </div>
                     </div>
-                  </div> -->
-                  <button (click)="handleUpdateUser()" type="submit" class="btn btn-green mb-4" style="width: 100%;">
+
+                    <div class="col-md-6 mb-3">
+                      <div class="form-floating mb-4">
+                        <!-- <div class="d-inline-flex"> -->
+                        <select
+                          class="form-select mb-4"
+                          formControlName="role"
+                          [ngClass]="{
+                            'is-invalid':
+                              role.invalid && (role.dirty || role.touched)
+                          }"
+                        >
+                          <option disabled>Select Role</option>
+                          <option value="user">User</option>
+                          <option value="admin">Admin</option>
+                        </select>
+                        <label for="">Role</label>
+                        <!-- <div
+                        *ngIf="gender.invalid && (gender.dirty || gender.touched)"
+                        class="invalid-feedback"
+                      >
+                        <div class="mx-2 mt-1" *ngIf="gender.errors?.['gender']">
+                          Please select either male or female gender
+                        </div>
+                      </div> -->
+                      </div>
+                    </div>
+                  </div>
+
+                  <div *ngIf="!checkifAdmin()" class="form-floating mb-4">
+                    <!-- <div class="d-inline-flex"> -->
+                    <select
+                      class="form-select mb-4 w-100"
+
+                      formControlName="gender"
+                      [ngClass]="{
+                        'is-invalid':
+                          gender.invalid && (gender.dirty || gender.touched)
+                      }"
+                    >
+                      <option disabled>Select Gender</option>
+                      <option value="male">Male</option>
+                      <option value="female">Female</option>
+                    </select>
+                    <label for="">Gender</label>
+                    <!-- <div
+                        *ngIf="gender.invalid && (gender.dirty || gender.touched)"
+                        class="invalid-feedback"
+                      >
+                        <div class="mx-2 mt-1" *ngIf="gender.errors?.['gender']">
+                          Please select either male or female gender
+                        </div>
+                      </div> -->
+                  </div>
+
+                  <div class="form-floating mb-4">
+                    <input
+                      formControlName="email"
+                      type="email"
+                      class="form-control"
+                      id=""
+                      placeholder="name@example.com"
+                      [ngClass]="{
+                        'is-invalid':
+                          email.invalid && (email.dirty || email.touched)
+                      }"
+                    />
+                    <label for="">Email address</label>
+                    <div
+                    *ngIf="email.invalid && (email.dirty || email.touched)"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="email.errors?.['required']">
+                      Email is required.
+                    </div>
+                    <div *ngIf="email.errors?.['pattern']">
+                      Email must be in a valid format.
+                    </div>
+                    <div *ngIf="email?.pending">Loading</div>
+
+                    <div
+                      *ngIf="email.errors?.['usernameAlreadyExists'] && !email?.pending"
+                    >
+                      Email already Exist
+                    </div>
+                    <div *ngIf="email?.pending">Loading...</div>
+                  </div>
+                  <div class="available" *ngIf="email.valid && !email?.pending">
+                    ✓ Email available
+                  </div>
+                  </div>
+
+                  <div class="form-floating mb-4">
+                    <input
+                      formControlName="password"
+                      type="password"
+                      class="form-control"
+                      id=""
+                      placeholder="Password"
+                      [ngClass]="{
+                        'is-invalid':
+                          password.invalid && (password.dirty || password.touched)
+                      }"
+                    />
+                    <label for="">Password</label>
+                    <div
+                    *ngIf="
+                      password.invalid && (password.dirty || password.touched)
+                    "
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="password.errors?.['required']">
+                      Password is required.
+                    </div>
+                    <div *ngIf="password.errors?.['minlength']">
+                      Password must be at least 7 characters long.
+                    </div>
+                  </div>
+                  </div>
+                  <button
+                    (click)="handleUpdateUser()"
+                    type="submit"
+                    class="btn btn-green mb-4"
+                    style="width: 100%"
+                    [disabled]="updateFormGroup.invalid"
+                  >
                     <mat-spinner
-                    *ngIf="loading"
-                    class="spinner"
-                    color="accent"
-                    mode="indeterminate"
-                    diameter="25"
-                    style="text-align: center; display:inline-block"
-                  ></mat-spinner>
-                  <span *ngIf="!loading">Update</span>
+                      *ngIf="loading"
+                      class="spinner"
+                      color="accent"
+                      mode="indeterminate"
+                      diameter="25"
+                      style="text-align: center; display: inline-block"
+                    ></mat-spinner>
+                    <span *ngIf="!loading">Update</span>
                   </button>
-                  <button type="button" class="btn btn-secondary" style="width: 100%;" (click)="closeModal()">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    style="width: 100%"
+                    (click)="closeModal()"
+                  >
                     Cancel
                   </button>
                 </div>
