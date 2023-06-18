@@ -30,7 +30,9 @@ public record UserUpdateRequestDTO(
 
         MultipartFile avatarFile,
 
-        String avatarUrl
+        String avatarUrl,
+
+        String[] roles
 ) {
 
 }

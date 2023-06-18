@@ -22,7 +22,7 @@ import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 import { UserService } from 'src/app/service/user/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { faUserPen } from '@fortawesome/free-solid-svg-icons';
-
+import { AuthenticationService } from 'src/app/service/authentication/authentication.service';
 
 @Component({
   selector: 'app-user-modal',
@@ -32,26 +32,29 @@ import { faUserPen } from '@fortawesome/free-solid-svg-icons';
 export class UserModalComponent {
   loading = false;
   faCirclePlus = faCirclePlus;
-  faUserPen = faUserPen
+  faUserPen = faUserPen;
   updateFormGroup: FormGroup;
 
   defaultImage =
     'https://w7.pngwing.com/pngs/754/2/png-transparent-samsung-galaxy-a8-a8-user-login-telephone-avatar-pawn-blue-angle-sphere-thumbnail.png';
 
   avatarPreview: any = this.defaultImage;
-
+  @Input() type: string = '';
   @Output() updatedUser = new EventEmitter<any>();
   @Output() cancel: EventEmitter<void> = new EventEmitter<void>();
   @ViewChild('avatar') avatar: any;
   @Input() item: any;
   @ViewChild('imageInput') imageInput: any;
 
+  initialRole: string = '';
+
   imagePreviewUrl: any = '';
 
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private authService: AuthenticationService
   ) {
     this.updateFormGroup = this.formBuilder.group({
       user: this.formBuilder.group({
@@ -67,7 +70,7 @@ export class UserModalComponent {
         ]),
         email: new FormControl('', [
           Validators.required,
-          Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+          Validators.email,
         ]),
         password: new FormControl('', [
           Validators.required,
@@ -76,6 +79,10 @@ export class UserModalComponent {
         gender: new FormControl('Select Gender', [
           Validators.required,
           FormValidators.checkGender,
+        ]),
+        role: new FormControl('', [
+          Validators.required,
+          FormValidators.checkRole,
         ]),
         avatarUrl: new FormControl(''),
         avatarFile: new FormControl(''),
@@ -86,7 +93,6 @@ export class UserModalComponent {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['item']) {
       const updatedItem = changes['item'].currentValue;
-
       if (updatedItem) {
         this.avatarPreview = updatedItem.avatarUrl;
         this.updateFormGroup.get('user').patchValue({
@@ -95,20 +101,18 @@ export class UserModalComponent {
           email: updatedItem.email,
           avatarUrl: updatedItem.avatarUrl,
           gender: updatedItem.gender,
+          role: this.type === 'admin' && updatedItem.rolesList.includes('ROLE_ADMIN') ? 'admin' : 'user',
         });
       }
     }
   }
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   matchPasswordValidator(): ValidatorFn {
     return (control: FormControl): { [key: string]: any } | null => {
       const password = this.updateFormGroup?.get('user.password')?.value;
       const confirmPassword = control.value;
-
       return password === confirmPassword ? null : { passwordMismatch: true };
     };
   }
@@ -122,6 +126,11 @@ export class UserModalComponent {
   get gender() {
     return this.updateFormGroup.get('user.gender');
   }
+
+  get role() {
+    return this.updateFormGroup.get('user.role');
+  }
+
   get email() {
     return this.updateFormGroup.get('user.email');
   }
@@ -169,6 +178,11 @@ export class UserModalComponent {
     user.append('firstName', this.firstName?.value);
     user.append('lastName', this.lastName?.value);
     user.append('gender', this.gender?.value);
+    if (this.role?.value === 'admin') {
+      user.append('roles', ['ROLE_ADMIN', 'ROLE_USER'].toString());
+    } else {
+      user.append('roles', ['ROLE_USER'].toString());
+    }
     user.append('email', this.email?.value);
     user.append('password', this.password?.value);
     if (this.avatarFile?.value) {
@@ -178,19 +192,33 @@ export class UserModalComponent {
       user.append('avatarUrl', this.avatarUrl?.value);
     }
 
-    this.userService.updateUser(this.item.id, user).subscribe(() => {
-      this.loading = false;
-      console.log('User updated successfully.');
-      this.updatedUser.emit(true);
-      this.closeModal();
-      this.toastr.success("User updated successfully");
-    },
-    (error) => {
-      this.loading = false;
-      console.log(error);
-      this.toastr.error("Error updating user");
-      console.log("done")
-    });
+    if (this.checkifAdmin()) {
+      this.userService.updateUserWithRoles(this.item.id, user).subscribe(
+        () => {
+          this.loading = false;
+          this.updatedUser.emit(true);
+          this.closeModal();
+          this.toastr.success('User updated successfully');
+        },
+        (error) => {
+          this.loading = false;
+          this.toastr.error('Error updating user');
+        }
+      );
+    } else {
+      this.userService.updateUser(this.item.id, user).subscribe(
+        () => {
+          this.loading = false;
+          this.updatedUser.emit(true);
+          this.closeModal();
+          this.toastr.success('User updated successfully');
+        },
+        (error) => {
+          this.loading = false;
+          this.toastr.error('Error updating user');
+        }
+      );
+    }
   }
 
   resetLink() {
@@ -200,5 +228,9 @@ export class UserModalComponent {
 
   captializeFirstLetter(string: string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
+  checkifAdmin() {
+    return this.authService.isAdmin() && this.type === 'admin';
   }
 }

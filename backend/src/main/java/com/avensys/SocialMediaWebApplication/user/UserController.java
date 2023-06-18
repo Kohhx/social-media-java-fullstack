@@ -5,8 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import com.avensys.SocialMediaWebApplication.response.CustomResponse;
-
 import java.util.List;
 
 @RestController
@@ -50,12 +48,12 @@ public class UserController {
         return new ResponseEntity<>(userResponse, HttpStatus.OK);
     }
 
-    @DeleteMapping("users/{userId}")
-    @PreAuthorize("hasRole('ROLE_USER')")
-    public ResponseEntity<CustomResponse> deleteUser(@PathVariable long userId) {
-        userService.deleteUserById(userId);
-        return new ResponseEntity<>(new CustomResponse("User deleted successfully"), HttpStatus.OK);
-    }
+//    @DeleteMapping("users/{userId}")
+//    @PreAuthorize("hasRole('ROLE_USER')")
+//    public ResponseEntity<CustomResponse> deleteUser(@PathVariable long userId) {
+//        userService.deleteUserById(userId);
+//        return new ResponseEntity<>(new CustomResponse("User deleted successfully"), HttpStatus.OK);
+//    }
 
     @GetMapping("users/search")
     @PreAuthorize("hasRole('ROLE_USER')")
@@ -83,7 +81,7 @@ public class UserController {
 
     @PatchMapping("admin/users/{userId}")
     public ResponseEntity<UserUpdateResponseDTO> adminUpdateUser(@PathVariable long userId, @ModelAttribute UserUpdateRequestDTO userUpdateRequest) {
-        UserUpdateResponseDTO userResponse = userService.updateUserById(userId, userUpdateRequest);
+        UserUpdateResponseDTO userResponse = userService.updateUserByIdWithRoles(userId, userUpdateRequest);
         return new ResponseEntity<>(userResponse, HttpStatus.OK);
     }
 

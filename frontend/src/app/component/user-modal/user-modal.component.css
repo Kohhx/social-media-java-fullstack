@@ -58,3 +58,12 @@
     left: 61%;
   }
 }
+
+.form-flex {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.form-flex select {
+  width: 96% !important;
+}

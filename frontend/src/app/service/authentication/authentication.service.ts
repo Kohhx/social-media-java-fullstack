@@ -99,7 +99,7 @@ export class AuthenticationService {
     return this.checkRole('ROLE_USER');
   }
 
-  private setSessionStorage(
+  setSessionStorage(
     id: string,
     email: string,
     token: string,
@@ -113,7 +113,7 @@ export class AuthenticationService {
     sessionStorage.setItem(this.AVATAR_KEY, avatarUrl);
   }
 
-  private removeSessionStorage() {
+  removeSessionStorage() {
     sessionStorage.removeItem(this.AUTH_USER_KEY);
     sessionStorage.removeItem(this.TOKEN_KEY);
     sessionStorage.removeItem(this.ROLE_KEY);

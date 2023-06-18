@@ -14,3 +14,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   background-color: rgb(62, 138, 157) !important;
   color: white;
 }
+
+.available {
+  text-align: center;
+  color: #22a627;
+  font-size: 15px;
+  margin-top: 5px;
+  font-weight: 500;
+}
