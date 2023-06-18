@@ -1,5 +1,6 @@
 package com.avensys.SocialMediaWebApplication.user;
 
+import com.avensys.SocialMediaWebApplication.response.CustomResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -25,7 +26,9 @@ public class UserController {
         return new ResponseEntity<>(isEmailExist, HttpStatus.OK);
     }
 
+
     @GetMapping("users")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> users = userService.findAllUsers();
         return new ResponseEntity<>(users, HttpStatus.OK);

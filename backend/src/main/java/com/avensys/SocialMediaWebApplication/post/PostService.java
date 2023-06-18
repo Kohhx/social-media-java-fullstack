@@ -5,8 +5,6 @@ import com.avensys.SocialMediaWebApplication.exceptions.ResourceAccessDeniedExce
 import com.avensys.SocialMediaWebApplication.exceptions.ResourceNotFoundException;
 import com.avensys.SocialMediaWebApplication.user.User;
 import com.avensys.SocialMediaWebApplication.user.UserRepository;
-import jakarta.transaction.Transactional;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -24,6 +22,7 @@ public class PostService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
     private final CloudinaryHelper cloudinaryHelper;
+
 
     public PostService(PostRepository postRepository, UserRepository userRepository, CloudinaryHelper cloudinaryHelper) {
         this.postRepository = postRepository;
@@ -131,19 +130,18 @@ public class PostService {
         return postUpdateResponse;
     }
 
-    @Transactional
-    @Modifying
+
     public void deletePostById(long id) {
         Post post = findPostById(id);
 
         // Check if user is admin or post belong to user before user is allowed to delete a post
 //        if (!checkIsAdmin()) {
 //            checkPostBelongToUser(post);
-//            Principal principal = SecurityContextHolder.getContext().getAuthentication();
-//            if (!principal.getName().equals(post.getUser().getEmail())) {
-//                throw new UnauthorizedException("User not authorized to delete post");
-//            }
 //        }
+
+//        Optional<User> user = userRepository.findByEmail("k1@gmail.com");
+//        user.get().getPosts().remove(post);
+//        userRepository.save(user.get());
 
         if (post.getContentId() != null && !post.getContentId().isEmpty()) {
             try {
