@@ -190,4 +190,8 @@ public class User {
     public List<Role> getRoles() {
         return roles;
     }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
 }
