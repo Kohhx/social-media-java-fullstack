@@ -74,9 +74,6 @@ export class NavbarComponent implements OnInit {
   }
 
   getOwnProfileLink() {
-    // console.log(
-    //   `/users/${this.authenticationService.getAuthenticatedUserId()}/posts`
-    // );
     return `/users/${this.authenticationService.getAuthenticatedUserId()}/posts`;
   }
 }

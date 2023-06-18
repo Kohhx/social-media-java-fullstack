@@ -15,6 +15,8 @@ export class ManageUsersComponent implements OnInit {
   selectedUser: User;
   storage: Storage = sessionStorage;
   openUser: boolean = false;
+  defaultImage =
+    'https://w7.pngwing.com/pngs/754/2/png-transparent-samsung-galaxy-a8-a8-user-login-telephone-avatar-pawn-blue-angle-sphere-thumbnail.png';
 
   // For searchbar in manage users page:
   private _searchTerm: string = '';

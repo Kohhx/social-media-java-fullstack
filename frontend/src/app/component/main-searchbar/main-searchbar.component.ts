@@ -23,7 +23,7 @@ export class MainSearchbarComponent implements OnInit {
 
     this.searchBarForm.valueChanges.subscribe({
       next: (value) => {
-        if (value.search == null) {
+        if (value.search == null || value.search == '') {
           this.searchResults = [];
         } else {
           this.userService.findUsersByParams(value.search).subscribe({

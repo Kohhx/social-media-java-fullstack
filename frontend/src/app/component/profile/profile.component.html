@@ -8,7 +8,7 @@
     </div>
     <div class="modal-wrapper">
       <div class="modal-container" [class.open]="openUser">
-        <app-user-modal (updatedUser)="userUpdated($event)" (cancel)="closeUserModal()" [item]="user"></app-user-modal>
+        <app-user-modal [type]="'user'" (updatedUser)="userUpdated($event)" (cancel)="closeUserModal()" [item]="user"></app-user-modal>
       </div>
     </div>
     <div class="panel panel-default">
