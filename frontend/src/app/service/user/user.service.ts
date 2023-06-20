@@ -36,6 +36,7 @@ export class UserService {
           this.authService.removeSessionStorage();
           this.authService.setSessionStorage(data.id, data.email, token, data.avatarUrl, data.roles);
         }
+        console.log("Done")
         return data;
       })
     );
