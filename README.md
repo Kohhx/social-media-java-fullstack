@@ -47,9 +47,10 @@ To set up the social media platform, follow these steps:
 
 1. Clone the repository to your local machine.
 
-2. Install the necessary dependencies for the backend and frontend components.
+2. Install the necessary dependencies for the backend(maven clean install) and frontend "npm install" components.
 
-3. Configure the database connection and other server settings in the backend.
+3. Configure the database connection, other server settings and cloudinary in the backend.
+![image](https://github.com/Kohhx/social-media-java-fullstack/assets/108639973/7fa5e9f1-25b9-43bd-84ae-969995e2f347)
 
 4. Set up the frontend by configuring API endpoints and any additional settings.
 
