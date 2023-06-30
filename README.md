@@ -18,11 +18,14 @@ This project aims to create a social media platform using Java, Spring, and Angu
 
 7. **Admin Role**: An admin role is available to manage the platform. Admins can maintain posts (delete/update any posts) and maintain users (delete/update). A user can also chnage the role of other users.
 
-8. ## Additional Features
-   - Main search function in the navbar for users to search and view others profile
-   - Admin manage post and user profile table has pagination function which allow users to change size of each page
-   - Admin filter function to filter posts by content and filter user profiles based on first name, last name and email.
-   - Allow user to preview image and video when creating post before uploading to database
+## Additional Features
+8. Main search function in the navbar for users to search and view others profile
+   
+9. Admin manage post and user profile table has pagination function which allow users to change size of each page
+    
+10. Admin filter function to filter posts by content and filter user profiles based on first name, last name and email.
+    
+11. Allow user to preview image and video when creating post before uploading to database
 
 ## Technical Considerations
 
