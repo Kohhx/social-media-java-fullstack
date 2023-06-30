@@ -1,6 +1,6 @@
 # Social Media Platform
 
-This project aims to create a social media platform using Java, Spring, and Angular/ReactJs. The platform allows users to view and create posts with various types of content, including hyperlinks and media (videos), along with captions. Users can sign up, log in, and manage their own posts. An admin role is available to manage the platform, including maintaining posts and users.
+This project aims to create a social media platform using Java, Spring, and Angular. The platform allows users to view and create posts with various types of content, including hyperlinks and media (videos), along with captions. Users can sign up, log in, and manage their own posts. An admin role is available to manage the platform, including maintaining posts and users.
 
 ## Features
 
